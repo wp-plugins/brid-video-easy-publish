@@ -9,9 +9,12 @@
   if(empty($sites)){
     ?>
     <div style="margin-top:20px;">
-     <p>You are either not the owner of the site and should contact the owner, or you haven't added any sites.</p>
+     <p>We detected that your WordPress instalation is in a local testing environment. The Brid video plugin cannot function on dev sites.<br />
+		Please use the plugin with a live site.<br />
+		If our detection system made a mistake, please send us a ticket - <a href='https://brid.zendesk.com/hc/en-us' target='_blank'>https://brid.zendesk.com/hc/en-us.</a>
+		</p>
      <div class="mainWrapper">
-        <div class="mainButtonsMenu">
+        <div class="mainButtonsMenu" style='display:none;'>
           <div class="button add-site various" data-fancybox-type="ajax" data-action="addPartner" href="<?php echo admin_url('admin-ajax.php'); ?>" id="addPartner">
             <div class="buttonLargeContent">ADD SITE</div>
           </div>
