@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Brid Video
- * Plugin URI: https://brid.zendesk.com/hc/en-us/articles/200302572-Add-a-site-
+ * Plugin URI: http://www.brid.tv
  * Description: Brid plugin will manage Brid.tv Platform videos.
  * Version: 1.0.0
  * Author: Brid.tv
