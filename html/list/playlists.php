@@ -411,7 +411,7 @@ jQuery(document).ready(function(){
   				v = jQuery('.wp-editor-area').val();
   				var shortCodes = '';
   				for(id in selectedItems){
-  					shortCodes += '[brid playlist="'+selectedItems[id]+'" player="'+$BridWordpressConfig.Player.id+'" width="'+$BridWordpressConfig.Player.width+'" height="'+$BridWordpressConfig.Player.height+'"]';
+  					shortCodes += '[brid playlist="'+selectedItems[id]+'" player="'+$BridWordpressConfig.Player.id+'" width="'+$BridWordpressConfig.Player.width+'" height="'+$BridWordpressConfig.Player.height+'" items="50"]';
   				}
   				$Brid.Util.addToPost(shortCodes);
   				/*
