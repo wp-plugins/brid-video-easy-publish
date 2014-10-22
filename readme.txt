@@ -4,7 +4,7 @@ Donate link: http://www.brid.tv/
 Tags: brid.tv, brid video, post, posts, video, media library, media, richmedia cms, brid cms, playlist, video gallery, transcoding, encoding, advertising, video ads, video advertising, video monetization
 Requires at least: 3.2
 Tested up to: 4.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,7 +82,11 @@ Version 1.0.0
 
 Primary stable plugin release.
 
+Version 1.0.1
+
+Fixed radial button initialization when a Brid user tries to add their first video.
+
 == Upgrade Notice ==
 
-= 1.0 .0 =
+= 1.0 .1 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.

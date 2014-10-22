@@ -36,6 +36,6 @@
 </div>
 <script>
 var save = saveObj.init();
-
+$Brid.Html.Radio.init();
 //jQuery('#PartnerUserUploadForm').submit(function(){return false;});
 </script>
