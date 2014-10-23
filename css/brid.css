@@ -1017,7 +1017,7 @@ html{
 #default-value-SubscribeSubscribe.defaultValueIndent, #default-value-PartneruserSearch.defaultValueIndent, #default-value-PlayerSearch.defaultValueIndent, #default-value-PlaylistSearch.defaultValueIndent, #default-value-VideoSearch.defaultValueIndent { 
 	text-indent: 5px; 
 }
-label, .input label{
+.input label{
 	float:left;
 	width:100%;
 	/*font-size:20px;							sreda*/
@@ -1126,7 +1126,7 @@ form .required label:after {
 	margin-left:32px;
 	cursor:text;
 }
-.selectBoxTitle, .checkboxText, label { color: #004055; font-size: 15px; font-weight: bold; font-family: Arial; }
+.selectBoxTitle, .checkboxText { color: #004055; font-size: 15px; font-weight: bold; font-family: Arial; }
 
 .textButtonSmall{
 	color:#000;
@@ -2693,7 +2693,7 @@ white-space: nowrap;
 	top:0px;
   }
 }
-.selectBoxTitle, .checkboxText, label { color: #004055; font-size: 15px; font-weight: bold; font-family: Arial; }
+.selectBoxTitle, .checkboxText { color: #004055; font-size: 15px; font-weight: bold; font-family: Arial; }
 .selectBoxActive, .selectboxes ul li { 
 	cursor:pointer;
 	padding-top:8px;

@@ -78,13 +78,19 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 
 == Changelog ==
 
-Version 1.0.0
+Version 1.0.2
 
-Primary stable plugin release.
+Fixed various CSS overrides so that the plugin does not interfere with different core CSS elements in WordPress.
 
 Version 1.0.1
 
 Fixed radial button initialization when a Brid user tries to add their first video.
+
+Version 1.0.0
+
+Primary stable plugin release.
+
+
 
 == Upgrade Notice ==
 
