@@ -141,14 +141,7 @@ $hideUploadFields = 'none';
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td colspan="2">
-										<input type="hidden" name="thumbnail" id="VideoThumbnail">									
-										<div class="input text">
-											<input name="landing_page" default-value="Video URL on your website" data-info="Enter the URL upon which the embedded video will be located on your site." tabindex="5" type="text" id="VideoLandingPage">
-										</div>
-									</td>
-								</tr>
+
 								<tr>
 									<td colspan="2">
 										<div class="input text required">

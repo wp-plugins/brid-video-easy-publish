@@ -14,6 +14,6 @@ playlistId = <?php echo $playlist_id; ?>;
 <script type="text/javascript">
 
 //Load video list
-$Brid.Api.call({data : {action : "videos", mode : 'playlist', subaction : 'editPlaylist'}, callback : {after : {name : "insertContent", obj : jQuery("#video-list-edit")}}});
+$Brid.Api.call({data : {action : "videos", mode : 'playlist', subaction : 'editPlaylist', playlistType:'<?php echo $playlistType; ?>'}, callback : {after : {name : "insertContent", obj : jQuery("#video-list-edit")}}});
 
 </script>

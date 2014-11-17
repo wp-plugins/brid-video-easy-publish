@@ -4,7 +4,7 @@ var inputTimer=null;(function(e,t){var n=".inputEvent ",r="bound.inputEvent",i="
 /**
  * Custom debug console
  */
-var DEBUGMODE = false;
+var DEBUGMODE = true;
 var debug = (function(){
 	
 	var f = ['log','warn','group','groupCollapsed','groupEnd'],debug = {};
@@ -1640,11 +1640,13 @@ var CheckboxElement = {
 		    toggleTopMenu : function(){
 		    	debug.log('$Brid.Html.CheckboxElement.Checkbox.showToolbar()');
 		    	var t = jQuery('.toolbarItem');
+		    	debug.log('$Brid.Html.CheckboxElement.Checkbox.showToolbar()',t);
 		    	if (this.isAnySelected()) {
 		    		this.togglePostButton(true);
 		            if(!t.is(':visible')){
 		            	t.fadeIn();
 		            }
+
 		        } else {
 		        	this.togglePostButton(false);
 		        	t.fadeOut();
@@ -2404,7 +2406,7 @@ var Search = {
 			jQuery('.inputSearch').off('keydown.Search', this.keydown).on('keydown.Search', this.keydown);
 			jQuery('.inputSearch').off('keypress.Search', this.keypress).on('keypress.Search', this.keypress);
 		},
-		doSearch : function(){ 
+		doSearch : function(){
 			var controlelr = $Brid.Html.Search.config.model+'s';
 			var model = $Brid.Html.Search.config.model;
 			var tmpObj = jQuery("#"+controlelr+"-content");
@@ -2416,6 +2418,10 @@ var Search = {
 
 			if(typeof $Brid.Html.Search.config.mode != "undefined") {
 				dataObject.mode = $Brid.Html.Search.config.mode;
+			}
+			
+			if(typeof $Brid.Html.Search.config.subaction != "undefined") {
+				dataObject.subaction = $Brid.Html.Search.config.subaction;
 			}
 			
 			

@@ -152,6 +152,7 @@ class BridHtml {
 		 {
 		 	$search = $_SESSION['Brid.Playlist.Search'];
 		 }
+
 		//require videos list view
         require_once(BRID_PLUGIN_DIR.'/html/list/playlists.php');
 
@@ -222,8 +223,9 @@ class BridHtml {
 			echo $api->addVideoPlaylist($_POST);
 
 
-		}else{
+		}else{ 
 			$playlist_id = intval($_POST['id']);
+			$playlistType = isset($_POST['playlistType'])?$_POST['playlistType']:0;
 			require_once(BRID_PLUGIN_DIR.'/html/form/add_video_playlist.php');
 		}
 		
@@ -261,6 +263,8 @@ class BridHtml {
 			echo $api->addPlaylist($_POST);
 
 		}else{
+			$videoType = isset($_GET['video_type'])?$_GET['video_type']:'';
+			
 			require_once(BRID_PLUGIN_DIR.'/html/form/add_playlist.php');
 		}
 		
@@ -606,25 +610,50 @@ class BridHtml {
     			break;
     		}
     	}
-
     	$url[] = $mode; //mode
     	$iframeId[] = $id; //content id
 
     	
     	$iframeId[] = BridOptions::getOption('site');	//partner id
     	//Force player override
-    	$iframeId[] = isset($attrs['player']) ? $attrs['player'] : BridOptions::getOption('player');	//player id
+    	/*$iframeId[] = isset($attrs['player']) ? $attrs['player'] : BridOptions::getOption('player');	//player id
     	$iframeId[] = isset($attrs['autoplay']) ? $attrs['autoplay'] : BridOptions::getOption('autoplay');	//autoplay
     	$iframeId[] = isset($attrs['items']) ? $attrs['items'] : 1;	//num of items
-
+    	*/
+    	$playerOptions = array();
+    	$playerOptions['id'] = isset($attrs['player']) ? $attrs['player'] : BridOptions::getOption('player');	//player id;
+    	$playerOptions['autoplay'] = isset($attrs['autoplay']) ? $attrs['autoplay'] : BridOptions::getOption('autoplay');	//autoplay
+    	
+    	
+    	if($mode == 'video' || $mode == 'playlist'){
+    		$playerOptions[$mode] = $id;
+    		if($mode=='playlist'){
+    			$playerOptions['video_type'] = isset($attrs['video_type']) ? $attrs['video_type'] : 0;	//video type[Brid|Yt]
+    		}
+    	}
+    	else {
+    		$playerOptions['playlist']['id'] = $id;
+    		$playerOptions['playlist']['mode'] = $mode;
+    		$playerOptions['playlist']['items'] = isset($attrs['items']) ? $attrs['items'] : 1;
+    		$playerOptions['video_type'] = isset($attrs['video_type']) ? $attrs['video_type'] : 0;	//video type[Brid|Yt]
+    	}
+    	
+    	
+    	$t = time();
+    	$tl = strlen($t);
+    	
+    	$divId = substr(time(),($tl-8),$tl).rand();
     	$url = array_merge($url, $iframeId);
 
-    	$width = isset($attrs['width']) ? $attrs['width'] : BridOptions::getOption('width');
-    	$height = isset($attrs['height']) ? $attrs['height'] : BridOptions::getOption('height');
+    	$playerOptions['width'] = isset($attrs['width']) ? $attrs['width'] : BridOptions::getOption('width');
+    	$playerOptions['height'] = isset($attrs['height']) ? $attrs['height'] : BridOptions::getOption('height');
 
     	//Iframe
-    	return '<script type="text/javascript" src="'.CDN_HTTP.'player/build/brid.api.min.js"></script><iframe id="'.implode('-', $iframeId).'" src="'.CDN_HTTP.'services/'.implode('/',$url).'" width="'.$width.'" height="'.$height.'" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
-
+    	//return '<script type="text/javascript" src="'.CDN_HTTP.'player/build/brid.api.min.js"></script><iframe id="'.implode('-', $iframeId).'" src="'.CDN_HTTP.'services/'.implode('/',$url).'" width="'.$width.'" height="'.$height.'" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
+		$embedCode = '<script type="text/javascript" src="'.CDN_HTTP.'/player/build/brid.min.js"></script><div id="Brid_'.$divId.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_'.$divId.'_adContainer"></div></div>';
+		$embedCode .= '<script type="text/javascript">$bp("Brid_'.$divId.'", '.json_encode($playerOptions).');</script><script type="text/javascript" src="http://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>';
+		
+		return $embedCode;
     }
 
     public static function dynamics(){

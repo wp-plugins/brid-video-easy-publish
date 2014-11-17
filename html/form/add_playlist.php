@@ -57,7 +57,7 @@
 <script type="text/javascript">
 
 //Load video list
-$Brid.Api.call({data : {action : "videos", mode : 'playlist', subaction : 'addPlaylist'}, callback : {after : {name : "insertContent", obj : jQuery("#video-list")}}});
+$Brid.Api.call({data : {action : "videos", mode : 'playlist', subaction : 'addPlaylist'+'<?php echo $videoType; ?>'}, callback : {after : {name : "insertContent", obj : jQuery("#video-list")}}});
 
 //Execute save on enter
 jQuery('#PlaylistNameId').keypress(function(e){

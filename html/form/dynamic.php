@@ -17,7 +17,7 @@
 								<option value="latest">By latest on site</option>
 								<option value="channel">By channel</option>
 								<option value="tag">By tag</option>
-								<option value="source">By source</option>
+								<!--  <option value="source">By source</option> -->
 							</select>
 						</div>
 					</div>
@@ -29,6 +29,17 @@
 							<input name="data[Embeds][items]" default-value="10" style="width:100px" value="10" max="100" min="1" data-into="playlist" data-info="Number of items to display." id="EmbedsItems" data-ajax-loaded="true">
 						
 					</div>
+				</td>
+				<td style="width:200px;">
+					<div class="dynamicPlaylist"> 
+						<div class="input"><label style="left:0px;">Choose video type</label></div>
+							<div class="divAsRow blueEmbedInside" id="chooseVideoTypeEmbedCode" style="margin-top:10px;">
+								<select name="data[Embeds][video_type_id]" class="dropdownMenu dropdown"  data-css='{"height":115, "width":150}' id="EmbedsVideoTypeId" style="display: none;">
+									<option value="0">Brid Video</option>
+									<option value="1">YouTube videos</option>
+								</select>
+							</div>
+					 </div>
 				</td>
 				<td>
 					<div id="dynamicOptions">
@@ -108,13 +119,13 @@ jQuery('#postPlaylistDynamic').click(function(){
 		
 	}
 
-	var items = jQuery('#EmbedsItems').val();
+	var items = jQuery('#EmbedsItems').val(),videoType=jQuery('#EmbedsVideoTypeId').val();
 	items = items!='' ? parseInt(items) : 0;
 
 	if(items<=0 || items>100 || items==NaN){
 		items = 10;
 	}
 
-	$Brid.Util.addToPost('[brid '+val+'="'+id+'" items="'+items+'" player="'+$BridWordpressConfig.Player.id+'" width="'+$BridWordpressConfig.Player.width+'" height="'+$BridWordpressConfig.Player.height+'"]');
+	$Brid.Util.addToPost('[brid '+val+'="'+id+'" items="'+items+'" player="'+$BridWordpressConfig.Player.id+'" width="'+$BridWordpressConfig.Player.width+'" height="'+$BridWordpressConfig.Player.height+'" video_type="'+videoType+'"]');
 
 });

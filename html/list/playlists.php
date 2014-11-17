@@ -6,9 +6,13 @@ if(!$buttonsOff){
 		<div class="button add-playlist various bridAjaxLightbox" data-action="addPlaylist" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist'; ?>" id="addPlaylist">
 			<div class="buttonLargeContent">ADD PLAYLIST</div>
 		</div>
+		
+		<div class="button add-playlistyt various bridAjaxLightbox" data-action="addPlaylistYt" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist&video_type=yt'; ?>" id="addPlaylistYt">
+			<div class="buttonLargeContent">ADD YOUTUBE PLAYLIST</div>
+		</div>
 	</div>
 </div>
-<script>jQuery('.bridAjaxLightbox').colorbox({innerWidth:900, innerHeight:750,onClosed:function(){ $Brid.init([['Html.Search', {className : '.inputSearch', model : 'Playlist'}]]); }}); </script>
+<script>jQuery('.bridAjaxLightbox').colorbox({innerWidth:900, innerHeight:750,onClosed:function(){ jQuery('.toolbarItem').hide();$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Playlist'}]]); }}); </script>
 <?php }else{
 	?>
 

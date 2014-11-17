@@ -160,14 +160,7 @@
 				    					</td>
 				    				</tr>
 				    				<?php } ?>
-				    				 <tr>
-				    					<td style="padding-top:0px;">
-				    					<div class="input text">
-				    						<label for="VideoLandingPage">Landing page URL</label>
-				    						<input name="landing_page" default-value="Landing page URL (for SEO video sitemap purposes)" data-info="Enter the URL upon which the embedded video will be located on your site." maxlength="255" type="text" id="VideoLandingPage" value="<?php echo $video->Video->landing_page; ?>">
-				    					</div>
-				    				</td>
-				    				</tr>
+
 				    				<tr>
 				    					<td id="ageRestriction">
 				    						<div class="selectboxes">

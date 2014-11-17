@@ -16,8 +16,9 @@ class BridAPI {
   // DON'T CHANGE THIS
   const OAUTH_CONSUMER_KEY    = 'NTMxNmU1MGRkMzFkZDFl';
   const OAUTH_CONSUMER_SECRET = '774ec6a3eb700518d34e94f3a066ba326fb4c955';
-  const OAUTH_PROVIDER     = 'http://cms.brid.tv';
-  const API_ENDPOINT       = 'http://cms.brid.tv/api';
+  const OAUTH_PROVIDER     = 'http://cms.brid.tv'; 
+  const API_ENDPOINT       = 'http://cms.brid.tv/api'; 
+  
   const AUTHORIZATION_PATH = '/api/authorize';
   const TOKEN_PATH         = '/api/token';
 
@@ -79,7 +80,7 @@ class BridAPI {
         //POST
         $response = $this->client->fetch($url, $arguments['params'], OAuth2Client::HTTP_METHOD_POST, $this->http_headers(), $encode);
 
-      }else{
+      }else{ 
         //GET
         $response = $this->client->fetch($url, array(), OAuth2Client::HTTP_METHOD_GET, $this->http_headers(), $encode);
 
@@ -660,7 +661,17 @@ class BridAPI {
 
         $_POST['Video']['search'] = $search = $_SESSION['Brid.Video.Search'];
         $options['params'] = $_POST;
+     }
+     
+     if(isset($_POST['subaction'])){
+     	if(in_array($_POST['subaction'],array('addPlaylist','addPlaylistyt') ) ){
+     		$options['params']['videos_type'] = $_POST['subaction']=='addPlaylist'?0:1;
+     	}
      } 
+
+     if(isset($_POST['playlistType'])){
+     	$options['params']['videos_type'] = $_POST['playlistType'];
+     }
 
      $videoSet = $this->call($options, $encode);
 

@@ -1,3 +1,4 @@
+<?php $playlistType = count($playlist->Video)?$playlist->Video[0]->external_type:0;  ?>
 <div class="playlists form" style="padding-top:30px;">
 	<!-- @see http://manos.malihu.gr/tuts/jquery_thumbnail_scroller.html# -->
 		<table style="width:100%;">
@@ -10,9 +11,9 @@
 								<ul class="items-menu">
 									<li class="toolbarItemPlaylist" style="display:block">
 										<div class="redButtonBg addVideoToPlaylistButton" id="add-video-to-playlist">
-											<div class="textButtonSmall various bridAjaxAddVideosToPlaylists"  data-id="<?php echo $playlist->Playlist->id; ?>" data-action="addVideoPlaylist" href="<?php echo admin_url('admin-ajax.php'); ?>">ADD VIDEO TO PLAYLIST</div>
+											<div class="textButtonSmall various bridAjaxAddVideosToPlaylists"  data-id="<?php echo $playlist->Playlist->id; ?>" data-action="addVideoPlaylist" href="<?php echo admin_url('admin-ajax.php'); ?>" >ADD VIDEO TO PLAYLIST</div>
 										</div>
-										<script>jQuery('.bridAjaxAddVideosToPlaylists').colorbox({innerWidth:900, innerHeight:780,data:{action:'addVideoPlaylist',id:<?php echo $playlist->Playlist->id; ?>}});</script>
+										<script>jQuery('.bridAjaxAddVideosToPlaylists').colorbox({innerWidth:900, innerHeight:780,data:{action:'addVideoPlaylist',id:<?php echo $playlist->Playlist->id; ?>,playlistType:'<?php echo $playlistType; ?>'}});</script>
 									</li>
 									<li class="toolbarItemPlaylist" style="display:block">
 										<div class="redButtonBg emptyPlaylistButton" id="button-empty">

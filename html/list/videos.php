@@ -120,7 +120,7 @@ var buttonsOff = '<?php echo $buttonsOff; ?>';
 			<?php
 				if($mode!=''){
 					?>
-						$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Video',objInto:'<?php echo $insertIntoContent; ?>',mode:'<?php echo $mode; ?>'}]]);
+						$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Video',objInto:'<?php echo $insertIntoContent; ?>',mode:'<?php echo $mode; ?>',subaction:'<?php echo $subaction; ?>'}]]);
 					<?php
 				}
 				else {
@@ -551,7 +551,7 @@ function addPlaylist() {
 		c.toggleTopMenu();
 	//}
 }
-function editPlaylist(){
+function editPlaylist(){ 
 	debug.log('ediPlaylist call');
 	
 	var selectedItems = $Brid.Html.CheckboxElement.getSelectedCheckboxes('video-id-');
@@ -562,6 +562,7 @@ function editPlaylist(){
 //moze i bolje ovo
 jQuery( "#add-to-playlist-" ).off('click', addPlaylist).on('click', addPlaylist);
 jQuery( "#add-to-playlist-addPlaylist" ).off('click', addPlaylist).on('click', addPlaylist);
+jQuery( "#add-to-playlist-addPlaylistyt" ).off('click', addPlaylist).on('click', addPlaylist);
 jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click', editPlaylist);
 
 

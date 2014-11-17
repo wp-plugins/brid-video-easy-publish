@@ -3,7 +3,7 @@
  * Plugin Name: Brid Video
  * Plugin URI: http://www.brid.tv
  * Description: Brid plugin will manage Brid.tv Platform videos.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Brid.tv
  * Settings: Yuhu
  * Author URI: http://brid.tv
@@ -11,7 +11,7 @@
  * @todo Podkomentarisati deo za ini_set
  */
 
-define('BRID_PLUGIN_VERSION', '1.0.0');
+define('BRID_PLUGIN_VERSION', '1.0.3');
 define('BRID_PLUGIN_DIR', dirname( __FILE__ ));
 define('BRID_PLUGIN_LIB', BRID_PLUGIN_DIR.'/lib/');
 
@@ -20,7 +20,9 @@ define('DEFAULT_VIDEO_ID', 2);
 define('PLUGIN_BASE_FILE', plugin_basename(__FILE__));
 
 define('CDN_HTTP', 'http://cms.brid.tv/'); //BridApi.php and bridWordpress.js
-define('UGC', CDN_HTTP.'ugc/');
+define('CDN_HTTP_UGC', 'http://d2hqse1ww11nky.cloudfront.net/');
+define('UGC', CDN_HTTP_UGC.'live/');
+
 
 if(!class_exists('Brid')){
 
