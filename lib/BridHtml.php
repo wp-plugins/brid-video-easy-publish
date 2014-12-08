@@ -622,8 +622,10 @@ class BridHtml {
     	*/
     	$playerOptions = array();
     	$playerOptions['id'] = isset($attrs['player']) ? $attrs['player'] : BridOptions::getOption('player');	//player id;
-    	$playerOptions['autoplay'] = isset($attrs['autoplay']) ? intval($attrs['autoplay']) : intval(BridOptions::getOption('autoplay'));	//autoplay
-    	
+    	//$playerOptions['autoplay'] = isset($attrs['autoplay']) ? intval($attrs['autoplay']) : intval(BridOptions::getOption('autoplay'));	//autoplay
+    	if(isset($attrs['autoplay'])){
+    		$playerOptions['autoplay'] = intval($attrs['autoplay']);
+    	}
     	
     	if($mode == 'video' || $mode == 'playlist'){
     		$playerOptions[$mode] = $id;
