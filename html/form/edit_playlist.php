@@ -19,7 +19,7 @@
 										<div class="redButtonBg emptyPlaylistButton" id="button-empty">
 											<div class="textButtonSmall">
 												<div class="delButtonSmall" style="top:-3px; margin-right:7px;"></div>CLEAR OUT PLAYLIST
-											</div>
+											</div> 
 										</div>
 									</li>			
 									<li class="toolbarItemPlaylist">
@@ -75,11 +75,16 @@
 
 	        <div style="padding-top:29px; float:left; width:100%; border-top:1px solid #d9d9da; margin-top: 3px">
 		      
-	        	<div id="player" style="float:left;margin-left:34px;">
+	        	<div id="player" style="float:left;margin-left:20px;">
 	        	
 	        	<!-- Preview player -->
-					<div id="preview-player" style="">
-		<iframe id="Brid" src="<?php echo CDN_HTTP; ?>services/iframe/playlist/<?php echo $playlist->Playlist->id; ?>/<?php echo $playlist->Playlist->partner_id; ?>/1/0/100" width="366" height="227" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>	        		
+					<div id="preview-player" style="float:left">
+					<!--  <iframe id="Brid" src="<?php echo CDN_HTTP; ?>services/iframe/playlist/<?php echo $playlist->Playlist->id; ?>/<?php echo $playlist->Playlist->partner_id; ?>/1/0/100" width="366" height="227" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>-->
+					<script type="text/javascript" src='<?php echo CLOUDFRONT."player/build/brid.min.js"; ?>'></script>
+					<div id="Brid_video" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_video_adContainer"></div></div>
+					<script type="text/javascript">$bp("Brid_video", {id:'<?php echo DEFAULT_PLAYER_ID; ?>',playlist:'<?php echo $playlist->Playlist->id; ?>',width:'366', height:'227'});</script>
+					<script type="text/javascript" src="http://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+						        		
 	        	</div>
 		        
 		        

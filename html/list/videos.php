@@ -51,6 +51,7 @@ if(!$buttonsOff){
 <script>
 var mode = '<?php echo $mode; ?>'; //playlist mode?
 var buttonsOff = '<?php echo $buttonsOff; ?>';
+var playlistType = '<?php echo $playlistType; ?>';
 </script>
 
 <div class="list-items-menu">
@@ -107,6 +108,7 @@ var buttonsOff = '<?php echo $buttonsOff; ?>';
 					<div style="width:150px;float:left;padding-top:3px;margin:0px;">
 						<div class="input text">
 							<input name="data[Video][search]" data-offset="2" style="font-size:13px;" value="<?php echo $search; ?>" default-value="Search Videos" class="inputSearch" autocomplete="off" type="text" id="VideoSearch">
+
 						</div>		
 					</div>
 					<div class="searchButtonWrapper">
@@ -120,12 +122,12 @@ var buttonsOff = '<?php echo $buttonsOff; ?>';
 			<?php
 				if($mode!=''){
 					?>
-						$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Video',objInto:'<?php echo $insertIntoContent; ?>',mode:'<?php echo $mode; ?>',subaction:'<?php echo $subaction; ?>'}]]);
+						$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Video',objInto:'<?php echo $insertIntoContent; ?>', playlistType : playlistType,  mode:'<?php echo $mode; ?>',subaction:'<?php echo $subaction; ?>'}]]);
 					<?php
 				}
 				else {
 					?>
-						$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Video',objInto:'<?php echo $insertIntoContent; ?>'}]]);
+						$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Video',objInto:'<?php echo $insertIntoContent; ?>', buttons : buttonsOff}]]);
 					<?php
 			}
 			?>
@@ -252,7 +254,7 @@ var buttonsOff = '<?php echo $buttonsOff; ?>';
 														<a href="<?php echo $v->Video->id; ?>" class="listTitleLink <?php echo $linkCss; ?>" id="video-title-<?php echo $v->Video->id; ?>" title="<?php echo $v->Video->name; ?>"><?php echo $v->Video->name; ?></a>
 														<div class="videoUploadedBy">
 															<div class="siteVideosNum">
-																<span class="by">By:</span> <?php echo $v->User->username; ?>&nbsp;&nbsp;&nbsp;
+																<span class="by">By:</span> <?php echo !empty($v->User->displayname) ? $v->User->displayname : $v->User->username; ?>&nbsp;&nbsp;&nbsp;
 																<span class="by">Channel:</span> <?php echo $v->Channel->name; ?>
 															</div> 
 															<?php if($mode!='playlist') { ?>
@@ -394,7 +396,6 @@ jQuery(document).ready(function(){
 	var save = saveObj.init();
 
 
-
 	//Init pagination links
 	jQuery(".pagination-link").on("click", function (event) {
 		//event.preventDefault();
@@ -415,11 +416,18 @@ jQuery(document).ready(function(){
 				jQuery(this).addClass('asc');
 			}
 			
-			paginationOrder += order + '/';
+			paginationOrder += order + '/'; 
 		}
 		
 		var page = jQuery(this).attr('data-page');
-		$Brid.Api.call({data : {action : "videos", mode : mode, apiQueryParams : paginationOrder+'page:'+page, buttons : buttonsOff}, callback : {after : {name : "insertContent", obj : jQuery("<?php echo $insertIntoContent; ?>")}}});
+		var pagination = {data : {action : "videos",subaction:'<?php echo $subaction; ?>', mode : mode, apiQueryParams : paginationOrder+'page:'+page, buttons : buttonsOff}, callback : {after : {name : "insertContent", obj : jQuery("<?php echo $insertIntoContent; ?>")}}};
+		
+		console.error(mode, playlistType, pagination);
+
+		if(mode=='playlist'){
+			pagination.data.playlistType = playlistType;
+		}
+		$Brid.Api.call(pagination);
 		return false;
 	});
 

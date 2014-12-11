@@ -4,10 +4,10 @@ $BridWordpressConfig.pluginUrl = '<?php echo BRID_PLUGIN_URL; ?>';
 $BridWordpressConfig.Player = <?php echo $playerSettings; ?>;
 var currentDivView = 'Videos-content';
 </script>
-<div class="mainWrapper">
+<div class="mainWrapper postTabs">
 
 	<!-- Tabs start -->
-	<div style="width:862px; overflow:hidden;" class="tabs withArrow">
+	<div style="width:862px; overflow:hidden;" class="tabs withArrow" id="postTabs">
 		<div id="Videos" class="tab" style="margin-right: 0px;">VIDEOS</div>
 		<div id="Playlists" class="tab-inactive" style="margin-right: 0px;">PLAYLISTS</div>
 		<div id="Dynamics" class="tab-inactive" style="margin-right: 0px;">DYNAMIC PLAYLISTS</div>

@@ -6,7 +6,7 @@ var currentDivView = 'Videos-content';
 <div class="mainWrapper">
 
 	<!-- Tabs start -->
-	<div style="width:858px; padding-top:20px; overflow:hidden;" class="tabs withArrow">
+	<div style="width:858px; padding-top:20px; overflow:hidden;" class="tabs withArrow" id="libraryTabs">
 		<div id="Videos" class="tab" style="width: 428px;">VIDEOS</div>
 		<div id="Playlists" class="tab-inactive" style="margin-right: 0px; width: 428px;">PLAYLISTS</div>
 	</div>

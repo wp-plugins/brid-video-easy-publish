@@ -35,8 +35,8 @@
 						<div class="input"><label style="left:0px;">Choose video type</label></div>
 							<div class="divAsRow blueEmbedInside" id="chooseVideoTypeEmbedCode" style="margin-top:10px;">
 								<select name="data[Embeds][video_type_id]" class="dropdownMenu dropdown"  data-css='{"height":115, "width":150}' id="EmbedsVideoTypeId" style="display: none;">
-									<option value="0">Brid Video</option>
-									<option value="1">YouTube videos</option>
+									<option value="0">Brid Videos</option>
+									<option value="1">YouTube Videos</option>
 								</select>
 							</div>
 					 </div>

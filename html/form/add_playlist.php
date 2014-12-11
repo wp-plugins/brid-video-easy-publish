@@ -55,9 +55,9 @@
 </div>
 <!-- JS part -->
 <script type="text/javascript">
-
+var playlistType = '<?php echo $playlistType; ?>';
 //Load video list
-$Brid.Api.call({data : {action : "videos", mode : 'playlist', subaction : 'addPlaylist'+'<?php echo $videoType; ?>'}, callback : {after : {name : "insertContent", obj : jQuery("#video-list")}}});
+$Brid.Api.call({data : {action : "videos", playlistType : playlistType, mode : 'playlist', subaction : 'addPlaylist'+'<?php echo $videoType; ?>'}, callback : {after : {name : "insertContent", obj : jQuery("#video-list")}}});
 
 //Execute save on enter
 jQuery('#PlaylistNameId').keypress(function(e){

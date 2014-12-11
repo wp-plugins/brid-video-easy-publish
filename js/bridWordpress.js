@@ -500,11 +500,28 @@ $Brid.Callbacks = {
 	 **/
 	 insertContent : function(arg){  // arg.response and arg.obj
 		
-		debug.log("$Brid.Callbacks.insertContent");
+		debug.log("$Brid.Callbacks.insertContent", arg);
 
 		if(arg.obj!=undefined){
 
 			var id = arg.obj.attr('id');
+
+			//Fast clicking on tabs prevention to show 2 tabs becouse ajax api had delay
+			//console.log('start');
+			console.log('Deca:', jQuery('#postTabs').children());
+
+			jQuery('#postTabs').children().each(function(k,v){
+
+				var this_id = jQuery(v).attr('id');
+				if(this_id!=undefined && this_id+'-content'!=id+'_content'){
+					jQuery('#'+this_id+'-content').hide();
+				}
+				//console.log(this_id);
+
+			});
+			//console.log('end');
+
+			debug.log("$Brid.Callbacks.insertContent ID:", id);
 			var switchDivs = ['Videos-content', 'Playlists-content'];
 			//Clear previous content view (checkboxes issue)
 			
@@ -1046,6 +1063,7 @@ $Brid.Html.Button = jQuery.extend(true, {}, Button);
  * Initialize custom tabs
  * 
  * @class $Brid.Html.Tabs
+ * @see video.php and playlists.php there we bind on click events
  */
 var Tabs = {
 		/**
@@ -1087,15 +1105,19 @@ var Tabs = {
 				$Brid.Util.openDialog('This tab is disabled, since "Type" of the Skin you have selected is templatized. <br/>Choose "Custom" Type to add/change Style properties.','Tab disabled');
 				
 			}else{
+
+				jQuery('.tabContent').hide();
 				//Hide tabs
-				$_this.parent().children().each(function(k,v){ 
+				var children = $_this.parent().children();
+
+				children.each(function(k,v){ 
 					var $_this = jQuery(this);
 					var id = $_this.attr('id'); jQuery('#'+id+'-content').hide(); //Hide contnet divs
 					$_this.removeClass('tab').addClass('tab-inactive');	//Remove active
 					
 				});
 				//Show clicked tab
-				jQuery('#'+id+'-content').fadeIn();
+				jQuery('#'+id+'-content').show();
 				$_this.removeClass('tab-inactive').addClass('tab');
 			
 			}
@@ -2422,6 +2444,12 @@ var Search = {
 			
 			if(typeof $Brid.Html.Search.config.subaction != "undefined") {
 				dataObject.subaction = $Brid.Html.Search.config.subaction;
+			}
+			if(typeof $Brid.Html.Search.config.playlistType != "undefined") {
+				dataObject.playlistType = $Brid.Html.Search.config.playlistType;
+			}
+			if(typeof $Brid.Html.Search.config.buttons != "undefined") {
+				dataObject.buttons = $Brid.Html.Search.config.buttons;
 			}
 			
 			
@@ -3761,10 +3789,15 @@ var Video = {
 		   */
 		  autosave : function(){
 	    	  debug.log('$Brid.Video.autosave()');
-		      jQuery('#autoSaving').show();
-		      jQuery("#videoSaveAdd").addClass('inprogress');
-		      save.save('VideoAddForm');
-		      jQuery('#VideoAutosave').val(0);		    
+	    	  if(jQuery("#videoSaveAdd").hasClass('inprogress')){
+	    		  $Brid.Util.openDialog('Save error', 'Save already in progress')
+	    	  }
+	    	  else {
+			      jQuery('#autoSaving').show();
+			      jQuery("#videoSaveAdd").addClass('inprogress');
+			      save.save('VideoAddForm');
+			      jQuery('#VideoAutosave').val(0);
+	    	  }
 		  },
 		  /**
 		   * Ajax: Get ffmpeg info about video (on VideoMp4 input)

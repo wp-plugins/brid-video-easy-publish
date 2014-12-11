@@ -665,10 +665,10 @@ class BridAPI {
      
      if(isset($_POST['subaction'])){
      	if(in_array($_POST['subaction'],array('addPlaylist','addPlaylistyt') ) ){
-     		$options['params']['videos_type'] = $_POST['subaction']=='addPlaylist'?0:1;
+     		$options['params']['videos_type'] = $_POST['subaction']=='addPlaylist' ? 0 : 1;
      	}
      } 
-
+    
      if(isset($_POST['playlistType'])){
      	$options['params']['videos_type'] = $_POST['playlistType'];
      }

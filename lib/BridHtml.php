@@ -98,6 +98,9 @@ class BridHtml {
 		 $subaction = isset($_POST['subaction']) ? $_POST['subaction'] : '';
 
 		 $mode = isset($_POST['mode']) ? $_POST['mode'] : '';
+
+		 $playlistType = isset($_POST['playlistType']) ? $_POST['playlistType'] : 0;
+
 		 //Turn off buttons and quick icons if we are on post screen
 		 $buttonsOff = isset($_POST['buttons']) ? $_POST['buttons'] : false;
 		
@@ -264,6 +267,7 @@ class BridHtml {
 
 		}else{
 			$videoType = isset($_GET['video_type'])?$_GET['video_type']:'';
+			$playlistType = isset($_GET['playlistType'])? $_GET['playlistType'] : 0;
 			
 			require_once(BRID_PLUGIN_DIR.'/html/form/add_playlist.php');
 		}
@@ -653,7 +657,7 @@ class BridHtml {
     	//Iframe
     	//return '<script type="text/javascript" src="'.CDN_HTTP.'player/build/brid.api.min.js"></script><iframe id="'.implode('-', $iframeId).'" src="'.CDN_HTTP.'services/'.implode('/',$url).'" width="'.$width.'" height="'.$height.'" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
     	$embedCode =  '<!--WP embed code - Brid Ver.'.BRID_PLUGIN_VERSION.' -->';
-    	$embedCode .= '<script type="text/javascript" src="'.CLOUDFRONT.'/player/build/brid.min.js"></script><div id="Brid_'.$divId.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_'.$divId.'_adContainer"></div></div>';
+    	$embedCode .= '<script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script><div id="Brid_'.$divId.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_'.$divId.'_adContainer"></div></div>';
 		$embedCode .= '<script type="text/javascript">$bp("Brid_'.$divId.'", '.json_encode($playerOptions).');</script><script type="text/javascript" src="http://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>';
 		
 		return $embedCode;

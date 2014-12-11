@@ -129,7 +129,7 @@
 				    			</div>
 							</td>
 				    	</tr>
-				    	<?php } ?>
+				    	<?php } ?> 
 				    	<tr>
 				    		<td colspan="2">
 				    			<div class="input text invisibleDiv" id="hd_version" style="display: <?php echo $hdStyle; ?>">
@@ -142,7 +142,12 @@
 			    		<td style="vertical-align: top; width:296px; padding-top:14px;">
 			    			<!-- Preview player -->
 							<div id="preview-player" style="">
-								<iframe id="<?php echo $video->Video->id; ?>-<?php echo $video->Video->partner_id; ?>-1-0-1" src="<?php echo CDN_HTTP; ?>services/iframe/video/<?php echo $video->Video->id; ?>/<?php echo $video->Video->partner_id; ?>/1/0/1" width="276" height="166" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+								<!--  <iframe id="<?php echo $video->Video->id; ?>-<?php echo $video->Video->partner_id; ?>-1-0-1" src="<?php echo CDN_HTTP; ?>services/iframe/video/<?php echo $video->Video->id; ?>/<?php echo $video->Video->partner_id; ?>/1/0/1" width="276" height="166" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>-->
+								<script type="text/javascript" src='<?php echo CLOUDFRONT."player/build/brid.min.js"; ?>'></script>
+								<div id="Brid_video" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_video_adContainer"></div></div>
+								<script type="text/javascript">$bp("Brid_video", {id:'<?php echo DEFAULT_PLAYER_ID; ?>',video:'<?php echo $video->Video->id; ?>',width:'276', height:'166'});</script>
+								<script type="text/javascript" src="http://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+								
 							</div>						
 			    		</td>
 			    		<td style="vertical-align:top">

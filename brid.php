@@ -11,7 +11,8 @@
  * @todo Podkomentarisati deo za ini_set
  */
 
-define('BRID_PLUGIN_VERSION', '1.0.4');
+define('BRID_PLUGIN_VERSION', '1.0.5');
+define('DEFAULT_PLAYER_ID', '1');
 define('BRID_PLUGIN_DIR', dirname( __FILE__ ));
 define('BRID_PLUGIN_LIB', BRID_PLUGIN_DIR.'/lib/');
 

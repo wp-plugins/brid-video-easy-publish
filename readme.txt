@@ -4,7 +4,7 @@ Donate link: http://www.brid.tv/
 Tags: brid.tv, brid video, post, posts, video, media library, media, richmedia cms, brid cms, playlist, video gallery, transcoding, encoding, advertising, video ads, video advertising, video monetization
 Requires at least: 3.2
 Tested up to: 4.0.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,14 +16,15 @@ With this plugin you will be able to seamlessly add Brid video players and conte
 Brid video is a free to use CMS system where you can add existing YouTube or upload your custom videos and monetize them.
 
 **Main Features**
-* Pure HTML5 player with Flash fallback
-* VAST and VPAID support for video monetization
-* 33+ custom designed HTML5 skins to use
-* Responsive player sizing
-* Amazon Cloudfront video hosting
-* Unlimited encoding thanks to our partnership with encoding.com
-* Powerful analytics
-* Absolutely free.  No hidden charges.
+
+*   Pure HTML5 player with Flash fallback
+*   VAST and VPAID support for video monetization
+*   33+ custom designed HTML5 skins to use
+*   Responsive player sizing
+*   Amazon Cloudfront video hosting
+*   Unlimited encoding thanks to our partnership with encoding.com
+*   Powerful analytics
+*   Absolutely free.  No hidden charges.
 
 See more about brid.tv at our [product page](http://www.brid.tv "Brid Video").
 
@@ -78,25 +79,33 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 
 == Changelog ==
 
-**Version 1.0.4**
+= Version 1.0.5 =
 
-Fixed certain URL's to player to point to the right servers.
+*   Added a couple of security checks in the backend.
+*   Fixed small preview player on edit playlist and edit video screens.
+*   Added default preview player.
+*   Fixed pagination when adding videos to an already created playlist.
+*   Updated API to support newly added options in the WordPress plugin.
 
-**Version 1.0.3**
+= Version 1.0.4 =
+
+Fixed certain URL's to player to point to the right servers.Many 
+
+= Version 1.0.3 =
 
 Added classification of playlists to differentiate between YouTube and internal Brid playlists.
 Shortcode now displays JavaScript Brid player embed code for better ad support.
 Removed field for landing pages that could appear on certain sections.
 
-**Version 1.0.2**
+= Version 1.0.2 =
 
 Fixed various CSS overrides so that the plugin does not interfere with different core CSS elements in WordPress.
 
-**Version 1.0.1**
+= Version 1.0.1 =
 
 Fixed radial button initialization when a Brid user tries to add their first video.
 
-**Version 1.0.0**
+= Version 1.0.0 =
 
 Primary stable plugin release.
 

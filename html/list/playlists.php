@@ -7,12 +7,15 @@ if(!$buttonsOff){
 			<div class="buttonLargeContent">ADD PLAYLIST</div>
 		</div>
 		
-		<div class="button add-playlistyt various bridAjaxLightbox" data-action="addPlaylistYt" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist&video_type=yt'; ?>" id="addPlaylistYt">
+		<div class="button add-playlistyt various bridAjaxLightbox" data-action="addPlaylistYt" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist&video_type=yt&playlistType=1'; ?>" id="addPlaylistYt">
 			<div class="buttonLargeContent">ADD YOUTUBE PLAYLIST</div>
 		</div>
 	</div>
 </div>
-<script>jQuery('.bridAjaxLightbox').colorbox({innerWidth:900, innerHeight:750,onClosed:function(){ jQuery('.toolbarItem').hide();$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Playlist'}]]); }}); </script>
+<script>
+jQuery('.bridAjaxLightbox').colorbox({innerWidth:900, innerHeight:750,onClosed:function(){ jQuery('.toolbarItem').hide();
+$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Playlist'}]]); }}); 
+</script>
 <?php }else{
 	?>
 
@@ -89,6 +92,7 @@ if(!$buttonsOff){
 						var searchObj = {
 											className : '.inputSearch', //Class of the input field that is used for serach, required
 											model : 'Playlist',	//Model required
+											buttons : buttonsOff
 										};
 						$Brid.init([['Html.Search', searchObj]]); //searchObj sent to configure Search
 						</script>			
@@ -213,7 +217,7 @@ if(!empty($playlists->Playlists)){
 										<a href="<?php echo $v->Playlist->id; ?>" class="listTitleLink tooltip  <?php echo $linkCss; ?>" id="video-title-<?php echo $v->Playlist->id; ?>"><?php echo $v->Playlist->name; ?></a>
 										<div class="videoUploadedBy">
 											<div class="siteVideosNum">
-												<span class="by">By:</span> <?php echo !empty($v->User->displayname) ? $v->User->displayname : $v->User->username_short; ?>
+												<span class="by">By:</span> <?php echo !empty($v->User->displayname) ? $v->User->displayname : $v->User->username; ?>
 											</div>
 											<div class="partner-quick-menu-section">
 
