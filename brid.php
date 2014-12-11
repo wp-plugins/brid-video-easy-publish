@@ -5,9 +5,9 @@
  * Description: Brid plugin will manage Brid.tv Platform videos.
  * Version: 1.0.5
  * Author: Brid.tv
- * Settings: Yuhu
+ * Settings: Nothing to see here. Move along.
  * Author URI: http://brid.tv
- * License: This sottware is not free to modify.
+ * License: This software is not free to modify.
  * @todo Podkomentarisati deo za ini_set
  */
 
