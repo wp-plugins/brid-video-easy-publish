@@ -3,7 +3,7 @@
  * Plugin Name: Brid Video
  * Plugin URI: http://www.brid.tv
  * Description: Brid plugin will manage Brid.tv Platform videos.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Brid.tv
  * Settings: Yuhu
  * Author URI: http://brid.tv
