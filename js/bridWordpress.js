@@ -714,6 +714,7 @@ $Brid.Callbacks = {
 			jQuery.colorbox.resize({innerHeight:'180px'});
 		}
 		else{
+			$Brid.Api.call({data : {action : "addVideo"}, callback : {after : {name : "insertContent", obj : jQuery("#Videos-content")}}});
 			jQuery.colorbox.close();
 		}
 	}
