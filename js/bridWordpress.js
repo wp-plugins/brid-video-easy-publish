@@ -705,13 +705,17 @@ $Brid.Callbacks = {
 	*
 	*   After setting premium account
 	*/
-	setPremium : function(){
-		var responseMessage = 'Your request has been successfully sent.<br /> Please allow 2-3 days so we can process your request. <br />An account manager will contact you as soon as possible.<br />';
-		responseMessage += '<div class="premiumSuccess"></div>';
-		$Brid.Api.call({data : {action : "addVideo"}, callback : {after : {name : "insertContent", obj : jQuery("#Videos-content")}}});
-		jQuery('#uploadRules').addClass('premiumSuccessMessage').html(responseMessage);
-		jQuery.colorbox.resize({innerHeight:'180px'});
-
+	setPremium : function(e){
+		if(jQuery('#premiumPlanConfirm').hasClass('disabled')){
+			var responseMessage = 'Your request has been successfully sent.<br /> Please allow 2-3 days so we can process your request. <br />An account manager will contact you as soon as possible.<br />';
+			responseMessage += '<div class="premiumSuccess"></div>';
+			$Brid.Api.call({data : {action : "addVideo"}, callback : {after : {name : "insertContent", obj : jQuery("#Videos-content")}}});
+			jQuery('#uploadRules').addClass('premiumSuccessMessage').html(responseMessage);
+			jQuery.colorbox.resize({innerHeight:'180px'});
+		}
+		else{
+			jQuery.colorbox.close();
+		}
 	}
 }
 /**
