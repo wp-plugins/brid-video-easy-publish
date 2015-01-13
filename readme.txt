@@ -4,7 +4,7 @@ Donate link: http://www.brid.tv/
 Tags: brid.tv, brid video, post, posts, video, media library, media, richmedia cms, brid cms, playlist, video gallery, transcoding, encoding, advertising, video ads, video advertising, video monetization
 Requires at least: 3.2
 Tested up to: 4.0.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,11 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 
 == Changelog ==
 
+= Version 1.0.6 =
+
+*   Updated WP plugin to work with new changes in the CMS backend.
+*   Added new plan options.
+
 = Version 1.0.5 =
 
 *   Added a couple of security checks in the backend.
@@ -93,25 +98,25 @@ Fixed certain URL's to player to point to the right servers.Many
 
 = Version 1.0.3 =
 
-Added classification of playlists to differentiate between YouTube and internal Brid playlists.
-Shortcode now displays JavaScript Brid player embed code for better ad support.
-Removed field for landing pages that could appear on certain sections.
+*   Added classification of playlists to differentiate between YouTube and internal Brid playlists.
+*   Shortcode now displays JavaScript Brid player embed code for better ad support.
+*   Removed field for landing pages that could appear on certain sections.
 
 = Version 1.0.2 =
 
-Fixed various CSS overrides so that the plugin does not interfere with different core CSS elements in WordPress.
+*   Fixed various CSS overrides so that the plugin does not interfere with different core CSS elements in WordPress.
 
 = Version 1.0.1 =
 
-Fixed radial button initialization when a Brid user tries to add their first video.
+*   Fixed radial button initialization when a Brid user tries to add their first video.
 
 = Version 1.0.0 =
 
-Primary stable plugin release.
+*   Primary stable plugin release.
 
 
 
 == Upgrade Notice ==
 
-= 1.0 .1 =
+= 1.0 .6 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.

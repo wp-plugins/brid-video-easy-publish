@@ -701,6 +701,18 @@ $Brid.Callbacks = {
     			enableSave();
     			$Brid.Video.checkAutosaveMessage();
     		},
+	/**
+	*
+	*   After setting premium account
+	*/
+	setPremium : function(){
+		var responseMessage = 'Your request has been successfully sent.<br /> Please allow 2-3 days so we can process your request. <br />An account manager will contact you as soon as possible.<br />';
+		responseMessage += '<div class="premiumSuccess"></div>';
+		$Brid.Api.call({data : {action : "addVideo"}, callback : {after : {name : "insertContent", obj : jQuery("#Videos-content")}}});
+		jQuery('#uploadRules').addClass('premiumSuccessMessage').html(responseMessage);
+		jQuery.colorbox.resize({innerHeight:'180px'});
+
+	}
 }
 /**
  *
@@ -3819,7 +3831,7 @@ var Video = {
 						 * don't check codec
 						 */
 						return;
-					}
+					} 
 					jQuery.ajax({
 						//  url: '/videos/ffmpeg_info/.json',
 						   url: ajaxurl, //+'?action=api&method=ffmpeg_info',
@@ -3976,7 +3988,7 @@ var Video = {
 		  checkFields : function(displayDialog){
 			  
 			  
-	      debug.log('$Brid.Video.checkFields()');
+	      debug.log('$Brid.Video.checkFields()',$Brid.Video.allowedExtensions);
 		  var VideoMp4 = jQuery("#VideoMp4").val(), VideoName = jQuery("#VideoName").val(), VideoImage = jQuery("#VideoImage").val(),  VideoHd = jQuery('#VideoMp4Hd').val();
 			
 			//Test Video Title

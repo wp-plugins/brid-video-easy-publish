@@ -5,6 +5,7 @@ if($mode!=''){
 	$insertIntoContent = '#video-list';
 }
 
+
 if($mode!='playlist') { 
 
 if(!$buttonsOff){
@@ -18,7 +19,7 @@ if(!$buttonsOff){
 			<div class="button add-video various"  data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>" id="addVideoQuestion">
 				<div class="buttonLargeContent">ADD VIDEO</div>
 			</div>
-			<script>jQuery('#addVideoQuestion').colorbox({innerWidth:900, innerHeight:400});</script>
+			<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>
 		<?php
 		}else{
 			?>
@@ -584,6 +585,7 @@ jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click',
 	if($search==''){
 
 		$link = '<a href="/videos/add" id="add_new_video">add a video</a>';
+		
 		if($ask){
 
 			$link = '<a id="add_new_video_2" class="various" data-fancybox-type="ajax" data-action="askQuestion" href="'.admin_url('admin-ajax.php').'">add a video</a>';

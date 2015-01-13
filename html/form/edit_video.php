@@ -288,7 +288,11 @@
 			
 			<?php
 		//}?>
-		<div class="propagate"><div>Please allow up to 10 minutes for changes to propagate.</div></div>
+		<div class="propagate"><div>Please allow up to 10 minutes for changes to propagate.<?php if(!BridOptions::getOption('upload')){?> 
+						<div style="display:inline-block;font-weight:normal;text-decoration:underline;cursor:pointer;text-weight:bold;" class="various" id="addVideoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">Want us to host and encode videos for you? Upgrade to premium plan for free.</div>
+						<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>			
+					<?php }?></div>
+					</div>
 	</form>
 </div>
 

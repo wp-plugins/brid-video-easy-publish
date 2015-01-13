@@ -3,10 +3,17 @@ $BridWordpressConfig = {};
 $BridWordpressConfig.pluginUrl = '<?php echo BRID_PLUGIN_URL; ?>';
 var currentDivView = 'Videos-content';
 </script>
-<div class="mainWrapper">
-
-	<!-- Tabs start -->
-	<div style="width:858px; padding-top:20px; overflow:hidden;" class="tabs withArrow" id="libraryTabs">
+<div class="mainWrapper" style='padding-top:10px;'>
+	<?php if(!$partner->Partner->upload){  ?>
+	<div  class="planUpgrade various" id="videoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">
+		Upgrade <div id="upgradeStar"></div></div>
+	<script>jQuery('#videoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>
+	<?php
+		 } 
+	?>
+	<!-- Tabs start -->	
+	
+	<div style="width:858px; padding-top:10px; overflow:hidden;" class="tabs withArrow" id="libraryTabs">
 		<div id="Videos" class="tab" style="width: 428px;">VIDEOS</div>
 		<div id="Playlists" class="tab-inactive" style="margin-right: 0px; width: 428px;">PLAYLISTS</div>
 	</div>

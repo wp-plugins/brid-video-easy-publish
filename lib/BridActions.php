@@ -63,7 +63,7 @@ class BridActions{
                 wp_die(__('You do not have sufficient permissions to access this page.'));
             }
 
-            if (strpos($_SERVER['SERVER_NAME'], 'localhost') !== false || strpos($_SERVER['SERVER_NAME'], '127.0.0.1') !== false) { 
+            if (strpos($_SERVER['SERVER_NAME'], 'localhost') !== false || strpos($_SERVER['SERVER_NAME'], '127.0.0.1') !== false) {
 
                wp_die(__('We do not support installing this plugin on localhost.'));
             }

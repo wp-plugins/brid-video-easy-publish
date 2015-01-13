@@ -547,6 +547,9 @@ class BridHtml {
  		
  		//print_r($partner); die('kraj');
 
+		if($partner->Partner->upload != BridOptions::getOption('upload')){
+			BridOptions::updateOption('upload', $partner->Partner->upload);
+		}
  		if(!empty($partner->error)){
  			wp_die('Partner error: '.$partner->error);
  		}
@@ -677,7 +680,40 @@ class BridHtml {
     public static function admin_notice_message(){    
 	   echo '<div class="updated"><p>You must <a href="options-general.php?page=brid-video-config">configure</a> the Brid Video plugin before you start using it.</p></div>';
 	}
+	/**
+	 * Send premium request
+	 * @throws Exception
+	 */
+	public static function bridPremium(){
 
+		try{
+          
+          if(isset($_POST['premium']) && is_numeric($_POST['premium']))
+          {
+            
+            $premium = intval($_POST['premium']);
+            
+            $api = new BridAPI();
+
+            $response = $api->call(array('url'=>'premium/'.BridOptions::getOption('site').'/'.$premium), false); //false for do not decode (json expected)
+            /**
+             * We have send premium request
+             * set partner to be external
+             */
+		    BridOptions::updateOption('question', '1');
+      		BridOptions::updateOption('upload', 0);
+            echo $response;
+          }else{
+            throw new Exception('Invalid request data');
+          }
+      }catch(Exception $e){
+
+        echo json_encode(array('error'=>$e->getMessage()));
+      }
+
+      die(); // this is required to return a proper result (By wordpress site)
+		
+	}
 }
 //@see http://codex.wordpress.org/AJAX_in_Plugins
 
@@ -716,5 +752,6 @@ add_action('wp_ajax_changeStatus', array('BridHtml', 'changeStatus'));		//Change
 /*--------- PARTNER -------------- */
 add_action('wp_ajax_addPartner', array('BridHtml', 'addPartner'));		//Change Status on video or playlist
 add_action('wp_ajax_updatePartnerId', array('BridHtml', 'updatePartnerId'));		//Change Status on video or playlist
+add_action('wp_ajax_bridPremium', array('BridHtml', 'bridPremium')); //Send premium request
 
 ?>
