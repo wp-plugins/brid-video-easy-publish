@@ -573,6 +573,21 @@ class BridHtml {
     	require_once(BRID_PLUGIN_DIR.'/html/post.php');
     	die();
     }
+    public static function updatePartnerField(){
+    	
+    	if(!empty($_POST['name']) && isset($_POST['value'])){
+    		
+    		//Maybe parner has been deleted from cms?
+	    	$api = new BridAPI();
+	    	//Get partner Info\
+	    	$_POST['id'] = BridOptions::getOption('site');
+	    	$_POST[$_POST['name']] = $_POST['value'];
+	 		$partner = $api->updatePartnerField($_POST);
+	 		
+    	}
+    	
+    	die();
+    }
 
     public static function updatePartnerId(){
     	
@@ -661,7 +676,7 @@ class BridHtml {
     	//return '<script type="text/javascript" src="'.CDN_HTTP.'player/build/brid.api.min.js"></script><iframe id="'.implode('-', $iframeId).'" src="'.CDN_HTTP.'services/'.implode('/',$url).'" width="'.$width.'" height="'.$height.'" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
     	$embedCode =  '<!--WP embed code - Brid Ver.'.BRID_PLUGIN_VERSION.' -->';
     	$embedCode .= '<script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script><div id="Brid_'.$divId.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_'.$divId.'_adContainer"></div></div>';
-		$embedCode .= '<script type="text/javascript">$bp("Brid_'.$divId.'", '.json_encode($playerOptions).');</script><script type="text/javascript" src="http://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>';
+		$embedCode .= '<script type="text/javascript">$bp("Brid_'.$divId.'", '.json_encode($playerOptions).');</script><script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>';
 		
 		return $embedCode;
     }
@@ -752,6 +767,7 @@ add_action('wp_ajax_changeStatus', array('BridHtml', 'changeStatus'));		//Change
 /*--------- PARTNER -------------- */
 add_action('wp_ajax_addPartner', array('BridHtml', 'addPartner'));		//Change Status on video or playlist
 add_action('wp_ajax_updatePartnerId', array('BridHtml', 'updatePartnerId'));		//Change Status on video or playlist
+add_action('wp_ajax_updatePartnerField', array('BridHtml', 'updatePartnerField'));		//Update partner field
 add_action('wp_ajax_bridPremium', array('BridHtml', 'bridPremium')); //Send premium request
 
 ?>

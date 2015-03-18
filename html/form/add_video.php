@@ -24,6 +24,7 @@ $hideUploadFields = 'none';
 	<div id="uploadCloseBtn"></div>
 	<div id="uploadMsg"></div> 
 	<script>
+	var uploadUrl = '<?php echo OAUTH_PROVIDER; ?>';
 	$Brid.init([['Html.Uploader', {uploadLimit:'1000MB'}]]);
 	</script>
 	</div>

@@ -3,8 +3,8 @@ Contributors: Sovica
 Donate link: http://www.brid.tv/
 Tags: brid.tv, brid video, post, posts, video, media library, media, richmedia cms, brid cms, playlist, video gallery, transcoding, encoding, advertising, video ads, video advertising, video monetization
 Requires at least: 3.6
-Tested up to: 4.1
-Stable tag: 1.0.6
+Tested up to: 4.1.1
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,13 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 
 == Changelog ==
 
+= Version 1.0.7 =
+
+*   Fixed bug where the plugin would recognize a plugin installation as a dev environment when in fact the site was not.
+*   Fixed add video link when no videos were added.
+*   Improved uploader functionality when a user cancels an upload.
+*   Improved authorization protocols.
+
 = Version 1.0.6 =
 
 *   Updated WP plugin to work with new changes in the CMS backend.
@@ -118,5 +125,5 @@ Fixed certain URL's to player to point to the right servers.Many
 
 == Upgrade Notice ==
 
-= 1.0 .6 =
+= 1.0.7 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.

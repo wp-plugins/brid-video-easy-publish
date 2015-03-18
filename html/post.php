@@ -8,9 +8,9 @@ var currentDivView = 'Videos-content';
 
 	<!-- Tabs start -->
 	<div style="width:862px; overflow:hidden;" class="tabs withArrow" id="postTabs">
-		<div id="Videos" class="tab" style="margin-right: 0px;">VIDEOS</div>
-		<div id="Playlists" class="tab-inactive" style="margin-right: 0px;">PLAYLISTS</div>
-		<div id="Dynamics" class="tab-inactive" style="margin-right: 0px;">DYNAMIC PLAYLISTS</div>
+		<div id="Videos" class="tab postTabsMenu" style="margin-right: 0px;">VIDEOS</div>
+		<div id="Playlists" class="tab-inactive postTabsMenu" style="margin-right: 0px;">PLAYLISTS</div>
+		<div id="Dynamics" class="tab-inactive postTabsMenu" style="margin-right: 0px;">DYNAMIC PLAYLISTS</div>
 	</div>
 	<!-- Tabs end -->
 

@@ -464,7 +464,7 @@ jQuery(document).ready(function(){
 			<div class="noItems">
 				You haven't added any playlists yet. Please 
 
-				<a class="various"  data-action="addPlaylist" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist'; ?>" id="addFirstPlaylist">add a playlists</a>.
+				<a class="various"  data-action="addPlaylist" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist'; ?>" id="addFirstPlaylist">add a playlist</a>.
 			
 				<script>
 					

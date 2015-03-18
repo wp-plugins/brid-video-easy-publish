@@ -9,9 +9,11 @@
   if(empty($sites)){
     ?>
     <div style="margin-top:20px;">
-     <p>We detected that your WordPress instalation is in a local testing environment. The Brid video plugin cannot function on dev sites.<br />
+     <p>No sites.
+      <!-- We detected that your WordPress instalation is in a local testing environment. The Brid video plugin cannot function on dev sites.<br />
 		Please use the plugin with a live site.<br />
 		If our detection system made a mistake, please send us a ticket - <a href='https://brid.zendesk.com/hc/en-us' target='_blank'>https://brid.zendesk.com/hc/en-us.</a>
+    -->
 		</p>
      <div class="mainWrapper">
         <div class="mainButtonsMenu" style='display:none;'>
@@ -28,7 +30,6 @@
    </script>
      <?php
   }else{
-
 
   ?>
    <form method="post" action="options.php" id="bridSettingsForm">

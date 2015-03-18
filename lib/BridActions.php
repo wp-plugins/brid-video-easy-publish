@@ -82,6 +82,9 @@ class BridActions{
 
               if (isset($response->error)) {
                 $error =  "The following error occurred: ".$response->error;
+                if(isset($response->error_description)){
+                   $error .= '<br/>Error: '.$response->error_description;
+                }
               }
               elseif (isset($response->access_token)) {
               
@@ -93,6 +96,7 @@ class BridActions{
             }
 
             $user = $api->userinfo(true);
+
 
 
             if(!empty($user->error)){
@@ -119,6 +123,11 @@ class BridActions{
                         }
                       }
                      $error .= (isset($_GET['error_description']) && $_GET['error_description']!='') ? $_GET['error_description'] : ''; 
+                     
+                     //if(empty($sites)){
+
+                        // delete_option('brid_options');
+                     // }
                      require_once(BRID_PLUGIN_DIR.'/html/form/auth.php');
 
                  } else {
@@ -203,7 +212,7 @@ class BridActions{
         public static function brid_scripts() {
           //Include necessary js files
           
-          wp_enqueue_script('bridPlayer', 'http://cms.brid.tv/player/build/brid.min.js', array(), null); //Add custom js
+          wp_enqueue_script('bridPlayer',  Brid::getConst('CLOUDFRONT').'/brid.min.js', array(), null); //Add custom js
           wp_enqueue_script('bridWordpress', BRID_PLUGIN_URL.'js/bridWordpress.js'); //Add custom js
           wp_enqueue_script('bridWordpressSave', BRID_PLUGIN_URL.'js/brid.save.js'); //Add custom js
           // wp_enqueue_script('bridUi', BRID_PLUGIN_URL.'js/jquery.ui.js'); //Add custom js	  

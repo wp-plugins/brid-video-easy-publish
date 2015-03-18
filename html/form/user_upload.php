@@ -42,21 +42,21 @@
 	</div>
 	
 	<div id='uploadRules' style='display:none;width:910px;margin-left:5px;font-color:#000000;' class="formWrapper">
-	<h3 class="lined" style='text-transform:uppercase;margin-left:20px;margin-bottom:25px;'><span>THANK YOU FOR APPLYING FOR BRID PREMIUM PLAN!</span></h1>
+	<h3 class="lined" style='text-transform:uppercase;margin-left:20px;margin-bottom:25px;'><span>Thank you for choosing the Brid.tv FREE PREMIUM plan.</span></h1>
 	
 	<p style='margin-top:20px;margin-bottom:15px;margin-left:20px;font-size:15px;'>
-		Please note that you can start using our platform under the Standard plan immediately. For us to approve your Premium plan application, however, certain conditions must be met first:
+		Although we maintain the platform to be free, certain requirements must be met if you wish for us to host and encode your videos with us:
 	</p>
 	<div style='background-color:#f1f2f2;font-size:15px;font-family:Arial;font-weight:bold;color:#000000;padding:20px 0px 10px 20px;margin-bottom:15px;'>
 	<ul>
 		<li>
-			 We have a minimum requirement of 5,000 daily click-to-play video views. Majority of traffic should come from US/Canada.
+			We have a minimum requirement of 5.000 daily click-to-play video views.	
 		</li>
 		<li>
-			  Large content players are preferred. We consider any player over 400px in width large.
+			You will need to use a large click-to-play player. We consider any player over 400px in width large. 
 		</li>
 		<li>
-			   Allow up to 2-3 business days for us to approve your PREMIUM account by whitelisting your domain with our ad providers.
+			Allow up to 2-3 business days for us to approve your PREMIUM account by whitelisting your domain with our ad providers.
 		</li>
 	</ul>
 	</div>
@@ -83,10 +83,7 @@
 	</div>
 	
 	<div style='clear:both;margin-bottom:10px;'></div>
-	<div style='margin-left:20px;'>
-		<a style="font-size:14px;font-weight:normal;text-decoration:underline;" target='_blank' href='https://brid.zendesk.com/hc/en-us/articles/202167711'>Read more info on Brid Premium plan.</a> Please also note that we will <span style='font-weight:bold;'>NOT</span> charge you for any bandwidth incurred by using our Premium plan. 
-		We will simply reserve the right to monetize your every second video.
-	</div>
+	<a style="margin-left:20px;font-size:14px;font-weight:normal;text-decoration:underline;" href='https://brid.zendesk.com/hc/en-us/articles/202167711' target='_blank'>For more information on Brid's premium plan please click here.</a>
 </div>
 </div>
 <script>
@@ -94,7 +91,7 @@ var save = saveObj.init();
 $Brid.Html.CheckboxElement.init();
 //$Brid.Html.Radio.init();
 //jQuery('#PartnerUserUploadForm').submit(function(){return false;});
-(function($){
+(function($){ 
 $('#userUpload .button,#uploadRules .button').click(function(){
 							var idButton = $(this).attr('id'),formData = {};
 							$(this).addClass('disabled');

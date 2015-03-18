@@ -392,7 +392,7 @@ class OAuth2Client
         $args = array(
           'method' => $http_method,
           'body' => $parameters,
-          'sslverify' => false,
+          'sslverify' => true,
           'headers' => $http_headers
         );
         //print_r($url); print_r($args);

@@ -35,7 +35,15 @@
 								    	
 								    </div>						    
 								</div>
-
+								<?php 
+								/*
+								Method is working, but interface should be changed to support monetization for YT
+								if(!$partner->Partner->intro_video) { ?>
+									<div class='ytSearchInfo' >
+								   	We are currently not monetizing your YouTube videos. Any existing monetization you have remains in effect and our monetization policy does not apply. 
+								   	<a href="#" id="monetYt" class="underlineLink">Click here</a> to turn it on.
+								    </div>
+							    <?php } */?>
 								<!-- YOUTUBE CHANNELS -->
 							   	<div id="add-youtube-channel-container" style="width:820px;">
 								   	<div id="add-youtube-channel">
@@ -207,6 +215,15 @@ methods.videos_add = function(){
 	
 }*/
 initBridMain();
+
+jQuery('#monetYt').click(function(e){
+
+	e.preventDefault();
+		//alert('click');
+	$Brid.Api.call({data : {action : "updatePartnerField", "name" : "intro_video", "value" : 1}, callback : {after : {name : "refreshAddYoutube", obj : jQuery("#Videos-content")}}});
+			
+
+});
 
 function addVideoFromSearch(val, text) {
 	jQuery('#add-youtube-channel, #add-vimeo-channel').hide();															// Hide category dropdown
@@ -424,6 +441,8 @@ function showContent(arrayData) {
 
 
 jQuery(function() {
+
+
 	 /**
 	  * Youtube search field
 	  */
@@ -530,7 +549,7 @@ jQuery(function() {
         }
         
     }
-  
+  	
     // Init preview of the Classic Video Input
     function addVideoProcessor() {
         jQuery('#videoSaveAdd, #mainData').fadeIn();

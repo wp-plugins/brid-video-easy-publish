@@ -1,7 +1,7 @@
 <form class="form" action="#">
 	<div class="mainWrapper">
 
-		<div class="mainButtonsMenu" style="text-align:right; position:absolute;">
+		<div class="mainButtonsMenu" style="text-align:right; float:right;width:auto;">
 			<div class="button post-playlist" data-href="#" id="postPlaylistDynamic" style="margin-right:40px;">
 				<div class="buttonLargeContent">POST</div>
 			</div>
@@ -129,3 +129,4 @@ jQuery('#postPlaylistDynamic').click(function(){
 	$Brid.Util.addToPost('[brid '+val+'="'+id+'" items="'+items+'" player="'+$BridWordpressConfig.Player.id+'" width="'+$BridWordpressConfig.Player.width+'" height="'+$BridWordpressConfig.Player.height+'" video_type="'+videoType+'"]');
 
 });
+</script>

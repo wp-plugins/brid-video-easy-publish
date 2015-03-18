@@ -588,8 +588,8 @@ jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click',
 		
 		if($ask){
 
-			$link = '<a id="add_new_video_2" class="various" data-fancybox-type="ajax" data-action="askQuestion" href="'.admin_url('admin-ajax.php').'">add a video</a>';
-
+			$link = '<a id="add_new_video_2" class="various" data-action="askQuestion" href="'.admin_url("admin-ajax.php").'?action=askQuestion">add a video</a>';
+		
 		}
 	?>
 
@@ -603,6 +603,9 @@ jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click',
 				$Brid.Api.call({data : {action : "addVideo"}, callback : {after : {name : "insertContent", obj : jQuery("#Videos-content")}}});
 				jQuery.colorbox.close();
 			});
+
+			jQuery('#add_new_video_2').colorbox({innerWidth:920, innerHeight:210});
+			
 		</script>
 	</div>
 
@@ -634,8 +637,6 @@ jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click',
       					data : {action : divId.toLowerCase(), buttons : buttonsOff}, 
       					callback : {after : {name : "insertContent", obj : intoDiv}}
       				});
-
-      //alert(jQuery(this).attr('id'));
    
   	});
   	//Bind add video and add youtube buttons
@@ -647,7 +648,4 @@ jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click',
                           				});
 
 		});
-
-
-
 </script>

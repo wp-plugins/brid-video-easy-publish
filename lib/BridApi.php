@@ -15,11 +15,7 @@ class BridAPI {
 
   // DON'T CHANGE THIS
   const OAUTH_CONSUMER_KEY    = 'NTMxNmU1MGRkMzFkZDFl';
-  const OAUTH_CONSUMER_SECRET = '774ec6a3eb700518d34e94f3a066ba326fb4c955';
-  const OAUTH_PROVIDER     = 'http://cms.brid.tv'; 
-  const API_ENDPOINT       = 'http://cms.brid.tv/api';
-  
-  
+  const OAUTH_CONSUMER_SECRET = '774ec6a3eb700518d34e94f3a066ba326fb4c955';  
   const AUTHORIZATION_PATH = '/api/authorize';
   const TOKEN_PATH         = '/api/token';
 
@@ -27,8 +23,8 @@ class BridAPI {
 
   public function __construct($options=array()) {
     $this->oauth_token    = BridOptions::getOption('oauth_token');
-    $this->oauth_provider = self::OAUTH_PROVIDER;
-    $this->api_endpoint   = self::API_ENDPOINT;
+    $this->oauth_provider = Brid::getConst('OAUTH_PROVIDER');
+    $this->api_endpoint   = Brid::getConst('OAUTH_PROVIDER').'/api';
     $this->options        = array_merge(self::$default_options, $options);
     $this->client         = new OAuth2Client(self::OAUTH_CONSUMER_KEY, self::OAUTH_CONSUMER_SECRET, OAuth2Client::AUTH_TYPE_FORM);
     $this->client->setAccessTokenType(OAuth2Client::ACCESS_TOKEN_BEARER);
@@ -74,7 +70,7 @@ class BridAPI {
   public function call($arguments, $encode=false){
 
     $url = $this->api_endpoint.'/'.$arguments['url'].'.json';
-    
+
    
       if(isset($arguments['params']))
       {
@@ -780,6 +776,24 @@ class BridAPI {
     }
     return $this->call(array('url'=>'partnerUpload', 'params'=>$post), $encode);
 
+  }
+  /**
+   * Update partner field
+   * @param (array) $_post - Post array $_POST = array('id'=>1, 'intro_video'=>1)
+   * @param (bool) $encode - False to encode it in json, true to return it in StdClass
+   */
+  protected function updatePartnerField($_p=array(), $encode=false){
+
+     if(isset($_p['id'])){ $_p['id'] = intval($_p['id']); }
+
+     if(!isset($_p['id']) || $_p['id']==0 || !is_numeric($_p['id'])){
+      throw new InvalidArgumentException('Content id is invalid.');
+    }
+     $post = array();
+    foreach($_p as $k=>$v){
+        $post['data[Partner]['.$k.']'] = $v;
+    }
+    return $this->call(array('url'=>'updatePartnerField', 'params'=>$post), $encode);
   }
   /**
    * Change status

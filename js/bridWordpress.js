@@ -493,6 +493,15 @@ $Brid.Callbacks = {
 		jQuery('#autoSaving').html('Saved');
 	},
 	/**
+	 * On enable YT monetization click
+	 */
+	refreshAddYoutube : function(arg){
+
+		debug.log('Callback object', 'refreshAddYoutube', arg);
+		jQuery('#ytSearchInfo').hide();
+		$Brid.Api.call({data : {action : "addYoutube"}, callback : {after : {name : "insertContent", obj : jQuery("#Videos-content")}}});
+	},
+	/**
 	 * On media page, click on tabs will trigger this callback on ajax succes load
 	 *
 	 *
@@ -1136,7 +1145,16 @@ var Tabs = {
 				//Show clicked tab
 				jQuery('#'+id+'-content').show();
 				$_this.removeClass('tab-inactive').addClass('tab');
-			
+				
+				//Apply only for ligthbox invoked from edit post
+				if($_this.hasClass('postTabsMenu')){
+					if(id=='Dynamics'){
+						jQuery.colorbox.resize({height:'300px'});
+					}
+					else if(id=='Videos' || id == 'Playlists'){
+						jQuery.colorbox.resize({innerHeight:'780px'});
+					}
+				}
 			}
 
 		}
@@ -2901,7 +2919,7 @@ var Uploader = {
 	 * @property script_path
 	 * @type {String}
 	 */
-	script_path : 'http://cms.brid.tv/videos/',
+	script_path : '/videos/',
 	/**
 	 * Filename of the file to upload
 	 * @propery filename
@@ -3043,7 +3061,7 @@ var Uploader = {
 		 * @property start
 		 * @type {Object}
 		 */
-		start : '<div id="prog_c1" style="display:none;"></div><div id="uploadStatus">Starting upload...</div>'
+		start : '<div id="prog_c1" style="display:none;"><div id="uploadStatus">Starting upload...</div></div>'
 	},
 	/**
 	 * Exception Object
@@ -3078,6 +3096,10 @@ var Uploader = {
 		
 		//debug.log('aaaaaaaaaaaaaaaaarrrrrrrrrrrrrrrrgggggggggggggggggg', this.convertSize(arg.uploadLimit));
 		if(jQuery('#upload').length>0){
+
+			if(uploadUrl!=undefined && this.script_path.indexOf(uploadUrl)==-1){
+				this.script_path  = uploadUrl + this.script_path;
+			}
 			Uploader.Exception.prototype = new Error; 
 			var uploadLimit = (arg!=null && arg.uploadLimit!=undefined) ? arg.uploadLimit : this.uploadLimit;
 			
@@ -3281,10 +3303,6 @@ var Uploader = {
 			jQuery('#VideoUploadInProgress').val(0);
 		}
 		window.onbeforeunload = null;
-
-		var name = "insertContentVideos", div = "#Videos-content";
-		$Brid.Api.call({data : {action : 'addVideo'}, callback : {after : {name : name, obj : jQuery(div)}}});
-		/*					
 		jQuery('#uid').val('');
 		jQuery('#sid').val('');
 		jQuery('#timestamp').val('');
@@ -3298,18 +3316,9 @@ var Uploader = {
 		this.s3uploads = false;
 		this.canceled = false;
 		this.extension = '';
+		var name = "insertContentVideos", div = "#Videos-content";
+		$Brid.Api.call({data : {action : 'addVideo'}, callback : {after : {name : name, obj : jQuery(div)}}});
 		
-		jQuery('.form-table').hide();
-		jQuery('#uploadCloseBtn').hide(); //Hide cancel
-		
-		jQuery('#UploaderForm').show(300, function(){
-			jQuery('#uploadButtonDiv').show();
-			jQuery('#uploadInputHide').css({height : '280px'});
-			//Re Init uploader
-			$Brid.init(['Html.Uploader']);
-			
-		});
-*/
 		
 	},
 	/**
@@ -3367,7 +3376,7 @@ var Uploader = {
 	 */
 	updateStatus : function(){
 		
-		var self = this, received = 0, size=0, percentage=0, width = 740;
+		var self = this, received = 0, size=0, percentage=0, width = 790;
 		 
 		 if(self.response.state == "uploading"){
 			received = self.response.received;
