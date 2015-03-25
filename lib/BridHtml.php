@@ -606,10 +606,6 @@ class BridHtml {
 		  $context .= "<a class='bridAjax opacityButton' href='".admin_url('admin-ajax.php')."?action=bridVideoPost'>
 		    <img src='{$img}'  style='margin-top:2px;'/></a><script>jQuery('.bridAjax').colorbox({innerWidth:900, innerHeight:780}); initButtonOpacity();</script>";
 			
-		  /*$context .= "<a class='various opacityButton'data-fancybox-type='ajax' data-action='bridVideoPost'
-		    href='".admin_url('admin-ajax.php')."'>
-		    <img src='{$img}'  style='margin-top:2px;'/></a><script>initFancybox(); initButtonOpacity();</script>";*/
-		  
 		  return $context;
     }
     /**

@@ -15,18 +15,10 @@
 		If our detection system made a mistake, please send us a ticket - <a href='https://brid.zendesk.com/hc/en-us' target='_blank'>https://brid.zendesk.com/hc/en-us.</a>
     -->
 		</p>
-     <div class="mainWrapper">
-        <div class="mainButtonsMenu" style='display:none;'>
-          <div class="button add-site various" data-fancybox-type="ajax" data-action="addPartner" href="<?php echo admin_url('admin-ajax.php'); ?>" id="addPartner">
-            <div class="buttonLargeContent">ADD SITE</div>
-          </div>
-        </div>
-      </div>
    </div>
    <script>
       //Used in callback on save -> partnerCreateSnapshot
       var settingsUrl = "<?php echo admin_url('options-general.php?page=brid-video-config'); ?>"
-      initFancybox();
    </script>
      <?php
   }else{

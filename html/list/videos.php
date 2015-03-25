@@ -534,16 +534,6 @@ function addPlaylist() {
 	var selectedItems = $Brid.Html.CheckboxElement.getSelectedCheckboxes('video-id-');
 
 	debug.log('Selected Items are:', selectedItems);
-	//if(playlistId!=undefined){
-		//Add only videos to the already created Playlist (edit mode)
-		//itemsAddedToPlaylist
-		//callback : {after : {name : "itemsAddedToPlaylist", obj : jQuery("#video-list")}}
-
-		//@todo Neki callback koji ce ako je success dodao da zatvori fancybox
-
-		//$Brid.Api.call({data : {action : "addVideoPlaylist", id : playlistId, ids : selectedItems.join(',')}, callback : {after : {name : "itemsAddedToPlaylist", obj : jQuery("#video-list")}}});
-		//playlistId = null;
-	//}else{
 
 		//Add Playlist and playlist videos at the same time (add mode)
 		jQuery('#addPlaylistVideos').hide();

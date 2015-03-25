@@ -216,21 +216,13 @@ var saveObj = {
     						         
     						     });
     							
-    							//alert('yuhu');
-    							//debug.log('USAO U SAVE SUCCESS');
     							try{
-    								//contentRefresh('playlist-list', "/playlists/list_items/");
     								
-    								debug.log('TRY TO CLOSE FANCYBOX');
+    								debug.log('TRY TO CLOSE colorbox');
 									jQuery.colorbox.close();
     							}catch(e){
     								debug.warn('Fancy box close in save method.');
     							}
-    							//alert(data.redirect);
-    							/*if(action == 'add'){
-    								$('#'+formId)[0].reset();
-    								$('.defaultInputValue').show();
-    							}*/
     							
     							saveButton.ajaxResponse = data;
     							//Is there anu callback on save button?

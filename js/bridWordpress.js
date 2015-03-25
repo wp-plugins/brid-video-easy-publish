@@ -407,8 +407,7 @@ $Brid.Callbacks = {
 				  	{
 				  		//window.parent.initPlaylistMainFunctions();
 						initPlaylistMainFunctions();
-				  		debug.log('FANCY BOX CLOSE');
-				  		//jQuery.fancybox.close( true );
+				  		
 						jQuery.colorbox.close();
 		
 				  	}
@@ -868,46 +867,6 @@ var Effect = {
 		  jQuery('.centerImgWrapper').on('mouseenter', centarImgOver).on('mouseleave', centarImgOut);
 		  
 		},
-		/**
-		 * http://fancybox.net/
-		 * className or Id property are required
-		 * options is Optional to override FancyBox default properties
-		 * e.g. initFancyBox({id:'.various', options : {autoSize : true}});
-		 * $Brid.Html.Effect.fancybox({id:'.various', options : {autoSize : true}})
-		 * 
-		 * @method fancybox
-		 * @param {Object} {id:'.various', options : {autoSize : true}}
-		 */
-		 /*fancybox : function(o){
-			debug.log('$Brid.Html.Effect.fancybox()', 'FancyBox', o);
-			
-				if(o==undefined || typeof o !='object')
-					throw new ArgumentException('Main function argument "options" must be specified. (e.g. initFancyBox({className : "various"});)');
-				if(o.id==undefined)
-					throw new ArgumentException('property options.id must be specified.');
-				//Default ajax object
-				if(jQuery(o.id).length>0){
-					
-					var myData = {};
-
-					myData.action = jQuery(o.id).attr('data-action');
-					if(jQuery(o.id).attr('data-id')!=undefined){
-						myData.id = jQuery(o.id).attr('data-id');
-					}
-
-					var aO = {type : 'POST', data:  myData, timeout:20000, complete : function(){debug.log('Fancy box after load calls initBridMain'); initBridMain();} };
-					
-					if(o.ajax!=undefined){ aO = o.ajax;}
-					//Default fancybox options
-					var defaultFancyBoxOptions = { maxWidth : 858, fitToView	: false, scrolling : 'yes', width : '858px', height : '100%', autoSize : false, closeClick : false, openEffect : 'none', closeEffect : 'none', ajax : aO};
-					// Merge defaultOptions with options sent via argument, recursively
-					var options = jQuery.extend(true, defaultFancyBoxOptions, ( o.options || {}));
-					debug.log('Fancyyyyyboooooooox', options);
-					options.live = false;
-					jQuery(o.id).fancybox(options);
-				}
-			
-		},*/
 		/**
 		 * Will init animation on Thumb click, or on edit icon click on list views app wide.
 		 * (Animate div with player nad init player, animate div with edit form etc.)
@@ -2632,7 +2591,7 @@ var Util = {
 	 */
 	allowedStreamingExtensions : ['f4m','smil','m3u8'],
 
-	//Add shortcode to post - will close fancybox
+	//Add shortcode to post - will close colorbox
 	addToPost :  function(shortCodes){
 		
 		debug.log('$Brid.Util.addToPost()', shortCodes);
@@ -2653,7 +2612,6 @@ var Util = {
 			tinyMCE.activeEditor.execCommand('mceInsertContent', false, shortCodes);
 		}
 		
-   		//jQuery.fancybox.close( true );
 		jQuery.colorbox.close();
 
 
@@ -4763,14 +4721,6 @@ function isCategorySelected() {
 })(jQuery, window, document);
 
 
-function initFancybox(){
-	//if(jQuery('#Videos-content').is(':visible')){
-
-	//	$Brid.Html.Effect.fancybox({id:'.various', options : {height : 'auto'}});	//Init fancy box
-	//}else{
-		//$Brid.Html.Effect.fancybox({id:'.various'});	//Init fancy box
-	//}
-}
 function initButtonOpacity(){
 	$Brid.init(['Html.Button']);
 }
@@ -4782,7 +4732,6 @@ function initBridMain(){
 	$Brid.init(['Html.DefaultInput','Html.GoogleCheckbox', 'Html.CheckboxElement', 'Html.Selectbox','Html.Button','Html.Radio','dropdown','datepicker']);
 
 	$Brid.Html.Effect.lazyload();
-	//$Brid.Html.Effect.fancybox({id:'.various'});	//Init fancy box
 }
 
 

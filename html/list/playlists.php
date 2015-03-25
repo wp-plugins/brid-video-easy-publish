@@ -422,14 +422,6 @@ jQuery(document).ready(function(){
   					shortCodes += '[brid playlist="'+selectedItems[id]+'" player="'+$BridWordpressConfig.Player.id+'" width="'+$BridWordpressConfig.Player.width+'" height="'+$BridWordpressConfig.Player.height+'" items="50"]';
   				}
   				$Brid.Util.addToPost(shortCodes);
-  				/*
-  				var cursorPos = jQuery('.wp-editor-area').prop('selectionStart');
-            	var v = jQuery('.wp-editor-area').val(); //shortCodes;
-            	var textBefore = v.substring(0,  cursorPos );
-            	var textAfter  = v.substring( cursorPos, v.length );
-           		jQuery('.wp-editor-area').val( textBefore+ shortCodes +textAfter );
-           		jQuery.fancybox.close( true );
-           		*/
 				
   			}
 
