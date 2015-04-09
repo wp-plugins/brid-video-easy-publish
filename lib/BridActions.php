@@ -45,7 +45,7 @@ class BridActions{
 
             //Add subpage (Brid Video Media Library) to the Media Library - @see callback BridHtml::manage_videos()
             if(BridOptions::areThere()){
-              $page = add_media_page('Brid Video Manage Videos', 'Brid Video', 'administrator', 'brid-video-manage', array('BridHtml', 'manage_videos'));
+              $page = add_media_page('Brid Video Manage Videos', 'Brid Video', 'edit_posts', 'brid-video-manage', array('BridHtml', 'manage_videos'));
 
               /* Using registered $page handle to hook stylesheet loading */
               add_action( 'admin_print_styles-' . $page, array('BridActions', 'brid_scripts'));

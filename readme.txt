@@ -4,7 +4,7 @@ Donate link: http://www.brid.tv/
 Tags: brid.tv, brid video, post, posts, video, media library, media, richmedia cms, brid cms, playlist, video gallery, transcoding, encoding, advertising, video ads, video advertising, video monetization
 Requires at least: 3.6
 Tested up to: 4.1.1
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,10 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 
 == Changelog ==
 
+= Version 1.0.10 =
+
+*   Added editor permissions to see Brid Video entry under Media menu.
+
 = Version 1.0.9 =
 
 *   Resolved JavaScript conflict on the videos list.
@@ -110,7 +114,7 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 
 = Version 1.0.4 =
 
-Fixed certain URL's to player to point to the right servers.Many 
+*   Fixed certain URL's to player to point to the right servers.Many 
 
 = Version 1.0.3 =
 
