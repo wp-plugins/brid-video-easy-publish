@@ -4,7 +4,7 @@ Donate link: http://www.brid.tv/
 Tags: brid.tv, brid video, post, posts, video, media library, media, richmedia cms, brid cms, playlist, video gallery, transcoding, encoding, advertising, video ads, video advertising, video monetization
 Requires at least: 3.6
 Tested up to: 4.1.1
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,10 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 7. Add a YouTube video to your account.
 
 == Changelog ==
+
+= Version 1.0.9 =
+
+*   Resolved JavaScript conflict on the videos list.
 
 = Version 1.0.8 =
 

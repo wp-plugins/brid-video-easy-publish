@@ -440,8 +440,6 @@ function showContent(arrayData) {
 }
 
 
-jQuery(function() {
-
 
 	 /**
 	  * Youtube search field
@@ -571,7 +569,6 @@ jQuery(function() {
         }
         
     }
-   
-});
+    debug.log("end add youtube");
 
 </script>

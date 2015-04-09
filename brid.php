@@ -3,14 +3,14 @@
  * Plugin Name: Brid Video
  * Plugin URI: https://wordpress.org/plugins/brid-video-easy-publish/
  * Description: Brid plugin will manage Brid.tv Platform videos.
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: Brid.tv
  * Settings: Brid
  * Author URI: https://brid.tv
  * License: This sottware is not free to modify.
  */
 
-define('BRID_PLUGIN_VERSION', '1.0.8');
+define('BRID_PLUGIN_VERSION', '1.0.9');
 define('DEFAULT_PLAYER_ID', '1');
 define('BRID_PLUGIN_DIR', dirname( __FILE__ ));
 define('BRID_PLUGIN_LIB', BRID_PLUGIN_DIR.'/lib/');
