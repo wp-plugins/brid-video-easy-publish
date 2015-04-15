@@ -33,7 +33,7 @@ $hideUploadFields = 'none';
 			<div class="fetchDivWrapper">
 				<div class="input text"><span class="fetchDivHSpan">http://</span><label for="fetchUrl">Alternatively, you can have us upload your video file from a URL, or enter a streaming URL here:</label><input name="data[fetchUrl]" style="text-indent:50px;color:#bbbdc0;" class="reqiured" type="text" id="fetchUrl"></div>				
 
-			<div class="button go-fetch-url disabled" id="goFetchUrl" data-form-req="0" data-form-bind="0" style="margin-top: 20px; margin-left: 2px;">
+			<div class="bridButton go-fetch-url disabled" id="goFetchUrl" data-form-req="0" data-form-bind="0" style="margin-top: 20px; margin-left: 2px;">
 			<div class="buttonLargeContent">GO</div></div>
 
 			</div>
@@ -154,7 +154,7 @@ $hideUploadFields = 'none';
 								<tr>
 									<td colspan="2">
 
-										<div id="checkbox-mp4_hd_on" class="checkbox disabledCheckbox" data-method="toggleVideoField" data-name="mp4_hd_on" style="top:4px;left:1px;">
+										<div id="checkbox-mp4_hd_on" class="bridCheckbox disabledCheckbox" data-method="toggleVideoField" data-name="mp4_hd_on" style="top:4px;left:1px;">
 											<div class="checkboxContent">
 												<img src="<?php echo BRID_PLUGIN_URL; ?>img/checked.png" class="checked" style="display:none" alt="">
 												<input type="hidden" name="mp4_hd_on" class="singleCheckbox" id="mp4_hd_on" data-value="0" style="display:none;">
@@ -196,7 +196,7 @@ $hideUploadFields = 'none';
 						</table>
 				            		      
 
-						<div class="button saveButton disabled" id="videoSaveAdd" data-method="onVideoSave" data-form-bind="0" data-form-req="0" style="margin-bottom:0px; margin-top:15px;">
+						<div class="bridButton saveButton disabled" id="videoSaveAdd" data-method="onVideoSave" data-form-bind="0" data-form-req="0" style="margin-bottom:0px; margin-top:15px;">
 							<div class="buttonLargeContent">SAVE</div>
 						</div>
 						<div id='autoSaving'>Autosaving<span class="fDot">.</span><span class="sDot">.</span><span class="tDot">.</span></div>

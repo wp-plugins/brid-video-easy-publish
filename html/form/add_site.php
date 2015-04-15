@@ -18,7 +18,7 @@
 					    		<td>
 									   
 
-									<div class="button save-setting saveButton lightboxSave disabled" data-form-req="0" data-form-bind="0" data-method="partnerCreateSnapshot" id="SaveButtonLarge" style="opacity: 1;">
+									<div class="bridButton save-setting saveButton lightboxSave disabled" data-form-req="0" data-form-bind="0" data-method="partnerCreateSnapshot" id="SaveButtonLarge" style="opacity: 1;">
 										<div class="buttonLargeContent">SAVE</div>
 									</div>
 

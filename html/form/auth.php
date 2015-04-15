@@ -9,8 +9,11 @@
 	<div class="authText">The Brid.tv plugin needs your authorization to access some of your information and usage data. All of this information will be accessed privately using the <a href="http://oauth.net/2/">OAuth 2.0 protocol</a>. We will never store any of your <a href="http://www.brid.tv" title="Brid.tv">Brid.tv</a> credentials (email or password) on this blog.</div>
 	                   
 	<a href="<?php echo $api->authorizationUrl($redirect_uri); ?>" title="Authorize This Plugin">
-		<div class="button auth-plugin" data-href="#" id="authPlugin">
+		<div class="bridButton auth-plugin" data-href="#" id="authPlugin">
 			<div class="buttonLargeContent">AUTHORIZE THIS PLUGIN</div>
 		</div>
 	</a>
 </div>
+<script>
+jQuery('html').css('background','#fff');
+</script>

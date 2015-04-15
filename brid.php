@@ -3,14 +3,14 @@
  * Plugin Name: Brid Video
  * Plugin URI: https://wordpress.org/plugins/brid-video-easy-publish/
  * Description: Brid plugin will manage Brid.tv Platform videos.
- * Version: 1.0.10
+ * Version: 1.0.11
  * Author: Brid.tv
  * Settings: Brid
  * Author URI: https://brid.tv
  * License: This sottware is not free to modify.
  */
 
-define('BRID_PLUGIN_VERSION', '1.0.10');
+define('BRID_PLUGIN_VERSION', '1.0.11');
 define('DEFAULT_PLAYER_ID', '1');
 define('BRID_PLUGIN_DIR', dirname( __FILE__ ));
 define('BRID_PLUGIN_LIB', BRID_PLUGIN_DIR.'/lib/');
@@ -36,19 +36,26 @@ if(!class_exists('Brid')){
 	    static $brid_options  = array('brid_options');
 
 		public static function activate(){
-			update_option('brid_options','');
+			if(get_option('brid_options')==''){
+				update_option('brid_options','');
+			}
 			
         }
         public static function getConst($const){
         	return defined($const) ? constant($const) : '';
         }
         public static function deactivate(){
+            
+        }
+        public static function uninstall(){
+
             delete_option('brid_options');
         }
 		public function __construct() {
 		    register_activation_hook( __FILE__, array( $this, 'activate' ) );
 		    register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
-		   
+		    register_uninstall_hook( __FILE__, array( 'Brid', 'uninstall' ) );
+		    
 		    self::$instance = $this;
 		}
 

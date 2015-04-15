@@ -105,7 +105,7 @@
 		        	<tr>
 		        		<td style="padding-top:22px;">
 							
-<div class="button saveButton save-playlist" data-form-id="PlaylistEditForm" id="playlistSaveEdit" style="margin-bottom:40px;">
+<div class="bridButton saveButton save-playlist" data-form-id="PlaylistEditForm" id="playlistSaveEdit" style="margin-bottom:40px;">
 	<div class="buttonLargeContent">SAVE</div></div>
 
 		        		</td>

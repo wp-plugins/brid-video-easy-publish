@@ -16,20 +16,20 @@ if(!$buttonsOff){
 		<?php if($ask){
 			?>
 			<!-- Ask qustion about host -->
-			<div class="button add-video various"  data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>" id="addVideoQuestion">
+			<div class="bridButton add-video various"  data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>" id="addVideoQuestion">
 				<div class="buttonLargeContent">ADD VIDEO</div>
 			</div>
 			<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>
 		<?php
 		}else{
 			?>
-			<div class="button add-video" data-href="#" id="addVideo">
+			<div class="bridButton add-video" data-href="#" id="addVideo">
 			<div class="buttonLargeContent">ADD VIDEO</div>
 		</div>
 		<?php
 		}?>
 		
-		<div class="button add-youtube" data-href="#" id="addYoutube" style="opacity: 1;">
+		<div class="bridButton add-youtube" data-href="#" id="addYoutube" style="opacity: 1;">
 			<div class="buttonLargeContent">ADD YOUTUBE</div>
 		</div>
 
@@ -40,7 +40,7 @@ if(!$buttonsOff){
 	?>
 	<div class="mainWrapper">
 	<div class="mainButtonsMenu" style="text-align:right;">
-		<div class="button post-video disabled" data-href="#" id="postVideo" style="margin-right:40px;">
+		<div class="bridButton post-video disabled" data-href="#" id="postVideo" style="margin-right:40px;">
 			<div class="buttonLargeContent">POST</div>
 		</div>
 	</div>
@@ -61,7 +61,7 @@ var playlistType = '<?php echo $playlistType; ?>';
 			<!-- Select all checkbox -->
 			<li class="last">
 				<div style="float:left; margin-top:1px;margin-left:8px;">
-					<div id="checkbox-video-check-all" class="checkbox" data-method="toggleAll" data-name="video">
+					<div id="checkbox-video-check-all" class="bridCheckbox" data-method="toggleAll" data-name="video">
 						<div class="checkboxContent">
 							<img src="<?php echo BRID_PLUGIN_URL ?>img/checked.png" class="checked" style="display:none" alt="">
 							<input type="hidden" name="data[Video][video-check-all]" class="singleCheckbox" id="video-check-all" data-value="0" style="display:none;">
@@ -216,7 +216,7 @@ var playlistType = '<?php echo $playlistType; ?>';
 														$checkboxZindex = in_array($v->Video->status, array(5)) ? 'z-index:999;' : '';
 													?>
 													<div class="checkboxRow" style="<?php echo $checkboxZindex; ?>">
-														<div id="checkbox-video-id-<?php echo $v->Video->id; ?>" class="checkbox" data-method="toggleTopMenu" data-name="video">
+														<div id="checkbox-video-id-<?php echo $v->Video->id; ?>" class="bridCheckbox" data-method="toggleTopMenu" data-name="video">
 															<div class="checkboxContent">
 																<img src="<?php echo BRID_PLUGIN_URL ?>img/checked.png" class="checked" style="display:none" alt="">
 																<input type="hidden" name="data[Video][id]" class="singleCheckbox" id="video-id-<?php echo $v->Video->id; ?>" data-value="<?php echo $v->Video->id; ?>" style="display:none;">
@@ -323,7 +323,7 @@ var playlistType = '<?php echo $playlistType; ?>';
 																							</div>					
 																						</td>
 																						<td style="padding-left:25px;padding-top:0px">
-																							<div class="button saveButton save-video" data-form-id="VideoEditQuick<?php echo $v->Video->id; ?>" id="videoSaveAdd">
+																							<div class="bridButton saveButton save-video" data-form-id="VideoEditQuick<?php echo $v->Video->id; ?>" id="videoSaveAdd">
 																								<div class="buttonLargeContent">SAVE</div>
 																							</div>
 
@@ -392,7 +392,7 @@ var encodingIds = <?php echo json_encode($videosDataset->Encoding); ?>;
 //$Brid.init(['Ping.Encoding']);
 //var playlistId = null;
 //var quickSave = saveObj.init();	//Init all save buttons in quick edit forms
-jQuery(document).ready(function(){
+//jQuery(document).ready(function(){
 
 	var save = saveObj.init();
 
@@ -566,7 +566,7 @@ jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click',
 
 
   
-});
+//});
   </script>
 <?php
  } else { 

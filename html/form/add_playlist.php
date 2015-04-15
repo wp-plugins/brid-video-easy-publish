@@ -39,7 +39,7 @@
 		        			<td> 
 		        			 
 
-		<div class="button saveButton dsiabled lightboxSave" data-form-id="PlaylistAddForm" id="playlistSaveAdd1">
+		<div class="bridButton saveButton dsiabled lightboxSave" data-form-id="PlaylistAddForm" id="playlistSaveAdd1">
 			<div class="buttonLargeContent">SAVE</div></div>
 
 			

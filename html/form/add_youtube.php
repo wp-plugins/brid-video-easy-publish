@@ -122,7 +122,7 @@
 										
 										<tr>
 											<td colspan="2">
-												<div id="checkbox-mp4_hd_on" class="checkbox disabledCheckbox" data-method="toggleVideoField" data-name="mp4_hd_on" style="top:4px;left:1px;"><div class="checkboxContent"><img src="<?php echo BRID_PLUGIN_URL; ?>img/checked.png" class="checked" style="display:none" alt=""><input type="hidden" name="mp4_hd_on" class="singleCheckbox" id="mp4_hd_on" data-value="0" style="display:none;"></div><div class="checkboxText">Add HD Version</div></div>
+												<div id="checkbox-mp4_hd_on" class="bridCheckbox disabledCheckbox" data-method="toggleVideoField" data-name="mp4_hd_on" style="top:4px;left:1px;"><div class="checkboxContent"><img src="<?php echo BRID_PLUGIN_URL; ?>img/checked.png" class="checked" style="display:none" alt=""><input type="hidden" name="mp4_hd_on" class="singleCheckbox" id="mp4_hd_on" data-value="0" style="display:none;"></div><div class="checkboxText">Add HD Version</div></div>
 											
 											</td>
 										</tr>
@@ -135,7 +135,7 @@
 								</table>
 	            		      
 
-								<div class="button saveButton disabled" id="videoSaveAdd" data-method="onVideoSave" data-form-bind="0" data-form-req="0" style="margin-bottom: 0px; margin-top: 15px; display: none;">
+								<div class="bridButton saveButton disabled" id="videoSaveAdd" data-method="onVideoSave" data-form-bind="0" data-form-req="0" style="margin-bottom: 0px; margin-top: 15px; display: none;">
 									<div class="buttonLargeContent">SAVE</div>
 								</div>
 							</div>
@@ -175,7 +175,7 @@
            
      </div></div></td>
      <td align="right" id="td{{id}}">
-		<div class="button youtube_add" data-id="{{id}}" style="display: block; opacity: 1;">
+		<div class="bridButton youtube_add" data-id="{{id}}" style="display: block; opacity: 1;">
 		<div class="buttonLargeContent">ADD</div></div>
      </td>
 </tr></tbody></table>

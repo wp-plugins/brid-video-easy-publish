@@ -21,10 +21,10 @@
 						<span class="optionText">NO</span>
 					</li>
 				</ul>-->
-				<div class="button" id="yesButton">
+				<div class="bridButton" id="yesButton">
 					<div class="buttonLargeContent">YES</div>
 				</div>
-				<div class="button" id="noButton">
+				<div class="bridButton" id="noButton">
 					<div class="buttonLargeContent">NO</div>
 				</div>
 			</div>	
@@ -66,7 +66,7 @@
 	
 	
 		<div class="checkboxRow" style='top:5px;margin-bottom:20px;'>
-			<div id="checkbox-user_upload" class="checkbox" data-method="toggleTopMenu" data-name="user_upload">
+			<div id="checkbox-user_upload" class="bridCheckbox" data-method="toggleTopMenu" data-name="user_upload">
 				<div class="checkboxContent" style='margin-right:10px;'>
 					<img src="<?php echo BRID_PLUGIN_URL ?>img/checked.png" class="checked" style="display:none" alt="">
 					<input type="hidden" name="data[][premiumPlanCheckbox]" class="singleCheckbox" id="premiumPlanCheckbox" data-value="0" style="display:none;">
@@ -75,10 +75,10 @@
 		</div>
 	
 	<div style='clear:both;'>	</div>
-	<div class="button" id="premiumPlanConfirm" style='margin-left:20px;'>
+	<div class="bridButton" id="premiumPlanConfirm" style='margin-left:20px;'>
 		<div class="buttonLargeContent">CONFIRM</div>
 	</div>
-	<div class="button" id="premiumPlanCancel">
+	<div class="bridButton" id="premiumPlanCancel">
 		<div class="buttonLargeContent">CANCEL</div>
 	</div>
 	
@@ -92,7 +92,7 @@ $Brid.Html.CheckboxElement.init();
 //$Brid.Html.Radio.init();
 //jQuery('#PartnerUserUploadForm').submit(function(){return false;});
 (function($){ 
-$('#userUpload .button,#uploadRules .button').click(function(){
+$('#userUpload .bridButton,#uploadRules .bridButton').click(function(){
 							var idButton = $(this).attr('id'),formData = {};
 							$(this).addClass('disabled');
 							var object = {

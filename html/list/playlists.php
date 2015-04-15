@@ -3,11 +3,11 @@ if(!$buttonsOff){
 	?>
 <div class="mainWrapper">
 	<div class="mainButtonsMenu">
-		<div class="button add-playlist various bridAjaxLightbox" data-action="addPlaylist" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist'; ?>" id="addPlaylist">
+		<div class="bridButton add-playlist various bridAjaxLightbox" data-action="addPlaylist" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist'; ?>" id="addPlaylist">
 			<div class="buttonLargeContent">ADD PLAYLIST</div>
 		</div>
 		
-		<div class="button add-playlistyt various bridAjaxLightbox" data-action="addPlaylistYt" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist&video_type=yt&playlistType=1'; ?>" id="addPlaylistYt">
+		<div class="bridButton add-playlistyt various bridAjaxLightbox" data-action="addPlaylistYt" href="<?php echo admin_url('admin-ajax.php').'?action=addPlaylist&video_type=yt&playlistType=1'; ?>" id="addPlaylistYt">
 			<div class="buttonLargeContent">ADD YOUTUBE PLAYLIST</div>
 		</div>
 	</div>
@@ -21,7 +21,7 @@ $Brid.init([['Html.Search', {className : '.inputSearch', model : 'Playlist'}]]);
 
 	<div class="mainWrapper">
 		<div class="mainButtonsMenu" style="text-align:right;">
-			<div class="button post-playlist disabled" data-href="#" id="postPlaylist" style="margin-right:40px;">
+			<div class="bridButton post-playlist disabled" data-href="#" id="postPlaylist" style="margin-right:40px;">
 				<div class="buttonLargeContent">POST</div>
 			</div>
 		</div>
@@ -36,7 +36,7 @@ $Brid.init([['Html.Search', {className : '.inputSearch', model : 'Playlist'}]]);
 					<!-- Select all checkbox -->
 					<li class="last">
 						<div style="float:left; margin-top:1px;margin-left:8px;">
-							<div id="checkbox-playlist-check-all" class="checkbox" data-method="toggleAll" data-name="playlist">
+							<div id="checkbox-playlist-check-all" class="bridCheckbox" data-method="toggleAll" data-name="playlist">
 								<div class="checkboxContent">
 									<img src="<?php echo BRID_PLUGIN_URL; ?>img/checked.png" class="checked" style="display:none" alt="">
 									<input type="hidden" name="data[Playlist][playlist-check-all]" class="singleCheckbox" id="playlist-check-all" data-value="0" style="display:none;">
@@ -164,7 +164,7 @@ if(!empty($playlists->Playlists)){
 							<div class="tableRow" id="tableRow<?php echo $v->Playlist->id; ?>">
 								<div class="videoContent" id="videoContnet<?php echo $v->Playlist->id; ?>">
 									<div class="checkboxRow" style="">
-										<div id="checkbox-playlist-id-<?php echo $v->Playlist->id; ?>" class="checkbox" data-method="toggleTopMenu" data-name="playlist">
+										<div id="checkbox-playlist-id-<?php echo $v->Playlist->id; ?>" class="bridCheckbox" data-method="toggleTopMenu" data-name="playlist">
 											<div class="checkboxContent"><img src="<?php echo BRID_PLUGIN_URL; ?>img/checked.png" class="checked" style="display:none" alt="">
 												<input type="hidden" name="data[Playlist][id]" class="singleCheckbox" id="playlist-id-<?php echo $v->Playlist->id; ?>" data-value="<?php echo $v->Playlist->id; ?>" style="display:none;">
 											</div>
@@ -270,7 +270,7 @@ if(!empty($playlists->Playlists)){
 															<td style="padding-left:25px;padding-top:0px;">
 																
 
-											<div class="button saveButton save-playlist" data-form-id="PlaylistEditQuick<?php echo $v->Playlist->id; ?>" id="playlistSaveAdd">
+											<div class="bridButton saveButton save-playlist" data-form-id="PlaylistEditQuick<?php echo $v->Playlist->id; ?>" id="playlistSaveAdd">
 												<div class="buttonLargeContent">SAVE</div></div>
 
 															</td>
@@ -332,7 +332,7 @@ var quickSave = saveObj.init();	//Init all save buttons in quick edit forms
 var paginationOrder = '<?php echo $paginationOrder; ?>';
 var buttonsOff = '<?php echo $buttonsOff; ?>';
 
-jQuery(document).ready(function(){
+//jQuery(document).ready(function(){
 
 	//var save = saveObj.init();
 	//Init pagination links
@@ -447,7 +447,7 @@ jQuery(document).ready(function(){
 	// End control of checkbox dropdown
 	jQuery('#checkbox-video-check-all img.checked').hide();
 
-});
+//});
 </script>
 <?php }else{
 

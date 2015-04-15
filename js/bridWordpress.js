@@ -1003,7 +1003,7 @@ var Button = {
 			debug.log('$Brid.Html.Button.hover()');
 			
 			//0,8 group
-			jQuery('.button, .textButtonSmall, .delButtonSmall, .videoGetEmbed, .opacityButton').hover(function(){
+			jQuery('.bridButton, .textButtonSmall, .delButtonSmall, .videoGetEmbed, .opacityButton').hover(function(){
 				jQuery(this).stop().animate({"opacity": 0.8}, 250);
 			}, function(){
 				jQuery(this).stop().animate({"opacity": 1});
@@ -1302,7 +1302,7 @@ var CheckboxElement = {
 		 */
 		init : function(){
 			debug.log('$Brid.Html.CheckboxElement.init()', 'Init custom checkboxes.');
-			jQuery('.checkbox').off('click', this.click).on('click', this.click);
+			jQuery('.bridCheckbox').off('click', this.click).on('click', this.click);
 		},
 		/**
 		 * On click for custom checkboxes (This is not used in toolbar - @see checkAllCheckbox
@@ -1762,7 +1762,7 @@ var CheckboxElement = {
 			        if (propertyExists[0] != undefined && jQuery(propertyExists[0]).attr('data-value')==obj.status) {
 			                 
 			            	 debug.log('property',propertyExists);
-				             var elStat = jQuery('#tableRow'+vId).find('.checkbox').hasClass('disabledCheckbox');
+				             var elStat = jQuery('#tableRow'+vId).find('.bridCheckbox').hasClass('disabledCheckbox');
 			                 
 			                 debug.log('Checkbox is disabled?', elStat, this.id);
 			                 if (elStat==false){

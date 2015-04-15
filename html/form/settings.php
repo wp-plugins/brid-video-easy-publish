@@ -92,7 +92,7 @@
           </select>
         </div>
 
-          <div class="button auth-plugin" data-href="#" id="authPlugin" style="margin-top:20px;">
+          <div class="bridButton auth-plugin" data-href="#" id="authPlugin" style="margin-top:20px;">
             <input type="submit" class="buttonLargeContent" value="SAVE CHANGES" style="height:48px;"/>
           </div>
        

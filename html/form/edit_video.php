@@ -114,7 +114,7 @@
 				    	if($video->Video->external_type!=1){?>
 				    	<tr>
 				    		<td colspan="2" style="padding-top:15px;">
-				    			<div id="checkbox-mp4_hd_on" class="checkbox" data-method="toggleVideoField" data-name="mp4_hd_on" style="top:4px;left:0px;">
+				    			<div id="checkbox-mp4_hd_on" class="bridCheckbox" data-method="toggleVideoField" data-name="mp4_hd_on" style="top:4px;left:0px;">
 				    				<div class="checkboxContent">
 				    					<?php 
 				    						$hdStyle = ($video->Video->mp4_hd_on) ? 'block' : 'none'; 
@@ -203,7 +203,7 @@
 							  		<tbody><tr>
 							  			<td>
 							  				<div class="formWrapper" style="margin-bottom:20px">
-							  					<div id="checkbox-monetize" class="checkbox" data-method="toggleAdSettings" data-name="monetize" style="top:4px;">
+							  					<div id="checkbox-monetize" class="bridCheckbox" data-method="toggleAdSettings" data-name="monetize" style="top:4px;">
 							  						<?php
 							  								$c = '';
 							  								if($video->Video->monetize){
@@ -227,7 +227,7 @@
 													
 													
 
-											<div class="button add-preroll-ad" id="add-preroll-ad" style="opacity: 1;">
+											<div class="bridButton add-preroll-ad" id="add-preroll-ad" style="opacity: 1;">
 												<div class="buttonLargeContent">ADD PRE-ROLL</div></div>
 
 																						
@@ -235,21 +235,21 @@
 																						<div class="add-ad" id="add-ad-midroll" data-type="midroll">
 																						
 
-											<div class="button add-midroll-ad" id="add-midroll-ad" style="opacity: 1;">
+											<div class="bridButton add-midroll-ad" id="add-midroll-ad" style="opacity: 1;">
 												<div class="buttonLargeContent">ADD MID-ROLL / SET CUE POINTS</div></div>
 
 																						</div>
 																						<div class="add-ad" data-type="overlay">
 																							
 
-											<div class="button add-overlay-ad" id="add-overlay-ad">
+											<div class="bridButton add-overlay-ad" id="add-overlay-ad">
 												<div class="buttonLargeContent">ADD OVERLAY</div></div>
 
 																						</div>
 																						<div class="add-ad" data-type="postroll">
 																							
 
-											<div class="button add-postroll-ad" id="add-postroll-ad">
+											<div class="bridButton add-postroll-ad" id="add-postroll-ad">
 												<div class="buttonLargeContent">POSTROLL</div>
 											</div>
 
@@ -277,7 +277,7 @@
 	    	</div>
 	    	<!-- Monetization end -->
 	    <?php } ?>
-    	 <div class="button saveButton save-video lightboxSave" id="videoSaveEdit" data-form-id="VideoEditForm" data-form-bind="0" data-form-req="0" style="margin-top:30px;margin-left:10px;">
+    	 <div class="bridButton saveButton save-video lightboxSave" id="videoSaveEdit" data-form-id="VideoEditForm" data-form-bind="0" data-form-req="0" style="margin-top:30px;margin-left:10px;">
 				<div class="buttonLargeContent">SAVE</div></div>
 		<?php //if($video->Video->external_type!=1){?>
 		
