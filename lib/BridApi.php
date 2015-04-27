@@ -669,6 +669,11 @@ class BridAPI {
      if(isset($_POST['playlistType'])){
      	$options['params']['videos_type'] = $_POST['playlistType'];
      }
+     if(isset($_POST['limit'])){
+      $options['params']['limit'] = $_POST['limit'];
+     }
+
+     //print_r($options);
 
      $videoSet = $this->call($options, $encode);
 
@@ -706,6 +711,9 @@ class BridAPI {
         $_POST['Playlist']['search'] = $search = $_SESSION['Brid.Playlist.Search'];
         $options['params'] = $_POST;
      } 
+     if(isset($_POST['limit'])){
+      $options['params']['limit'] = $_POST['limit'];
+     }
 
       $playlistSet = $this->call($options, $encode);
 
@@ -794,6 +802,34 @@ class BridAPI {
         $post['data[Partner]['.$k.']'] = $v;
     }
     return $this->call(array('url'=>'updatePartnerField', 'params'=>$post), $encode);
+  }
+  /**
+   * Update partner field
+   * @param (array) $_post - Post array $_POST = array('id'=>1, 'intro_video'=>1)
+   * @param (bool) $encode - False to encode it in json, true to return it in StdClass
+   */
+  protected function editPlayer($_p=array(), $encode=false){
+
+    if(isset($_p['Player']['id'])){ $_p['Player']['id'] = intval($_p['Player']['id']); }
+
+    if(!isset($_p['Player']['id']) || $_p['Player']['id']==0 || !is_numeric($_p['Player']['id'])){
+      throw new InvalidArgumentException('Content id is invalid.');
+    }
+
+    $post = array();
+    foreach($_p['Player'] as $k=>$v){
+        $post['data[Player]['.$k.']'] = $v;
+    }
+    if(isset($_p['Ad'])){
+      foreach($_p['Ad'] as $k=>$v){
+        //if($k!='id')
+          $post['data[Ad]['.$k.']'] = $v;
+      }  
+    }
+    
+    //print_r($post); die();
+
+    return $this->call(array('url'=>'editPlayer', 'params'=>$post), $encode);
   }
   /**
    * Change status

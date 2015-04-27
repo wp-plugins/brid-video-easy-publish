@@ -1,4 +1,4 @@
-<div class="mainWrapper">
+<div class="mainWrapper" style="width:100%;overflow:hidden">
 	<div class="formWrapper" id="userUpload">
 		<form action="<?php echo admin_url('admin-ajax.php'); ?>" id="PartnerUserUploadForm" method="post" accept-charset="utf-8">
 			<div style="display:none;">
@@ -9,18 +9,7 @@
 			<div class="userUploadHeader">WOULD YOU LIKE US TO ENCODE &amp; HOST THE VIDEO FILES FOR YOU?</div>
 			<div class="options">
 				<input type="hidden" name="upload" class="singleOption" value="1" id="upload">
-				<!-- <ul class="ul-opitons">
-					<li id="upload-1" data-value="1" class="option">
-						<img src="<?php echo BRID_PLUGIN_URL; ?>img/option.png" class="option_not_selected" alt="">
-						<img src="<?php echo BRID_PLUGIN_URL; ?>img/option_selected.png" class="option_selected" style="display:block;" alt="">
-						<span class="optionText">YES</span>
-					</li>
-					<li id="upload-0" data-value="0" class="option">
-						<img src="<?php echo BRID_PLUGIN_URL; ?>img/option.png" class="option_not_selected" alt="">
-						<img src="<?php echo BRID_PLUGIN_URL; ?>img/option_selected.png" class="option_selected" alt="">
-						<span class="optionText">NO</span>
-					</li>
-				</ul>-->
+				
 				<div class="bridButton" id="yesButton">
 					<div class="buttonLargeContent">YES</div>
 				</div>
@@ -31,9 +20,6 @@
 			<div style="clear:both;"></div>
 			
 
-		<!-- <div class="button saveButton save-partner lightboxSave" id="partnerSaveEdit">
-			<div class="buttonLargeContent">SAVE</div>
-		</div>-->
 
 		</form>  
 		<div class="userUploadFooter">
@@ -41,7 +27,7 @@
 		</div>
 	</div>
 	
-	<div id='uploadRules' style='display:none;width:910px;margin-left:5px;font-color:#000000;' class="formWrapper">
+	<div id='uploadRules' style='display:none;width:910px;margin-left:5px;font-color:#000000;min-height:180px' class="formWrapper">
 	<h3 class="lined" style='text-transform:uppercase;margin-left:20px;margin-bottom:25px;'><span>Thank you for choosing the Brid.tv FREE PREMIUM plan.</span></h1>
 	
 	<p style='margin-top:20px;margin-bottom:15px;margin-left:20px;font-size:15px;'>
@@ -50,10 +36,13 @@
 	<div style='background-color:#f1f2f2;font-size:15px;font-family:Arial;font-weight:bold;color:#000000;padding:20px 0px 10px 20px;margin-bottom:15px;'>
 	<ul>
 		<li>
-			We have a minimum requirement of 5.000 daily click-to-play video views.	
+			We have a minimum requirement of 5,000 daily click-to-play video views.
 		</li>
 		<li>
-			You will need to use a large click-to-play player. We consider any player over 400px in width large. 
+			Large content players are preferred. We consider any player over 400px in width large.
+		</li>
+		<li>
+			We take 40% of ad inventory.
 		</li>
 		<li>
 			Allow up to 2-3 business days for us to approve your PREMIUM account by whitelisting your domain with our ad providers.
@@ -83,7 +72,11 @@
 	</div>
 	
 	<div style='clear:both;margin-bottom:10px;'></div>
-	<a style="margin-left:20px;font-size:14px;font-weight:normal;text-decoration:underline;" href='https://brid.zendesk.com/hc/en-us/articles/202167711' target='_blank'>For more information on Brid's premium plan please click here.</a>
+	<div style='margin-left:20px;clear:both;'>
+		<a style="font-size:14px;font-weight:normal;text-decoration:underline;" target='_blank' href='https://brid.zendesk.com/hc/en-us/articles/202167711'>Read more info on Brid Premium plan.</a> 
+		Please also note that we will <span style='font-weight:bold;'>NOT</span> charge you for any bandwidth incurred by using our Premium plan. 
+		We will simply reserve the right to monetize 40% of your video inventory.
+	</div>
 </div>
 </div>
 <script>

@@ -1,10 +1,10 @@
 === Brid Video Easy Publish ===
-Contributors: Sovica
+Contributors: Sovica, Brid
 Donate link: http://www.brid.tv/
-Tags: brid.tv, brid video, post, posts, video, media library, media, richmedia cms, brid cms, playlist, video gallery, transcoding, encoding, advertising, video ads, video advertising, video monetization
-Requires at least: 3.6
-Tested up to: 4.1.1
-Stable tag: 1.0.11
+Tags: embed video, embed youtube, flash, flash player, html5, html5 player, video, mobile, video player, Brid.tv, brid video, brid player, brid.tv video player, webm, h.264, ffmpeg, MP4, ogg, poster, responsive, free video, video library, video gallery, transcoding, encoding, advertising, vast, video ads, video advertising, video monetization, playlist widget, video shortcode, video slider, youtube video, youtube player, video plugin, video widget, playlist, veeps, youtube playlist, video blog, video embed, flash video player, html5 video player, free video platform
+Requires at least: 4.0
+Tested up to: 4.2
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,13 +71,36 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 
 1. Video library
 2. Video edit view
-3. Monetization screen where you can add a custom ad tag URL to monetize your content.
-4. Playlists screen.
-5. Add to post Brid video button.
-6. Upload/add video to your account.
-7. Add a YouTube video to your account.
+3. Monetization screen where you can add a custom ad tag URL to monetize your content
+4. Playlists screen
+5. Add to post Brid video button
+6. Upload video to your account
+7. Add a YouTube video to your account
+8. Add an externally hosted video to your account
+9. Brid settings page
+10. Brid player configuration
+11. Brid quick post video screen
 
 == Changelog ==
+
+= Version 2.0.0 =
+
+This is almost a complete rework of our original plugin. There have been numerous changes and we could not list them all even if we wanted to. Here is brief overview of all the main features:
+
+*   JavaScript backend optimizations in WordPress admin - Brid JavaScript are loaded only on admin pages that have Brid functionality.
+*	Optimized Brid JavaScript front-end delivery when more than one Brid embed code is located on a single post or page.
+*   Added a new settings page which contains additional monetization options for your player.
+*   Added two new Brid replacers which can replace any YouTube or other WordPress video that was added to any post or page with a Brid player.
+*   Added many configuration options for Brid players under the new settings page.
+*	Added a FAQ section which contains valuable information regarding the plugin functionality.
+*	All Brid plugin options are now centralized under a new entry in your main left hand menu under Brid.tv.
+*	Added a Brid preview player on the Visual tab of any WordPress post or page.
+*	Re-worked the new Brid quick post button on WordPress pages and posts.
+*   Added functionality so that users can add any type of video or playlist through the Brid quick post button.
+*	Added a report a bug section on the right sidebar.
+*	Added a Brid playlist widget which you can find under your WordPress widgets section. It can currently display only your latest video playlist.
+*	Added numerous optimizations for WordPress sites under HTTPS.
+*   Fixed a couple of minor bugs on the video library page.
 
 = Version 1.0.11 =
 
@@ -143,5 +166,5 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 
 == Upgrade Notice ==
 
-= 1.0.7 =
+= 2.0.0 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.

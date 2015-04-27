@@ -1,16 +1,62 @@
 <div class="mainWrapper" style='padding-top:10px;'>
-	<div class="backBubble" style="margin-bottom:0px;">
+	<div class="backBubble">
 				<a href="<?php echo admin_url( 'admin.php?page=brid-video-menu');?>">« VIDEOS</a>
 				
-		ADD VIDEO	
+		UPLOAD VIDEO	
 	</div>
+<?php 
+$hideUploadFields = 'block';
+if($upload) {
+$hideUploadFields = 'none';
+	?>
+<div class="formUploaderWrapper" id="UploaderForm" style="position:relative;margin-top:20px">
+	<div class="mainDataAdd">
+	<form id="upload" name="upload" enctype="multipart/form-data" action="" target="uploadframe"  method="post">
+									
+		<input type="hidden" id="uid" name="uid" value="0" />
+		<input type="hidden" id="sid" name="sid" value="0" />
+		<input type="hidden" id="bridTimestamp" name="timestamp" value="0" />
+		<input type="hidden" id="signature" name="signature" value="0" />
+		<div id="uploadButtonDiv">
+			<input type="button" id="userfileButton" class="uploadFile" autocomplete="off"/>
+		</div>
+		<div id="uploadInputHide">
+			<input name="userfile" id="userfile" type="file"/>
+		</div>
+		
+	</form>
+	<iframe id="uploadframe" name="uploadframe" width="0" height="0" frameborder="0" border="0" ></iframe>
+	<div id="progress"></div>
+	<div id="uploadCloseBtn"></div>
+	<div id="uploadMsg"></div> 
+	<script>
+	var uploadUrl = '<?php echo OAUTH_PROVIDER; ?>';
+	$Brid.init([['Html.Uploader', {uploadLimit:'1000MB'}]]);
+	</script>
+	</div>
+
+	<div id="fetchDiv" class="form">
+			<div class="fetchDivWrapper">
+				<div class="input text"><span class="fetchDivHSpan">http://</span><label for="fetchUrl">Alternatively, you can have us upload your video file from a URL, or enter a streaming URL here:</label><input name="data[fetchUrl]" style="text-indent:50px;color:#bbbdc0;" class="reqiured" type="text" id="fetchUrl"></div>				
+
+			<div class="bridButton go-fetch-url disabled" id="goFetchUrl" data-form-req="0" data-form-bind="0" style="margin-top: 20px; margin-left: 2px;">
+			<div class="buttonLargeContent" style="  margin-top: 20px;">GO</div></div>
+
+			</div>
+			
+	</div>
+
+</div>
+<div class='fetchWarring'>By uploading this video to our system you confirm that you own all copyrights or have authorization to upload and use it.</div>
+<?php } ?>
+
 <div class="videos form">
- <form action="<?php echo admin_url('admin-ajax.php'); ?>" id="VideoAddForm" method="post" accept-charset="utf-8">
+<form action="<?php echo admin_url('admin-ajax.php'); ?>" id="VideoAddForm" method="post" accept-charset="utf-8">
  	<div style="display:none;"><input type="hidden" name="_method" value="POST"></div>    
- 	<table class="form-table" style="display:block">
+ 	<table class="form-table" style="display:<?php echo $hideUploadFields; ?>">
 	 <tbody><tr>
 		<td style="width:858px">
-			<div class="formWrapper videoAddFormWrapper" style="margin-top:0px">
+			<div class="formWrapper videoAddFormWrapper">
 
 				<div id="mainAdd">
 					<input type="hidden" name="action" value="addVideo">
@@ -18,8 +64,17 @@
 					<input type="hidden" name="partner_id" value="<?php echo BridOptions::getOption('site'); ?>">
 					<input type="hidden" name="user_id" value="<?php echo BridOptions::getOption('user_id'); ?>">
 					<input type="hidden" name="id" id="VideoId">
-					<input type="hidden" name="upload_form" value="0" id="VideoUploadForm">
-					
+					<input type="hidden" name="upload_form" value="<?php echo $upload; ?>" id="VideoUploadForm">
+					<?php if($upload) {?>
+
+						<input type="hidden" name="upload_in_progress" id="VideoUploadInProgress" value="0">
+						<input type="hidden" name="progress_signature" id="VideoProgressSignature">
+						<input type="hidden" name="original_filename" id="VideoOriginalFilename">
+						<input type="hidden" name="original_file_size" id="VideoOriginalFileSize">
+						<input type="hidden" name="upload_source_url" id="VideoUploadSourceUrl">
+						<input type="hidden" name="xml_url" id="VideoXmlUrl">
+
+					<?php } ?>
 					<input type="hidden" name="default_tab" value="" id="VideoDefaultTab">
 					<input type="hidden" name="external_id" id="VideoExternalId">
 					<input type="hidden" name="encoding_setup_finished" id="VideoEncodingSetupFinished">
@@ -32,7 +87,7 @@
 					<input type="hidden" name="external_type" id="VideoExternalType">
 					<input type="hidden" name="IsFamilyFriendly" id="VideoIsFamilyFriendly">
 					<input type="hidden" name="duration" id="VideoDuration">
-					<input type="hidden" name="autosave" id="VideoAutosave" value="0">
+					<input type="hidden" name="autosave" id="VideoAutosave" value="1">
 					<input type="hidden" name="external_url" default-value="External URL" data-info="External URL" id="VideoExternalUrl">					    <!-- Youtube/Vimeo Form -->
 									    						 
 					<!-- MAIN FORM -->
@@ -43,15 +98,13 @@
 								<tr>
 									<td style="width:576px; padding-top: 10px;">
 										<div class="input text required">
-											<label for="VideoName">Video title</label>
 											<input name="name" default-value="Video title" data-info="Video title" tabindex="1" maxlength="250" type="text" id="VideoName" required="required">
 										</div>										
 									</td>
 									<td style="padding:0px; padding-top: 10px; vertical-align:top; padding-left: 10px;">
 										<div style="float:right; position:relative;">
 											<div class="input text">
-												<label for="VideoName">Publish on a date</label>
-												<input name="publish" readonly="readonly" value="<?php echo date('d-m-Y'); ?>" default-value="<?php echo date('d-m-Y'); ?>" class="datepicker inputField" data-info="Publish on a date." type="text" id="VideoPublish">
+												<input name="publish" readonly="readonly" value="17-03-2014" default-value="17-03-2014" class="datepicker inputField" data-info="Publish on a date." type="text" id="VideoPublish">
 											</div>										
 										</div>
 									</td>
@@ -59,7 +112,6 @@
 								<tr>
 									<td colspan="2">
 										<div class="input textarea">
-											<label for="VideoName">Video description</label>
 											<textarea name="description" default-value="Video description" style="height:100px;" data-info="Video description" tabindex="2" cols="30" rows="6" id="VideoDescription" data-ajax-loaded="true"></textarea>
 										</div>
 									</td>
@@ -83,49 +135,27 @@
 								<tr>
 									<td colspan="2">
 										<div class="input text">
-												<label for="VideoName">Tags</label>
 												<input name="tags" default-value="Tags" tabindex="4" data-info="Input Tag values as Comma-Separated Values (CSV) if you wish to display related videos when this video ends." type="text" id="VideoTags">
 											</div>											
 									</td>
 								</tr>
-								
+								<?php if($hideUploadFields!='none'){?>
 								<tr>
 									<td colspan="2">
-										<table>
-											<tr>
-												<td>
-													<input type="hidden" name="thumbnail" id="VideoThumbnail">
-													<div class="input text">
-														<label for="VideoName">Snapshot Url</label>
-														<input name="image" default-value="Snapshot URL" data-info="Provide URL to the snapshot image" tabindex="5" maxlength="300" type="text" id="VideoImage">
-													</div>
-												</td>
-												<td style="width:110px">
-													<div class="bridBrowseLibary" style="margin-top:25px;" data-field="VideoImage" data-uploader_button_text="Add Snapshot" data-uploader_title="Browse from Media Library">BROWSE LIBRARY</div>
-												</td>
-											</tr>
-										</table>
-										
-										
+										<input type="hidden" name="thumbnail" id="VideoThumbnail">									
+										<div class="input text">
+											<input name="image" default-value="Snapshot URL" data-info="Provide URL to the snapshot image" tabindex="5" maxlength="300" type="text" id="VideoImage">
+										</div>
+										<div class="bridBrowseLibary" data-field="VideoImage" data-uploader_button_text="Add Snapshot" uploader_title="Browse from Media Library">Browse Library</div>
 									</td>
 								</tr>
 
 								<tr>
 									<td colspan="2">
-
-										<table>
-											<tr>
-												<td>
-													<div class="input text required">
-														<label for="VideoName">Mp4 or Webm Url</label>
-														<input name="mp4" default-value="MP4 or WEBM URL" data-info="Add MP4, WEBM or streaming video file URL" tabindex="6" maxlength="300" type="text" id="VideoMp4" required="required" data-ajax-loaded="true">
-													</div>	
-												</td>
-												<td style="width:110px">
-													<div class="bridBrowseLibary" style="margin-top:25px;" data-field="VideoMp4" data-uploader_button_text="Add Video" uploader_title="Browse from Media Library">BROWSE LIBRARY</div>
-												</td>
-											</tr>
-										</table>
+										<div class="input text required">
+											<input name="mp4" default-value="MP4 or WEBM" data-info="Add MP4, WEBM or streaming video file URL" tabindex="6" maxlength="300" type="text" id="VideoMp4" required="required" data-ajax-loaded="true">
+										</div>	
+										<div class="bridBrowseLibary" data-field="VideoMp4" data-uploader_button_text="Add Video" uploader_title="Browse from Media Library">Browse Library</div>
 									</td>
 								</tr>
 												
@@ -139,29 +169,18 @@
 											</div>
 											<div class="checkboxText">Add HD Version</div>
 										</div>
-										
 
 									
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2">
-										<table>
-											<tr>
-												<td>
-													<div class="input text invisibleDiv">
-														<input name="mp4_hd" default-value="MP4 or WEBM HD URL" data-info="MP4 High Definition URL Source" maxlength="300" type="text" id="VideoMp4Hd">
-													</div>	
-												</td>
-												<td style="width:110px">
-													<div class="bridBrowseLibary invisibleDiv" style="margin-top:0px;" data-field="VideoMp4Hd" data-uploader_button_text="Add HD Video" data-uploader_title="Browse for MP4 High Definition URL Source">BROWSE LIBRARY</div>								
-												</td>
-											</tr>
-										</table>
-																			
+										<div class="input text invisibleDiv">
+											<input name="mp4_hd" default-value="MP4 or WEBM HD URL" data-info="MP4 High Definition URL Source" maxlength="300" type="text" id="VideoMp4Hd">
+										</div>										
 									</td>
 								</tr>
-								
+								<?php } ?>
 								<tr>
 			    					<td id="ageRestriction">
 			    						<div class="selectboxes">
@@ -206,7 +225,7 @@
 	?>
 	<div style="clear:both;"></div>
 	<div style="border-top:1px solid #BCC3C3;margin-top:15px;padding-top:2px;">
-		<div style="margin-left:12px;font-weight:normal;text-decoration:underline;cursor:pointer;text-weight:bold;" id="addVideoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">Want us to host and encode videos for you? Upgrade to premium plan for free.</div>
+		<div style="margin-left:12px;font-weight:normal;text-decoration:underline;cursor:pointer;text-weight:bold;" class="various" id="addVideoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">Want us to host and encode videos for you? Upgrade to premium plan for free.</div>
 		<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>
 	</div>
 	<?php 
@@ -215,7 +234,7 @@
 </div>
 <script>
 var allowedImageExtensions = ["jpg","jpeg","png","gif"];
-var amIEncoded = 0; //force 0
+var amIEncoded = <?php echo $upload; ?>;
 var typingTimer;                					//timer identifier
 var doneTypingInterval = 600;  						//time in ms, 5 second for example
 var defaultTab = 'video';
@@ -229,7 +248,7 @@ var selectBoxTitle = 'Select category <img class="arrowDownJs" src="<?php echo B
 //Init save object
 var save = saveObj.init();
 
-//initBridMain();
+initBridMain();
 
 	 /**
 	  * Save button on click
@@ -260,13 +279,11 @@ var save = saveObj.init();
 	         
 	 });
 	//Call Enable save button function on change
-	jQuery('#VideoName, #VideoImage').input(function(){
-		checkFields();
+	jQuery('#VideoName, #VideoImage, #VideoMp4Hd').input(function(){
 		enableSave();
 	});
 	//Grab additional info and check codec of the provided Mp4 Url (on success call enableSave();)
 	jQuery("#VideoMp4").input(function(){
-		checkFields();
 		getFfmpegInfo();
 	});
 	jQuery('#ChannelIdUpload').change(function(){enableSave();});
@@ -298,9 +315,9 @@ var save = saveObj.init();
     		$Brid.Fetch.fetchUrl();
         });
     jQuery('#fetchUrl').on('input',$Brid.Fetch.checkFetchUrl);
-    //if(amIEncoded){
-	//	jQuery('#VideoName , #VideoDescription, #VideoTags, #VideoLandingPage').input($Brid.Video.checkAutosaveMessage);
-	//}
+    if(amIEncoded){
+		jQuery('#VideoName , #VideoDescription, #VideoTags, #VideoLandingPage').input($Brid.Video.checkAutosaveMessage);
+	}
 
 
 	var browse = jQuery('.bridBrowseLibary');
@@ -321,8 +338,6 @@ var save = saveObj.init();
 			     var title = jQuery('#VideoName');
 			     var desc = jQuery('#VideoDescription');
 			     var tags = jQuery('#VideoTags');
-
-
 			    // Create the media frame.
 			    file_frame = wp.media.frames.file_frame = wp.media({
 			      title: jQuery( this ).data( 'uploader_title' ),
@@ -337,11 +352,9 @@ var save = saveObj.init();
 			      // We set multiple to false so only get one image from the uploader
 			      attachment = file_frame.state().get('selection').first().toJSON();
 
-
-			     // console.log('attachment', attachment);
+			      console.log('attachment', attachment);
 
 			     field.val(attachment.url);
-			      jQuery('#checkbox-mp4_hd_on').removeClass('disabledCheckbox');
 
 			     jQuery('#default-value-'+fieldName).hide();
 

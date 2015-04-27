@@ -1,6 +1,6 @@
 <div id="addPlaylistVideos">
 	<h3 class="lined" style="width:828px; margin-left:15px;"><span>ADD VIDEO TO PLAYLIST</span></h3>
-		<div class="mainWrapper"><div class="mainButtonsMenu"></div></div>
+		
 	<!-- Top menu start -->
 
 	<!-- Top menu end -->
@@ -39,7 +39,7 @@
 		        			<td> 
 		        			 
 
-		<div class="bridButton saveButton dsiabled lightboxSave" data-form-id="PlaylistAddForm" id="playlistSaveAdd1">
+		<div class="bridButton saveButton dsiabled lightboxSave" data-callback="insertContentPlaylists" data-form-id="PlaylistAddForm" id="playlistSaveAdd1">
 			<div class="buttonLargeContent">SAVE</div></div>
 
 			

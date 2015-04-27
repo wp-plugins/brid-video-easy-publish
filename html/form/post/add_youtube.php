@@ -1,14 +1,9 @@
-<div class="mainWrapper" style='padding-top:10px;'>
-<div class="backBubble" style="margin-bottom:0px;">
-				<a href="<?php echo admin_url( 'admin.php?page=brid-video-menu');?>">« VIDEOS</a>
-				
-		ADD YOUTUBE	
-	</div>
-	<div class="videos form">
-	<form action="<?php echo admin_url('admin-ajax.php'); ?>" id="VideoAddForm" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div>    
+<div class="mainWrapper" style='padding-top:0px;width:auto'>
+	<div class="formWrapper form videoAddFormWrapper" style="width:90%; margin:0px;">
+		<form action="<?php echo admin_url('admin-ajax.php'); ?>" id="VideoAddForm" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div>    
 		<table class="form-table" style="display:block">
 		 <tbody><tr>
-			<td style="width:858px;">
+			<td>
 				<div class="formWrapper">
 									
 		    		<div id="mainAdd">
@@ -36,10 +31,15 @@
 						       	<!-- YOUTUBE SEARCH FORM -->
 						       
 							    <div style="padding:0px;position:relative" id="youtubeSearch">
-									<img src="<?php echo BRID_PLUGIN_URL; ?>img/search.png" style="position: absolute; right: 6px; top: 10px; z-index: 10; width: 32px; height: 29px">
-								    <div class="input text"><input name="youtube_search" default-value="Search for a term or enter video URL" data-info="Search for a term or enter video URL" type="text" id="VideoYoutubeSearch" aria-describedby="ui-tooltip-0" data-ajax-loaded="true">
-								    	
-								    </div>						    
+									<img src="<?php echo BRID_PLUGIN_URL; ?>img/search.png" style="position: absolute; right: 6px; top: 32px; z-index: 10; width: 32px; height: 29px">
+									<div class="input text required">
+											<label class="setting" data-setting="title">
+												<span>Search for a term or enter video URL</span>
+												
+													<input name="youtube_search" maxlength="300" style="width:100%" placeholder="Search for a term or enter video URL" type="text" id="VideoYoutubeSearch" data-ajax-loaded="true">
+												
+											</label>
+										</div>						    
 								</div>
 								<?php 
 								/*
@@ -140,10 +140,7 @@
 									</tbody>
 								</table>
 	            		      
-
-								<div class="bridButton saveButton disabled" id="videoSaveAdd" data-method="onVideoSave" data-form-bind="0" data-form-req="0" style="margin-bottom: 0px; margin-top: 15px; display: none;">
-									<div class="buttonLargeContent">SAVE</div>
-								</div>
+								
 							</div>
 					</div>
 					
@@ -159,36 +156,35 @@
 
 
 
-<table id="oneRowTempalte" style="display:none"><tbody><tr id="video-row-{{id}}" data-id="{{id}}" class="partnerTr" style="background-color:{{bgColor}}">
+	<table id="oneRowTempalte" style="display:none"><tbody><tr id="video-row-{{id}}" data-id="{{id}}" class="partnerTr" style="background-color:{{bgColor}}">
 	<td style="width:10px;"></td>
 		<td class="imgTable">
 			<div class="centerImg">
-                <div class="centerImgWrapper">
-                	<a href="{{providerUrl}}{{id}}" title="View on {{service}}: {{title}}" target="_blank">
-                    	<img src="{{image}}" class="thumb" width="111px" height="82px" id="video-img-{{id}}" alt="" style="display: inline;">
-                    </a>
-                </div>
-                <div class="time" id="video-duration-{{id}}">{{duration}}</div>
-            </div>
-    </td>
-    <td class="videoTitleTable">
-            <div style="float:left;width:100%;">
-                    <a href="{{providerUrl}}{{id}}" id="video-title-{{id}}"  class="listTitleLink"  title="View on {{service}}: {{title}}" target="_blank">{{title}}</a>
-                    <div class="videoUploadedBy">
-                        <div class="siteVideosNum">By: {{author}} &nbsp;&nbsp;<span style="color:#b5b5b5">Created: {{published}}</span></div>
-                    </div>
-            <div>
-           
-     </div></div></td>
-     <td align="right" id="td{{id}}">
-     	{{#unless vevo}}
+	            <div class="centerImgWrapper">
+	            	<a href="{{providerUrl}}{{id}}" title="View on {{service}}: {{title}}" target="_blank">
+	                	<img src="{{image}}" class="thumb" width="111px" height="82px" id="video-img-{{id}}" alt="" style="display: inline;">
+	                </a>
+	            </div>
+	            <div class="time" id="video-duration-{{id}}">{{duration}}</div>
+	        </div>
+	</td>
+	<td class="videoTitleTable">
+	        <div style="float:left;width:100%;">
+	                <a href="{{providerUrl}}{{id}}" id="video-title-{{id}}"  class="listTitleLink"  title="View on {{service}}: {{title}}" target="_blank">{{title}}</a>
+	                <div class="videoUploadedBy">
+	                    <div class="siteVideosNum">By: {{author}} &nbsp;&nbsp;<span style="color:#b5b5b5">Created: {{published}}</span></div>
+	                </div>
+	        <div>
+	       
+	 </div></div></td>
+	 <td align="right" id="td{{id}}">
 		<div class="bridButton youtube_add" data-id="{{id}}" style="display: block; opacity: 1;">
 		<div class="buttonLargeContent">ADD</div></div>
-		{{/unless}}
-     </td>
-</tr></tbody></table>
+	 </td>
+	</tr></tbody></table>
+	</div>
 </div>
-</div>
+
 <script>
 
 //Array of destination objects
@@ -379,8 +375,7 @@ var getYoutube = function(){
 											author:		v.author[0].name.$t, 
 											service:	'Youtube', 
 											published : new Date(v.published.$t).toPrettyFormat(),
-											providerUrl : 'http://www.youtube.com/watch?v=',
-											vevo : (v.author[0].name.$t.indexOf('VEVO')>-1 || v.author[0].name.$t.indexOf('Vevo')>-1)?true:false
+											providerUrl : 'http://www.youtube.com/watch?v='
 										});
 					});
 
@@ -389,7 +384,7 @@ var getYoutube = function(){
 					}else{
 
 						jQuery('#youtubeContent').html('No videos found.');
-						debug.log('No videos found');
+						console.log('No videos found');
 					}
 
 					 
@@ -449,7 +444,7 @@ function showContent(arrayData) {
 }
 
 
-
+jQuery(function() {
 
 
 	 /**
@@ -470,9 +465,9 @@ function showContent(arrayData) {
 	 /**
 	  * Save button on click
 	  */
-	  jQuery("#videoSaveAdd").click(function(e){
+	  jQuery("#videoSaveAdd").unbind('click');
+	  jQuery("#videoSaveAdd").off('click.PostBrid').on('click.AddPostBrid',function(e){
 
-		
 	 	 if(!jQuery(this).hasClass('disabled') && !jQuery("#videoSaveAdd").hasClass('inprogress')){
 
 	 		jQuery("#videoSaveAdd").addClass('inprogress');
@@ -581,6 +576,6 @@ function showContent(arrayData) {
         
     }
    
-
+});
 
 </script>

@@ -2,7 +2,7 @@
 	<div class="mainWrapper">
 
 		<div class="mainButtonsMenu" style="text-align:right; float:right;width:auto;">
-			<div class="bridButton post-playlist" data-href="#" id="postPlaylistDynamic" style="margin-right:40px;">
+			<div class="button post-playlist" data-href="#" id="postPlaylistDynamic" style="margin-right:40px;">
 				<div class="buttonLargeContent">POST</div>
 			</div>
 		</div>

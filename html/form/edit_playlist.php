@@ -1,3 +1,9 @@
+<div class="mainWrapper" style='padding-top:10px;'>
+<div class="backBubble" style="margin-bottom:0px;">
+				<a href="<?php echo admin_url('admin.php?page=brid-video-menu&pl='.intval(microtime()*1000000).'#playlist');?>">« PLAYLISTS</a>
+				
+		EDIT PLAYLIST	
+	</div>
 <?php $playlistType = count($playlist->Video)?$playlist->Video[0]->external_type:0;  ?>
 <div class="playlists form" style="padding-top:30px;">
 	<!-- @see http://manos.malihu.gr/tuts/jquery_thumbnail_scroller.html# -->
@@ -82,7 +88,7 @@
 					<script type="text/javascript" src='<?php echo CLOUDFRONT."player/build/brid.min.js"; ?>'></script>
 					<div id="Brid_video" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_video_adContainer"></div></div>
 					<script type="text/javascript">$bp("Brid_video", {id:'<?php echo DEFAULT_PLAYER_ID; ?>',playlist:'<?php echo $playlist->Playlist->id; ?>',width:'366', height:'227'});</script>
-					<script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+					<!--<script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>-->
 						        		
 	        	</div>
 		        
@@ -120,6 +126,7 @@
 <div class="propagate"><div>Please allow up to 10 minutes for changes to propagate.</div></div>			
 			</form>		
 		
+</div>
 </div>
 <script>
 var dragInProgress = false;
@@ -219,43 +226,9 @@ function initSortable(){
 					 hideOver();
 
 
-			  $Brid.Api.call({data : {action : "sortVideos", id : playlistId, sortOrder : getVideosOrder()} , callback : {after : {name : "updatePlaylistItems", obj : jQuery("#sortable")}}});
+			  $Brid.Api.call({data : {action : "sortVideos", id : playlistId, sort : getVideosOrder()} , callback : {after : {name : "updatePlaylistItems", obj : jQuery("#sortable")}}});
 	
 
-			  /*jQuery.ajax({
-				  url: '/playlists/sort_videos/'+playlist_id+'.json',
-				  data: 'data[Playlist][sort]='+getVideosOrder(),
-				  type: 'POST',
-				  async: true,
-				  beforeSend : function(){
-					  //$('.disablePlaylistOrder').fadeIn();
-					  
-			  		  $('.playlist-item').css('left','0px');	//Fix floating Images - not to disapeare or make any blank space AZ bug #131
-
-				  		$Brid.Html.Tooltip.hideAndRemoveTooltips();
-			  		
-					 // $('.disablePlaylistOrder').css('height','130px').fadeIn(); //({height:"130px"});
-					  $('.disablePlaylistOrder').fadeIn();
-					  $Brid.Html.FlashMessage.loading('Ordering in progress. Please Wait...');
-					  }
-				}).done(function(data){
-					//Order sortable/thumbnail list
-					 $Brid.Html.FlashMessage.show({msg : data.message, status : data.status});
-					 $('.playlist-item').css('left','0px');	//Fix floating Images - not to disapeare or make any blank space AZ bug #131 - Call it twice
-				     updateNumbers();
-				     //$('.disablePlaylistOrder').animate({height:"0px"}, 400, function(){ $(this).hide();});
-					  $('.disablePlaylistOrder').fadeOut();
-					  hideOver();
-					  
-				    
-				}).fail(function(jqXHR, textStatus, errorThrown){
-
-					var data = jQuery.parseJSON(jqXHR.responseText);
-					 $('.playlist-item').css('left','0px');	
-					$('.disablePlaylistOrder').animate({height:"0px"}, 400, function(){ $(this).hide();});
-					$Brid.Html.FlashMessage.show({msg : data.message, status : data.status});
-				});
-				*/
 
 	}});
 	
@@ -267,7 +240,7 @@ var playlistHoverTimer = null;
 
 function showOver(){
 
-	console.log('showOver');
+	debug.log('showOver');
 	
 	var $this = jQuery(this);
 	
@@ -287,7 +260,7 @@ function showOver(){
 
 function hideOver(){
 
-	console.log('hideOver');
+	debug.log('hideOver');
 	clearInterval(playlistHoverTimer);
 	playlistHoverTimer = null;
 

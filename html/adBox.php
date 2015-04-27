@@ -124,10 +124,15 @@ $adTypesFlipped = array_flip($ad_types);
 		</tr>
 		<tr style="background-color:#fff;">
 			<td colspan="3" style="padding: 10px;">
-				<input type="text" id="AdAdTagUrl" name="Ad[<?php echo $iterator; ?>][adTagUrl]" value="<?php echo ($adObject!=null) ? $adObject->adTagUrl : ''; ?>" maxlength="1024" />
+				<input type="text" id="AdAdTagUrl" placeholder="Paste your Ad Tag Url here"  name="Ad[<?php echo $iterator; ?>][adTagUrl]" value="<?php echo ($adObject!=null) ? $adObject->adTagUrl : ''; ?>" maxlength="1024" />
 				<?php //echo $this->Form->input('Ad.'.$iterator.'.adTagUrl',array('label' => false, 'class'=>'adTagUrl','default-value'=>'Ad tag url', 'maxlength'=>1024,'data-info'=>'Ad tag url')); ?>
 			</td>
 		</tr>
+		<tr>
+        <td colspan="3">
+           <div class="flashFalbackWarring msgAdBox">Provide an Ad Tag URL <a href="https://brid.zendesk.com/hc/en-us/articles/200294282" target="_blank">(VAST compatible)</a> from your advertising partner. <a href="https://brid.zendesk.com/hc/en-us/sections/200105421" target="_blank">Learn more</a>.</div>
+        </td>
+      </tr>
 	   
 </table>
 </div>

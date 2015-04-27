@@ -19,13 +19,22 @@ if(!$buttonsOff){
 			<div class="bridButton add-video various"  data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>" id="addVideoQuestion">
 				<div class="buttonLargeContent">ADD VIDEO</div>
 			</div>
-			<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>
+			<script>
+				try{jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});}catch(e){}
+				jQuery('.bridNotice').show();
+			</script>
 		<?php
 		}else{
 			?>
+
 			<div class="bridButton add-video" data-href="#" id="addVideo">
-			<div class="buttonLargeContent">ADD VIDEO</div>
-		</div>
+				<div class="buttonLargeContent">ADD VIDEO</div>
+			</div>
+		<?php if($upload){ ?>
+				<div class="bridButton add-video" data-href="#" id="uploadVideo">
+					<div class="buttonLargeContent">UPLOAD VIDEO</div>
+				</div>
+			<?php } ?>
 		<?php
 		}?>
 		
@@ -36,17 +45,7 @@ if(!$buttonsOff){
 	</div>
 </div>
 <!-- Add buttons end -->
-<?php }else{
-	?>
-	<div class="mainWrapper">
-	<div class="mainButtonsMenu" style="text-align:right;">
-		<div class="bridButton post-video disabled" data-href="#" id="postVideo" style="margin-right:40px;">
-			<div class="buttonLargeContent">POST</div>
-		</div>
-	</div>
-</div>
-<?php
-	}
+<?php }
 }
 ?>
 <script>
@@ -122,8 +121,12 @@ var playlistType = '<?php echo $playlistType; ?>';
 			//searchObj sent to configure Search
 			<?php
 				if($mode!=''){
+
 					?>
-						$Brid.init([['Html.Search', {className : '.inputSearch', model : 'Video',objInto:'<?php echo $insertIntoContent; ?>', playlistType : playlistType,  mode:'<?php echo $mode; ?>',subaction:'<?php echo $subaction; ?>'}]]);
+						var bridSearchSetting = {className : '.inputSearch', model : 'Video',objInto:'<?php echo $insertIntoContent; ?>', playlistType : playlistType,  mode:'<?php echo $mode; ?>',subaction:'<?php echo $subaction; ?>'};
+						//debug.log('bridSearchSetting', bridSearchSetting);
+						
+						$Brid.init([['Html.Search', bridSearchSetting]]);
 					<?php
 				}
 				else {
@@ -232,7 +235,7 @@ var playlistType = '<?php echo $playlistType; ?>';
 																}
 																$poster = BRID_PLUGIN_URL. 'img/'.$poster;
 															?>
-															<img src="<?php echo $poster; ?>" id="video-img-<?php echo $v->Video->id; ?>"  data-original="<?php echo $v->Video->thumbnail; ?>" class="lazy thumb" width="111px" height="74px" alt="" style="display: inline;">
+															<img src="<?php echo $poster; ?>" id="video-img-<?php echo $v->Video->id; ?>"  onerror="this.src = &quot;<?php echo BRID_PLUGIN_URL; ?>img/thumb_404.png&quot;" data-original="<?php echo $v->Video->thumbnail; ?>" class="lazy thumb" width="111px" height="74px" alt="" style="display: inline;">
 															<div class="videoPreviewBg" style="display: none;"></div>
 															<div class="videoPlay" style="display: none;">
 																<img src="<?php echo BRID_PLUGIN_URL; ?>img/small_play.png" style="position:relative; margin-bottom: 3px; width: 24px; height: 24px" alt="">
@@ -246,12 +249,19 @@ var playlistType = '<?php echo $playlistType; ?>';
 													<?php
 														$itemCss = '';
 														$linkCss = '';
+														$monetizeCss = '';
 														if($v->Video->status==0){
 															$itemCss = 'turnedoff';
 															$linkCss = 'videoTitleDisabled';
 														}
+														$monVal = intval($v->Video->monetize);
+														if($monVal==0 || ($v->Video->external_type==1 && $partner->Partner->intro_video==0)){
+															$monetizeCss = 'turnedoff';
+															$monVal = 0;
+														}
 													?>
 													<div class="titleRow">
+
 														<a href="<?php echo $v->Video->id; ?>" class="listTitleLink <?php echo $linkCss; ?>" id="video-title-<?php echo $v->Video->id; ?>" title="<?php echo $v->Video->name; ?>"><?php echo $v->Video->name; ?></a>
 														<div class="videoUploadedBy">
 															<div class="siteVideosNum">
@@ -262,10 +272,13 @@ var playlistType = '<?php echo $playlistType; ?>';
 															<div class="partner-quick-menu-section">
 																<ul class="partner-quick-menu visible" id="partner-options-<?php echo $v->Video->id; ?>">
 																	
-																	<li class="item <?php echo $itemCss; ?>">
+																	<li class="item <?php echo $itemCss; ?>" title="Publish/Unpublish">
 																		<div class="partner-qm-item video-status tooltip" data-controller="videos" data-field="status" data-info="Video status published/paused or pending" data-ajax-loaded="true" data-value="<?php echo $v->Video->status; ?>" data-id="<?php echo $v->Video->id; ?>" data-callback-after="disableVideoTitle"></div>
 																	</li>
-																	<li  class="item">
+																	<li class="item <?php echo $monetizeCss; ?>" title="Turn on monetization">
+																		<div class="partner-qm-item video-monetize tooltip video-monetize-external" data-intro-enabled="<?php echo $partner->Partner->intro_video; ?>" data-controller="videos" data-field="monetize" id="videos-monetize" data-info="Monetize on/off" data-video-type="<?php echo $v->Video->external_type; ?>" data-value="<?php echo $monVal; ?>" data-id="<?php echo $v->Video->id; ?>" data-ajax-loaded="true"></div>		
+																	</li>
+																	<li  class="item" title="Quick edit">
 																		<div class="partner-qm-item video-quickedit showHidden tooltip" data-info="Quick Edit video" data-ajax-loaded="true" data-open="editVideoDiv" data-callback-before="changeOverText" data-id="<?php echo $v->Video->id; ?>"></div>
 																	</li>
 
@@ -279,11 +292,13 @@ var playlistType = '<?php echo $playlistType; ?>';
 
 												</div>
 											</div>
+											
 											<div class="hiddenContnet" data-id="<?php echo $v->Video->id; ?>">
 												<div class="playerDiv" id="playerDiv<?php echo $v->Video->id; ?>">
 													<div class="loadingPreviewPlayer">Loading player</div>
 													<div class="playerContent brid" id="bridPlayerVideo<?php echo $v->Video->id; ?>"></div>
 												</div>
+												<?php if($mode!='playlist') { ?>
 												<div class="editVideoDiv">
 													<div id="quickeditvideoform" class="videos formQuick" style="width:100%;float:left;position:relative;">
 
@@ -338,7 +353,10 @@ var playlistType = '<?php echo $playlistType; ?>';
 														</form>
 													</div>
 												</div>
+												<?php } ?>
 											</div>
+
+											
 										</div>
 									</td>
 								</tr>
@@ -448,6 +466,33 @@ var encodingIds = <?php echo json_encode($videosDataset->Encoding); ?>;
 	// Init animation to show quick edit form or to open preview player
 	jQuery('.showHidden').off('click',$Brid.Html.Effect.initAnimation).on('click',$Brid.Html.Effect.initAnimation);
 
+
+	jQuery('.video-monetize').on('click', function(e){
+
+		var d = jQuery(this);
+		var id = d.attr('data-id');
+		var monetize = parseInt(d.attr('data-value'));
+		monetize = monetize ? 0 : 1;
+		var video_type = d.attr('data-video-type');
+		var intro_enabled = d.attr('data-intro-enabled');
+
+	    jQuery.ajax({
+	            url: '<?php echo admin_url("admin-ajax.php?action=monetizeVideo"); ?>',
+	            data : {id : id, monetize : monetize, video_type : video_type, intro_enabled : intro_enabled},
+	            type: 'POST',
+	          }).done(function( data ) {
+
+	            console.log('Monetization response', data);
+	            if(data.success){
+
+	            	window.location = window.location
+	            }
+	            
+         });
+		
+	
+
+	});
 	// Init date picker for quick edit form
 	//$Brid.init(['datepicker']); poziva se u initMainFunctions
 
@@ -534,6 +579,16 @@ function addPlaylist() {
 	var selectedItems = $Brid.Html.CheckboxElement.getSelectedCheckboxes('video-id-');
 
 	debug.log('Selected Items are:', selectedItems);
+	//if(playlistId!=undefined){
+		//Add only videos to the already created Playlist (edit mode)
+		//itemsAddedToPlaylist
+		//callback : {after : {name : "itemsAddedToPlaylist", obj : jQuery("#video-list")}}
+
+		//@todo Neki callback koji ce ako je success dodao da zatvori 
+
+		//$Brid.Api.call({data : {action : "addVideoPlaylist", id : playlistId, ids : selectedItems.join(',')}, callback : {after : {name : "itemsAddedToPlaylist", obj : jQuery("#video-list")}}});
+		//playlistId = null;
+	//}else{
 
 		//Add Playlist and playlist videos at the same time (add mode)
 		jQuery('#addPlaylistVideos').hide();
@@ -542,7 +597,7 @@ function addPlaylist() {
 		//alert(selectedItems);
 
 		jQuery('#VideoIds').val(selectedItems);
-		//If user close Fancybox on "Add Playlist" screen, and he already has selected videos
+		//If user close Colorbox on "Add Playlist" screen, and he already has selected videos
 		//On second Add playlist button click, and he tries to check other checkboxes he would not see Add to playlist button
 		//AZ story #208
 		var c = $Brid.Html.CheckboxElement.create({name : 'video'});
@@ -616,21 +671,8 @@ jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click',
 ?>
 <script>
 //Onclick Tabs
-	jQuery(".tab, .tab-inactive").off('click.TabsApiLoad').on("click.TabsApiLoad", function(){
-   
-   	//"id" : jQuery(this).val(), "callback" : "bridPlayerList"
-   	var div = jQuery(this); divId = div.attr("id"), intoDiv = jQuery("#"+divId+'-content');
-
-   		intoDiv.hide();
-
-      $Brid.Api.call({
-      					data : {action : divId.toLowerCase(), buttons : buttonsOff}, 
-      					callback : {after : {name : "insertContent", obj : intoDiv}}
-      				});
-   
-  	});
   	//Bind add video and add youtube buttons
-  	jQuery('#addVideo, #addYoutube').off('click').on('click', function(){
+  	jQuery('#addVideo, #addYoutube, #uploadVideo').off('click').on('click', function(){
 			jQuery("#Videos-content").hide();
 			var id = jQuery(this).attr('id');
 			$Brid.Api.call({data : {action : id}, 

@@ -1,3 +1,6 @@
+<script>
+var buttonsOff = '<?php echo $buttonsOff; ?>';
+</script>
 <?php
 if(!$buttonsOff){
 	?>
@@ -174,15 +177,19 @@ if(!empty($playlists->Playlists)){
 										<div class="centerImgWrapper">
 											<?php
 												
-												$firstSnapshot = 'http://cdn.brid.tv/ugc/default/defaultSnapshot.png';
+												$firstSnapshot = BRID_PLUGIN_URL."img/thumb_404.png";
 
 												if(!empty($v->Video[0])){
 
-													$firstSnapshot = BridHtml::getPath(array('type'=>'thumb', 'id'=>$v->Video[0]->partner_id)).$v->Video[0]->thumbnail;
+													if($v->Video[0]->thumbnail!=''){
+														$firstSnapshot = BridHtml::getPath(array('type'=>'thumb', 'id'=>$v->Video[0]->partner_id)).$v->Video[0]->thumbnail;
+													}else{
+														$firstSnapshot = BRID_PLUGIN_URL."img/thumb_404.png";
+													}
 												}
 
 											?>
-											<img src="http://cdn.brid.tv/img/indicator.gif" data-original="<?php echo $firstSnapshot; ?>" class="lazy" width="111px" height="74px" id="partner-img-1080" alt="" style="display: inline;">
+											<img src="<?php echo BRID_PLUGIN_URL; ?>img/indicator.gif" data-original="<?php echo $firstSnapshot; ?>" class="lazy" width="111px" height="74px" id="partner-img-1080" alt="" style="display: inline;">
 												<div class="videoPreviewBg"></div>
 												<div class="videoPlay" style="left:22px;">
 													<img src="<?php echo BRID_PLUGIN_URL; ?>img/small_play.png" style="position:relative;width: 24px; height: 24px" alt="">
@@ -198,7 +205,16 @@ if(!empty($playlists->Playlists)){
 													if($key>1) break;
 												?>
 												<div class="preview_youtube_img_small">
-													<img src="<?php echo BridHtml::getPath(array('type'=>'thumb', 'id'=>$video->partner_id)).$video->thumbnail; ?>" width="29px" height="15px" border="0">
+													<?php
+
+													if($video->thumbnail!=''){
+														$firstSnapshotSmall = BridHtml::getPath(array('type'=>'thumb', 'id'=>$video->partner_id)).$video->thumbnail;
+													}else{
+														$firstSnapshotSmall = BRID_PLUGIN_URL."img/thumb_404.png";
+													}
+
+													?>
+													<img src="<?php echo $firstSnapshotSmall ?>" width="29px" height="15px" border="0">
 												</div>
 												<?php } ?>
 											</div>
@@ -270,7 +286,7 @@ if(!empty($playlists->Playlists)){
 															<td style="padding-left:25px;padding-top:0px;">
 																
 
-											<div class="bridButton saveButton save-playlist" data-form-id="PlaylistEditQuick<?php echo $v->Playlist->id; ?>" id="playlistSaveAdd">
+											<div class="bridButton saveButton save-playlist" data-callback="insertContentPlaylists" data-form-id="PlaylistEditQuick<?php echo $v->Playlist->id; ?>" id="playlistSaveAdd">
 												<div class="buttonLargeContent">SAVE</div></div>
 
 															</td>
@@ -330,7 +346,6 @@ if(!empty($playlists->Playlists)){
 var page = 1;
 var quickSave = saveObj.init();	//Init all save buttons in quick edit forms
 var paginationOrder = '<?php echo $paginationOrder; ?>';
-var buttonsOff = '<?php echo $buttonsOff; ?>';
 
 //jQuery(document).ready(function(){
 
@@ -422,6 +437,7 @@ var buttonsOff = '<?php echo $buttonsOff; ?>';
   					shortCodes += '[brid playlist="'+selectedItems[id]+'" player="'+$BridWordpressConfig.Player.id+'" width="'+$BridWordpressConfig.Player.width+'" height="'+$BridWordpressConfig.Player.height+'" items="50"]';
   				}
   				$Brid.Util.addToPost(shortCodes);
+  				
 				
   			}
 

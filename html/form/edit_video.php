@@ -1,4 +1,9 @@
 <div class="videos formVideo">
+	<div class="backBubble" style="margin-bottom:0px;">
+				<a href="<?php echo admin_url( 'admin.php?page=brid-video-menu');?>">« VIDEOS</a>
+				
+		EDIT VIDEO	
+	</div>
 	<?php //print_r($video->Ad); die(); ?>
 	<form action="<?php echo admin_url('admin-ajax.php'); ?>" id="VideoEditForm" method="post" accept-charset="utf-8"><div style="display:none;">
 		<input type="hidden" name="_method" value="PUT"></div>
@@ -13,14 +18,25 @@
 		<input type="hidden" name="video_bitrate" value="<?php echo $video->Video->video_bitrate; ?>" id="VideoVideoBitrate">
 		<input type="hidden" name="duration" value="<?php echo $video->Video->duration; ?>" id="VideoDuration">
 
-		<?php if($video->Video->external_type==0){?>
-			<!-- Tabs start -->
-			<div style="width:858px; padding-top:2px; /*overflow:hidden;*/" class="tabs tabsRed withArrow">
+		<?php 
+			if($video->Video->external_type==0){
+				?>
+				<!-- Tabs start -->
+			<div style="width:858px; padding-top:20px;" class="tabs tabsRed withArrow">
 				<div id="VideoDetails" class="tab" style="width: 428px;border-right:2px solid #fff;">VIDEO DETAILS<div class="arrowDown"></div></div>
-				<div id="Monetization" class="tab-inactive" style="border-left:2px solid #fff;margin-right: 0px; width: 428px;">MONETIZATION<div class="arrowDown" style="left:73.5%"></div></div>
+				<div id="Monetization" class="tab-inactive" style="border-left:2px solid #fff;margin-right: 0px; width: 428px;">MONETIZATION<div class="arrowDown hidden" style="left:73.5%"></div></div>
 			</div>
 			<!-- Tabs end -->
-		<?php } ?>
+			<?php
+			}else{
+			if($partner->Partner->intro_video!=0){?>
+			<!-- Tabs start -->
+			<div style="width:858px; padding-top:20px;" class="tabs tabsRed withArrow">
+				<div id="VideoDetails" class="tab" style="width: 428px;border-right:2px solid #fff;">VIDEO DETAILS<div class="arrowDown"></div></div>
+				<div id="Monetization" class="tab-inactive" style="border-left:2px solid #fff;margin-right: 0px; width: 428px;">MONETIZATION<div class="arrowDown hidden" style="left:73.5%"></div></div>
+			</div>
+			<!-- Tabs end -->
+		<?php } } ?>
 		 <!-- Video Details Tab -->
    		<div id="VideoDetails-content" class="tab-content" style="display:block;">	
 			<div class="mainDataAdd" id="mainData">
@@ -91,11 +107,18 @@
 				    	<?php if($video->Video->external_type!=1){?>
 				    	<tr>
 				    		<td colspan="2">
-				    		
-				    			<div class="input text required">
-				    				<label for="VideoMp4">MP4</label>
-				    				<input name="mp4" default-value="MP4 or WEBM" data-info="MP4 URL Source" maxlength="300" type="text" value="<?php echo $video->Video->mp4; ?>" id="VideoMp4" required="required"></div>			    		
-				    		</td>
+				    		<table style="width:100%;">
+				    			<tr>
+						    		<td>
+						    			<div class="input text required">
+						    				<label for="VideoMp4">MP4</label>
+						    				<input name="mp4" default-value="MP4 or WEBM" data-info="MP4 URL Source" maxlength="300" type="text" value="<?php echo $video->Video->mp4; ?>" id="VideoMp4" required="required"></div>			    		
+						    		</td>
+						    		<td style="width:110px">
+										<div class="bridBrowseLibary" style="margin-top:25px;" data-field="VideoMp4" data-uploader_button_text="Add Video" uploader_title="Browse from Media Library">BROWSE LIBRARY</div>
+									</td>
+								</tr>
+							</table>
 				    	</tr>
 				    	<?php } else {
 				    		?>
@@ -132,10 +155,19 @@
 				    	<?php } ?> 
 				    	<tr>
 				    		<td colspan="2">
-				    			<div class="input text invisibleDiv" id="hd_version" style="display: <?php echo $hdStyle; ?>">
-				    				<input name="mp4_hd" default-value="MP4 or WEBM HD URL" data-info="MP4 High Definition URL Source" maxlength="300" type="text" value="<?php echo $video->Video->mp4_hd; ?>" id="VideoMp4Hd">
-				    			</div>						
-				    		</td>
+				    			<table>
+				    				<tr>
+						    			<td>
+						    			<div class="input text invisibleDiv" id="hd_version" style="display: <?php echo $hdStyle; ?>">
+						    				<input name="mp4_hd" default-value="MP4 or WEBM HD URL" data-info="MP4 High Definition URL Source" maxlength="300" type="text" value="<?php echo $video->Video->mp4_hd; ?>" id="VideoMp4Hd">
+						    			</div>						
+						    		
+							    		<td style="width:110px">
+											<div class="bridBrowseLibary invisibleDiv" style="display: <?php echo $hdStyle; ?>" data-field="VideoMp4Hd" data-uploader_button_text="Add HD Video" data-uploader_title="Browse for MP4 High Definition URL Source">BROWSE LIBRARY</div>								
+										</td>
+									</tr>
+								</table>
+							</td>
 				    	</tr>
 			    	<?php } ?>
 			    	<tr>
@@ -156,12 +188,15 @@
 				    				<tr>
 				    					<td style="padding:0px; padding-bottom:10px;">
 					    					<input type="hidden" name="thumbnail" value="<?php echo $video->Video->thumbnail; ?>" id="VideoThumbnail">			    					
-					    					<input type="hidden" name="image_old" value="" id="VideoImageOld">			    					
+					    					<input type="hidden" name="image_old" value="<?php echo $video->Video->image; ?>" id="VideoImageOld">			    					
 					    					<div class="input text">
 					    						<label for="VideoImage">Snapshot Url</label>
 					    						<input name="image" default-value="Snapshot Url" data-info="Provide URL to the snapshot image" maxlength="100" type="text" value="<?php echo $video->Video->image; ?>" id="VideoImage" data-ajax-loaded="true">
 					    					</div>			    					
 				    					</td>
+				    					<td style="width:110px">
+											<div class="bridBrowseLibary" data-field="VideoImage" data-uploader_button_text="Add Snapshot" data-uploader_title="Browse from Media Library">BROWSE LIBRARY</div>
+										</td>
 				    				</tr>
 				    				<?php } ?>
 
@@ -195,7 +230,7 @@
 			   
 			</div>
 		</div>
-		<?php if($video->Video->external_type==0){?>
+		<?php //if($video->Video->external_type==0){ ?>
 			<!--  Video Monetization Tab (samo admin????????????) -->
 	    	<div id="Monetization-content" class="tab-content">
 	    		
@@ -203,7 +238,7 @@
 							  		<tbody><tr>
 							  			<td>
 							  				<div class="formWrapper" style="margin-bottom:20px">
-							  					<div id="checkbox-monetize" class="bridCheckbox" data-method="toggleAdSettings" data-name="monetize" style="top:4px;">
+							  					 <div id="checkbox-monetize" class="bridCheckbox" data-method="toggleAdSettings" data-name="monetize" style="top:4px;">
 							  						<?php
 							  								$c = '';
 							  								if($video->Video->monetize){
@@ -218,7 +253,10 @@
 							  							<input type="hidden" name="monetize" value="<?php echo $video->Video->monetize; ?>" class="singleCheckbox <?php echo $c; ?>" id="monetize" data-value="<?php echo $video->Video->monetize; ?>" style="display:none;" checked="checked" data-display="block">
 							  						</div>
 							  						<div class="checkboxText">Monetizable</div>
+							  						<div class="flashFalbackWarring" style="margin-left:31px">Turn on/off monetization options for this specific video. <a href="https://brid.zendesk.com/hc/en-us/articles/200299391" target="_blank">Learn more</a>.</div>
 							  					</div>
+							  				
+							  					
 											</div>
 											
 																	  			
@@ -254,6 +292,7 @@
 											</div>
 
 												</div>
+												<div class="flashFalbackWarring" style="padding-top:15px;margin-left:10px">Use these monetization fields only if you wish to override any monetization settings that you already setup on your <a href="admin.php?page=brid-video-config#Monetization">Brid settings page</a>. <a href="https://brid.zendesk.com/hc/en-us/articles/202806771" target="_blank">Learn more</a>.</div>
 												<!-- Content div for ads -->
 												<!-- Content div for ads -->
 												<div style="float:left; width:100%;margin-top:22px" id="ad-content">
@@ -276,7 +315,7 @@
 							  	</tbody></table>
 	    	</div>
 	    	<!-- Monetization end -->
-	    <?php } ?>
+	    <?php //} ?>
     	 <div class="bridButton saveButton save-video lightboxSave" id="videoSaveEdit" data-form-id="VideoEditForm" data-form-bind="0" data-form-req="0" style="margin-top:30px;margin-left:10px;">
 				<div class="buttonLargeContent">SAVE</div></div>
 		<?php //if($video->Video->external_type!=1){?>
@@ -410,4 +449,76 @@ jQuery('input[id$="OverlayStartAt"], input[id$="OverlayDuration"]').off('keypres
 	}
 	jQuery('#ChannelIdUpload').change(function(){enableSave();});
 
+	var browse = jQuery('.bridBrowseLibary');
+
+	if(browse.length>0){
+
+
+		browse.on('click', function(){
+				//http://mikejolley.com/2012/12/using-the-new-wordpress-3-5-media-uploader-in-plugins/
+				 // If the media frame already exists, reopen it.
+			    /*if ( file_frame ) {
+			      file_frame.open();
+			      return;
+			    }*/
+
+			     var fieldName = jQuery(this).attr("data-field");
+			     var field = jQuery('#'+fieldName);
+			     var title = jQuery('#VideoName');
+			     var desc = jQuery('#VideoDescription');
+			     var tags = jQuery('#VideoTags');
+
+
+			    // Create the media frame.
+			    file_frame = wp.media.frames.file_frame = wp.media({
+			      title: jQuery( this ).data( 'uploader_title' ),
+			      button: {
+			        text: jQuery( this ).data( 'uploader_button_text' ),
+			      },
+			      multiple: false  // Set to true to allow multiple files to be selected
+			    });
+
+			    // When an image is selected, run a callback.
+			    file_frame.on( 'select', function() {
+			      // We set multiple to false so only get one image from the uploader
+			      attachment = file_frame.state().get('selection').first().toJSON();
+
+
+			     // console.log('attachment', attachment);
+
+			     field.val(attachment.url);
+			      jQuery('#checkbox-mp4_hd_on').removeClass('disabledCheckbox');
+
+			     jQuery('#default-value-'+fieldName).hide();
+
+			     if(title.val()==''){
+			     	title.val(attachment.title);
+			     	desc.val(attachment.title);
+			     	jQuery('#default-value-VideoName').hide();
+			     	jQuery('#default-value-VideoDescription').hide();
+			     }
+
+			     if(tags.val()==''){
+			     	var str = attachment.title;
+					str = str.replace(/[^a-zA-Z-_, ]/g, "");
+					str = str.replace(/[^a-zA-Z-_,]/g, ",") //replace space with comma
+					str = str.replace(/[^a-zA-Z-,]/g, ",") //replace underscore with comma
+					str = str.replace(/[^a-zA-Z,]/g, ",") //replace dash with comma
+			     	tags.val(str);
+			     	jQuery('#default-value-VideoTags').hide();
+			     	
+			     }
+
+			     enableSave();
+
+			      // Do something with attachment.id and/or attachment.url here
+			      //alert(attachment.url);
+			    });
+
+			    // Finally, open the modal
+			    file_frame.open();
+		});
+
+
+	}
 </script>

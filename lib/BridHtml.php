@@ -2,10 +2,125 @@
 /**
  * BridHtml class will manage all Html actions (will display forms or return responses for saved or requested actions)
  * @package plugins.brid.lib
- * @author Brid Dev Team
- * @version 1.0
+ * @author Brid Dev Team, contact@brid.tv
+ * @version 1.1
  */
 class BridHtml {
+
+	//Get abs path to check is there crossdomain.xml
+	public static function getAbsPath()
+	{	
+		if(defined('ABSPATH')){
+			return ABSPATH;
+		}
+
+	    $base = dirname(__FILE__);
+	    $path = false;
+
+	    if (@file_exists(dirname(dirname($base))."/wp-config.php"))
+	    {
+	        $path = dirname(dirname($base));
+	    }
+	    else
+	    if (@file_exists(dirname(dirname(dirname($base)))."/wp-config.php"))
+	    {
+	        $path = dirname(dirname(dirname($base)));
+	    }
+	    else
+	    $path = false;
+
+	    if ($path != false)
+	    {
+	        $path = str_replace("\\", "/", $path);
+	    }
+	    return $path;
+	}
+	//Ask for crossdomain
+	public static function isThereCrossdomain(){
+
+		$crossdomain = self::getAbsPath().'crossdomain.xml';
+		return file_exists($crossdomain);
+	}
+	//Try to create crossdomain.xml
+	public static function createCrossdomain(){
+
+		$filename = self::getAbsPath().'crossdomain.xml';
+
+			$crossdomain = '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cross-domain-policy SYSTEM "http://www.adobe.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+    <site-control permitted-cross-domain-policies="master-only"/>
+    <allow-access-from domain="*"/>
+    <allow-http-request-headers-from domain="*" headers="*"/>
+</cross-domain-policy>';
+	
+		$return = array('success'=>false, 'msg'=>'Error');
+
+			$handle = @fopen($filename, 'w') or false;
+			if ($handle) {
+
+		         $return['msg'] = "Cannot open file ($filename)";
+
+		         // Write $somecontent to our opened file.
+			    if (fwrite($handle, $crossdomain) === FALSE) {
+			        $return['msg'] = "Cannot write to file ($filename)";
+			    }
+			    $return['success'] = true;
+			    $return['msg'] = "Success, wrote to file ($filename)";
+
+			    fclose($handle);
+		        
+		    }else{
+		    	$return['msg'] = "Permission denied, file not writable.\n\nCannot open file ($filename).\n\nPlease create crossdomain file manually with this content:\n\n$crossdomain";
+		        
+		    }
+		
+
+		header('Content-Type: application/json');
+		echo  json_encode($return);
+
+		die(); 
+
+	}
+
+	public static function monetizeVideo(){
+
+		$return = array('success'=>false, 'msg'=>'Error');
+
+		$api = new BridAPI();
+
+		if(!empty($_POST) && isset($_POST['id']) && isset($_POST['monetize']) && isset($_POST['video_type']) && isset($_POST['intro_enabled']))
+		{	
+			$videoId = intval($_POST['id']);
+			$video_type = intval($_POST['video_type']);
+			$intro_enabled = intval($_POST['intro_enabled']);
+			$monetize = intval($_POST['monetize']);
+			$partner = null;
+			$partner_id = BridOptions::getOption('site');
+			//Save submit
+			if(!$intro_enabled && $video_type){
+				//Update partner and set intro_video flag
+				$_POST['id'] = $partner_id;
+		    	$_POST['intro_video'] = 1;
+		 		$partner = $api->updatePartnerField($_POST);
+			}
+			$data = array();
+			$data['id'] = $videoId;
+			$data['partner_id'] = $partner_id;
+			$data['monetize'] = $monetize;
+
+			$v = $api->editVideo($data, true);
+			
+			$return['success'] = true;
+			$return['msg'] = 'Success';
+			$return['Video'] = $v;
+			$return['Partner'] = $partner;
+
+		}
+		header('Content-Type: application/json');
+		echo  json_encode($return);
+		die();
+	}
 
 	public static function timeFormat($timeData, $format ='F jS, Y')
 	{
@@ -82,6 +197,43 @@ class BridHtml {
       die(); // this is required to return a proper result (By wordpress site)
 
     }
+    /**
+     * Wp Callback, List all players by ajax call
+     * ajax.php?action=brid_api_get_players 
+     * - Will display and populate listPlayersSite div with all available players for the selected partner(site)
+     * - Should receive $_POST['id'] (selected site id)
+     * - By default response is JSON object
+     * - If id is invalid throw error (json)
+     * @see http://codex.wordpress.org/AJAX_in_Plugins
+     * @return {String|JsonObject} players
+     **/
+    public static function getPartnerAndPlayersWithDefaultPlayer(){
+
+      try{
+          
+          if(isset($_POST['id']) && is_numeric($_POST['id']))
+          {
+            
+            $partnerId = intval($_POST['id']);
+            
+            $api = new BridAPI();
+
+
+            $players = $api->call(array('url'=>'getPartnerAndPlayersWithDefaultPlayer/'.$partnerId), false); //false for do not decode (json expected)
+
+            echo $players;
+          }else{
+            throw new Exception('Invalid partner id');
+          }
+      }catch(Exception $e){
+
+        echo json_encode(array('error'=>$e->getMessage()));
+      }
+
+      die(); // this is required to return a proper result (By wordpress site)
+
+    }
+    
 	/**
 	 * [VIDEO LSIT]
 	 * Get paginated video list by partner id
@@ -114,9 +266,12 @@ class BridHtml {
 		 }
 		 //Do we need to ask upload question?
 		 $ask = false;
+		 
+		 $partner = $api->partner(BridOptions::getOption('site'), true);
+
 		 if(BridOptions::getOption('question')=='' || BridOptions::getOption('question')==0){
 		 	//Get partner Info
- 			$partner = $api->partner(BridOptions::getOption('site'), true);
+ 			
  			if(!empty($partner)){
 	 			$ask = true;
 	 			//Already asked (checked on server side also)
@@ -125,9 +280,11 @@ class BridHtml {
 	 			}
  			}
  		 }
+ 		 $upload = intval($partner->Partner->upload);
+
 
 		//require videos list view
-    	require_once(BRID_PLUGIN_DIR.'/html/list/videos.php');
+    	require_once(BRID_PLUGIN_DIR.'/html/list/library/videos.php');
 	    die(); // this is required to return a proper result (By wordpress site)
         
 	}
@@ -157,7 +314,7 @@ class BridHtml {
 		 }
 
 		//require videos list view
-        require_once(BRID_PLUGIN_DIR.'/html/list/playlists.php');
+        require_once(BRID_PLUGIN_DIR.'/html/list/library/playlists.php');
 
         die(); // this is required to return a proper result (By wordpress site)
 	}
@@ -274,6 +431,7 @@ class BridHtml {
 		
       die(); // this is required to return a proper result (By wordpress site)
 	}
+	
 	/**
 	 * Add Youtube
 	 */
@@ -289,6 +447,9 @@ class BridHtml {
         
         die(); // this is required to return a proper result (By wordpress site)
 	}
+	/*
+	 * Get new ad box
+	 */
 	public static function adBox($iterator=0, $adObject=null){
 
 		$ad_types = array(0=>'preroll', 1=>'midroll', 2=>'postroll', 3=>'overlay');
@@ -303,19 +464,6 @@ class BridHtml {
 		}else{
 			$adType = $ad_types[$adObject->adType];
 		}
-		/*
-		 stdClass Object ( 
-		 					[id] => 44 
-		 					[player_id] => 0 
-		 					[video_id] => 3457 
-		 					[adTagUrl] => http://moja-djoka-pre-roll.com 
-		 					[adType] => 0 
-		 					[adTimeType] => s 
-		 					[overlayStartAt] => 
-		 					[overlayDuration] => 
-		 					[cuepoints] => 
-		 				) 
-		 */
 		
 		require(BRID_PLUGIN_DIR.'/html/adBox.php');
 
@@ -325,6 +473,9 @@ class BridHtml {
 
 		//return $adObject->adTagUrl;
 	}
+	/*
+	 * Delete ad (video or player)
+	 */
 	public static function deleteAd(){
 
 		$api = new BridAPI();
@@ -345,6 +496,8 @@ class BridHtml {
 
 		
 		$api = new BridAPI();
+
+
         
         if(!empty($_POST) && isset($_POST['action']) && isset($_POST['id']) && isset($_POST['insert_via']))
 		{
@@ -364,6 +517,8 @@ class BridHtml {
 
 		        $amIEncoded = ($video->Video->encoded || $video->Video->fetched) ? 1 : 0;
 
+		        $partner = $api->partner(BridOptions::getOption('site'), true);
+
         		require_once(BRID_PLUGIN_DIR.'/html/form/edit_video.php');
 		    }
     	}
@@ -382,7 +537,7 @@ class BridHtml {
       		$_POST['id'] = BridOptions::getOption('site');
 
       		BridOptions::updateOption('question', '1');
-      		BridOptions::updateOption('upload', $_POST['upload']);
+      		//BridOptions::updateOption('upload', $_POST['upload']);
 			//Save submit
 			echo $api->partnerUpload($_POST);
 
@@ -393,10 +548,42 @@ class BridHtml {
        
        	die(); // this is required to return a proper result (By wordpress site)
 	}
+	
+	/**
+	 *  Upload video
+	 */
+	public static function uploadVideo($internal=false){
+
+		$api = new BridAPI();
+
+		if(!empty($_POST) && isset($_POST['action']) && isset($_POST['insert_via']))
+		{
+			//Save submit
+			echo $api->addVideo($_POST);
+			die();
+
+		}else{
+
+            //Get partner Info
+            //$partner = $api->partner(BridOptions::getOption('site'), true);
+			$partnerData = BridHtml::getPartnerData();
+        	$upload = $partnerData['upload']; 
+
+            //Get Channel list
+            $channels = $api->channelsList(true);
+            
+            //$upload = $partner->Partner->upload;
+
+            require_once(BRID_PLUGIN_DIR.'/html/form/upload_video.php');
+          
+        }
+       if(!$internal)
+      	die(); // this is required to return a proper result (By wordpress site)
+	}
 	/**
 	 * ADD video
 	 */
-	public static function addVideo(){
+	public static function addVideo($internal=false){
 
 		$api = new BridAPI();
 
@@ -411,9 +598,8 @@ class BridHtml {
             //Get partner Info
             //$partner = $api->partner(BridOptions::getOption('site'), true);
 
-            $upload = BridOptions::getOption('upload');
-
-            $upload = ($upload=='' || $upload==0) ? 0 : 1;
+            $partnerData = BridHtml::getPartnerData();
+        	$upload = $partnerData['upload']; 
 
             //Get Channel list
             $channels = $api->channelsList(true);
@@ -423,7 +609,8 @@ class BridHtml {
             require_once(BRID_PLUGIN_DIR.'/html/form/add_video.php');
           
         }
-      die(); // this is required to return a proper result (By wordpress site)
+       if(!$internal)
+      	die(); // this is required to return a proper result (By wordpress site)
 	}
 	/**
 	 * Remove item from playlsit
@@ -533,46 +720,46 @@ class BridHtml {
 		 echo $api->changeStatus($_POST);
 		die();
 	}
-
+	public static function getPartnerData(){
+		$api = new BridAPI();
+        $partner = $api->partner(BridOptions::getOption('site'), true);
+        if(!empty($partner->error)){
+ 			wp_die('Partner error: '.$partner->error.ACCESS_ERROR_MSG);
+ 		}
+ 		$data['Partner'] = $partner;
+ 		$data['upload'] = intval($partner->Partner->upload);
+ 		return $data;
+	}
+	
 	/**
      * Wp Callback, What will happen on Brid Video Media Library page cick
      *
      */
-    public static function manage_videos(){
+     public static function manage_videos(){
 
     	//Maybe parner has been deleted from cms?
+    	$partnerId = BridOptions::getOption('site');
+    	if(empty($partnerId)){
+    		wp_die('Invalid partner id. Go to settings page.');
+    	}
     	$api = new BridAPI();
     	//Get partner Info
- 		$partner = $api->partner(BridOptions::getOption('site'), true);
- 		
- 		//print_r($partner); die('kraj');
+ 		$partner = $api->partner($partnerId, true);
 
-		if($partner->Partner->upload != BridOptions::getOption('upload')){
-			BridOptions::updateOption('upload', $partner->Partner->upload);
-		}
  		if(!empty($partner->error)){
- 			wp_die('Partner error: '.$partner->error);
- 		}
+ 			
+          wp_die('Partner Error: '.$partner->error.ACCESS_ERROR_MSG);
+        }
+        else{
+       
+	 		wp_enqueue_media(); //include media for browsing files in Add/Edit Video screen
 
-      	require_once(BRID_PLUGIN_DIR.'/html/manage.php');
+	      	require_once(BRID_PLUGIN_DIR.'/html/manage.php');
+      	}
       	//Die will stop executing wordpress JS, and submenus wont show.
 	    //die();
     }
 
-    public static function bridVideoPost (){
-    	
-    	$playerSelected  = BridOptions::getOption('player'); //Is there any selected player saved?
-        $width  = BridOptions::getOption('width'); //Width
-        $width =  $width!='' ?  $width : '640';
-        
-        $height  = BridOptions::getOption('height'); //Height
-        $height =  $height!='' ?  $height : '480';
-
-        $playerSettings = json_encode(array('id'=>$playerSelected, 'width'=>$width, 'height'=>$height));
-
-    	require_once(BRID_PLUGIN_DIR.'/html/post.php');
-    	die();
-    }
     public static function updatePartnerField(){
     	
     	if(!empty($_POST['name']) && isset($_POST['value'])){
@@ -597,84 +784,86 @@ class BridHtml {
     	
     	die();
     }
-
+    
+    //icon
     public static function addPostButton($context){
 
-    	  //path to my icon
-		  $img = BRID_PLUGIN_URL.'/img/brid_tv.png';
-		  
-		  $context .= "<a class='bridAjax opacityButton' href='".admin_url('admin-ajax.php')."?action=bridVideoPost'>
-		    <img src='{$img}'  style='margin-top:2px;'/></a><script>jQuery('.bridAjax').colorbox({innerWidth:900, innerHeight:780}); initButtonOpacity();</script>";
+		  $context .= "<div class='bridAjax' id='bridQuickPostIcon' href='".admin_url('admin-ajax.php')."?action=bridVideoLibrary'>
+		    <img src='".BRID_PLUGIN_URL."/img/brid_tv.png'/></div><script>var convertedVideos = []; var BridOptions = ".json_encode(array_merge(get_option('brid_options'), array('ServicesUrl'=>CLOUDFRONT)))."; jQuery('.bridAjax').colorbox({innerWidth:'80%', innerHeight:'580px'});</script>";
 			
 		  return $context;
     }
-    /**
-     * Render short code into brid iframe
+    
+    /*
+     * Fancy checkbox option
+     *
+     * $opt array values
+     * name = brid_options[ovr_def]
+     * id = 'ovr_def'
+     * value = 1/0
+     * title = REPLACE DEFAULT PLAYER WITH BRID PLAYER
+     * desc = Will try to replace all default wordpress video tags with Brid.tv player. Videos will be automatically monetized with your Ad Tag Url.
+     * method = jsMethodToggle
+     * marginTop -optional
+     * marginBottom - optional
      */
-    public static function brid_shortcode($attrs){
+    public static function checkbox($opt){
 
-    	$url = array();
-    	$url[] = isset($attrs['type']) ? $attrs['type'] : 'iframe';	//action
-
-    	$modes = array('video', 'playlist', 'latest', 'tag', 'channel', 'source');
-
-    	$mode = 'video';
-    	$id = DEFAULT_VIDEO_ID;
-
-    	foreach($modes as $k=>$v){
-    		if(isset($attrs[$v])){
-    			$mode = $v;
-    			$id = $attrs[$v];
-    			break;
-    		}
+    	
+    	if(!isset($opt['id'])){
+    		echo "Checkbox Error: Id missing chechbox";
+    		return false;
     	}
-    	$url[] = $mode; //mode
-    	$iframeId[] = $id; //content id
-
-    	
-    	$iframeId[] = BridOptions::getOption('site');	//partner id
-    	//Force player override
-    	/*$iframeId[] = isset($attrs['player']) ? $attrs['player'] : BridOptions::getOption('player');	//player id
-    	$iframeId[] = isset($attrs['autoplay']) ? $attrs['autoplay'] : BridOptions::getOption('autoplay');	//autoplay
-    	$iframeId[] = isset($attrs['items']) ? $attrs['items'] : 1;	//num of items
-    	*/
-    	$playerOptions = array();
-    	$playerOptions['id'] = isset($attrs['player']) ? $attrs['player'] : BridOptions::getOption('player');	//player id;
-    	//$playerOptions['autoplay'] = isset($attrs['autoplay']) ? intval($attrs['autoplay']) : intval(BridOptions::getOption('autoplay'));	//autoplay
-    	if(isset($attrs['autoplay'])){
-    		$playerOptions['autoplay'] = intval($attrs['autoplay']);
+    	if(!isset($opt['name'])){
+    		echo "Checkbox Error: Name missing chechbox";
+    		return false;
     	}
-    	
-    	if($mode == 'video' || $mode == 'playlist'){
-    		$playerOptions[$mode] = $id;
-    		if($mode=='playlist'){
-    			$playerOptions['video_type'] = isset($attrs['video_type']) ? $attrs['video_type'] : 0;	//video type[Brid|Yt]
-    		}
+    	if(!isset($opt['value'])){
+    		echo "Checkbox Error: Value missing chechbox";
+    		return false;
     	}
-    	else {
-    		$playerOptions['playlist']['id'] = $id;
-    		$playerOptions['playlist']['mode'] = $mode;
-    		$playerOptions['playlist']['items'] = isset($attrs['items']) ? $attrs['items'] : 1;
-    		$playerOptions['video_type'] = isset($attrs['video_type']) ? $attrs['video_type'] : 0;	//video type[Brid|Yt]
+    	$opt['value'] = intval($opt['value']);
+    	if(!isset($opt['title'])){
+    		echo "Checkbox Error: Id missing chechbox";
+    		return false;
     	}
-    	
-    	
-    	$t = time();
-    	$tl = strlen($t);
-    	
-    	$divId = substr(time(),($tl-8),$tl).rand();
-    	$url = array_merge($url, $iframeId);
+    	$c = 'none';
+        $inp = '';
+        if($opt['value']){ 
 
-    	$playerOptions['width'] = isset($attrs['width']) ? $attrs['width'] : BridOptions::getOption('width');
-    	$playerOptions['height'] = isset($attrs['height']) ? $attrs['height'] : BridOptions::getOption('height');
 
-    	//Iframe
-    	//return '<script type="text/javascript" src="'.CDN_HTTP.'player/build/brid.api.min.js"></script><iframe id="'.implode('-', $iframeId).'" src="'.CDN_HTTP.'services/'.implode('/',$url).'" width="'.$width.'" height="'.$height.'" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
-    	$embedCode =  '<!--WP embed code - Brid Ver.'.BRID_PLUGIN_VERSION.' -->';
-    	$embedCode .= '<script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script><div id="Brid_'.$divId.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_'.$divId.'_adContainer"></div></div>';
-		$embedCode .= '<script type="text/javascript">$bp("Brid_'.$divId.'", '.json_encode($playerOptions).');</script><script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>';
-		
-		return $embedCode;
+          $c = 'block';
+          $inp = 'checked';
+
+        }
+        $dataMethod = '';
+        if(isset($opt['method'])){
+        	$dataMethod='data-method="'.$opt['method'].'"';
+        }
+        $marginTop = '20';
+        if(isset($opt['marginTop'])){
+        	$marginTop=intval($opt['marginTop']);
+        }
+        $marginBottom = '0';
+        if(isset($opt['marginBottom'])){
+        	$marginBottom=intval($opt['marginBottom']);
+        }
+
+    	?>
+
+    	<div class="checkboxRowSettings" style="margin-top:<?php echo $marginTop; ?>px;margin-bottom:<?php echo $marginBottom; ?>px;">
+          <div id="checkbox-<?php echo $opt['id'];?>" class="bridCheckbox" <?php echo $dataMethod; ?> data-name="<?php echo $opt['id'];?>" style="top:4px;left:1px;">
+            <div class="checkboxContent">
+              <img src="<?php echo BRID_PLUGIN_URL; ?>img/checked.png" class="checked" style="display:<?php echo $c; ?>" alt="">
+              <input type="hidden" name="<?php echo $opt['name'];?>" class="singleCheckbox <?php echo $inp;?>" id="<?php echo $opt['id'];?>" value="<?php echo $opt['value'];?>" data-value="<?php echo $opt['value'];?>" style="display:none;">
+            </div>
+            <div class="checkboxText"><?php echo $opt['title']; ?></div>
+            <?php if(isset($opt['desc'])) {?>
+            <div class="flashFalbackWarring"><?php echo $opt['desc']; ?></div>
+            <?php } ?>
+          </div>
+        </div>
+        <?php
     }
 
     public static function dynamics(){
@@ -688,8 +877,25 @@ class BridHtml {
     	die();
 
     }
-    public static function admin_notice_message(){    
-	   echo '<div class="updated"><p>You must <a href="options-general.php?page=brid-video-config">configure</a> the Brid Video plugin before you start using it.</p></div>';
+    //Un-authorize user only
+    public static function unauthorizeBrid(){
+    	
+
+        delete_option('brid_options');
+        if(isset($_GET['red'])){
+        	
+        	wp_redirect(admin_url('admin.php?page=brid-video-config-setting'));
+        }
+    	die();
+    }
+    public static function admin_notice_message(){
+
+
+    	if(!BridOptions::areThere() && !isset($_GET['code']))
+    	{
+	   		echo '<div class="updated"><p>You must <a href="options-general.php?page=brid-video-config-setting" id="ConfigureBrid">configure</a> the Brid Video plugin before you start using it.</p></div>';
+
+	   	}
 	}
 	/**
 	 * Send premium request
@@ -712,7 +918,7 @@ class BridHtml {
              * set partner to be external
              */
 		    BridOptions::updateOption('question', '1');
-      		BridOptions::updateOption('upload', 0);
+      		//BridOptions::updateOption('upload', 0);
             echo $response;
           }else{
             throw new Exception('Invalid request data');
@@ -725,14 +931,72 @@ class BridHtml {
       die(); // this is required to return a proper result (By wordpress site)
 		
 	}
-}
-//@see http://codex.wordpress.org/AJAX_in_Plugins
+	
 
+}
+
+
+//Pre save parse iframe
+function my_filter_brid_iframe_to_short($content){
+
+	
+	//$reg = '/<iframe.*src=\"'.str_replace('"', '', json_encode(CLOUDFRONT)).'(.*)\".*><\/iframe>(?=>)/im';
+	$reg = "#<iframe[^>]+>.*?</iframe>#is";
+
+	$content = stripslashes($content);
+
+	$iframes = array();
+
+	if(preg_match_all($reg, $content, $matches)){
+
+		
+		foreach ($matches[0] as $key => $match) {
+			# code...
+			
+			//if(!empty($match) && isset($match[1]))
+			//{
+				$iframe = $matches[0][$key];
+
+				$iframes[] = $iframe;
+				//Title
+				$title='No title';
+				$src = '';
+				$shortcode = '';
+				if(preg_match('/src=\"(.*)\"/isU', $iframe, $m)){
+
+					if(isset($m[1])){
+						$src = str_replace(CLOUDFRONT,'',$m[1]);
+					}
+				}
+
+				if(preg_match('/title=\"(.*)\"/isU', $iframe, $m)){
+
+					if(isset($m[1])){
+						$title = $m[1];
+					}
+				}
+				//Params
+				$d = explode('/', $src);
+				
+				if($src!=''){
+					$shortcode = '[brid '.$d[2].'="'.$d[3].'" player="'.$d[5].'" title="'.addslashes($title).'"]';
+				}
+
+				//print_r($shortcode);
+
+				$content = str_replace($iframe, $shortcode, $content);
+			//}
+		}
+	}
+
+
+	return $content;
+}
+//Pre save filter to brid code
+add_filter( 'content_save_pre', 'my_filter_brid_iframe_to_short', 9, 1 );
 
 /* -------- ADD TO POST -------- */
-add_action('wp_ajax_bridVideoPost', array('BridHtml', 'bridVideoPost'));							//Fancybox to open post screen
-add_action('wp_ajax_dynamics', array('BridHtml', 'dynamics'));							//Fancybox to open post screen
-
+add_action('wp_ajax_dynamics', array('BridHtml', 'dynamics'));							//Colorbox to open post screen
 /* -------- PLAYLIST -------- */
 add_action('wp_ajax_sortVideos', array('BridHtml', 'sortVideos')); 						//Sort videos in playlist edit mode
 add_action('wp_ajax_removeVideoPlaylist', array('BridHtml', 'removeVideoPlaylist')); 	//Remove single item from playlist
@@ -748,6 +1012,7 @@ add_action('wp_ajax_askQuestion', array('BridHtml', 'askQuestion'));		//Ask ques
 add_action('wp_ajax_bridAction', array('BridHtml', 'bridAction'));			//Tab click get Videos view
 add_action('wp_ajax_videos', array('BridHtml', 'videos'));					//Tab click get Videos view
 add_action('wp_ajax_addVideo', array('BridHtml', 'addVideo'));				//Add video via url or via upload
+add_action('wp_ajax_uploadVideo', array('BridHtml', 'uploadVideo'));				//Add video via url or via upload
 add_action('wp_ajax_addYoutube', array('BridHtml', 'addYoutube')); 			//Add youtube video action
 add_action('wp_ajax_editVideo', array('BridHtml', 'editVideo'));			//Edit video action
 add_action('wp_ajax_ffmpegInfo', array('BridHtml', 'ffmpegInfo'));			//Get video ffmpeg info
@@ -765,5 +1030,9 @@ add_action('wp_ajax_addPartner', array('BridHtml', 'addPartner'));		//Change Sta
 add_action('wp_ajax_updatePartnerId', array('BridHtml', 'updatePartnerId'));		//Change Status on video or playlist
 add_action('wp_ajax_updatePartnerField', array('BridHtml', 'updatePartnerField'));		//Update partner field
 add_action('wp_ajax_bridPremium', array('BridHtml', 'bridPremium')); //Send premium request
+//Try to create crossdomain.xml
+add_action('wp_ajax_createCrossdomain', array('BridHtml', 'createCrossdomain')); //Send premium request
+add_action('wp_ajax_monetizeVideo', array('BridHtml', 'monetizeVideo')); //Monetize videos
+add_action('wp_ajax_unauthorizeBrid', array('BridHtml', 'unauthorizeBrid')); //Monetize videos
 
 ?>

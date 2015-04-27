@@ -11,7 +11,9 @@ class BridOptions{
 
 	private static $_instance = null;
 
-	private static $_requiredOptions = array('oauth_token', 'site', 'player','autoplay','width','height');
+	private static $_requiredOptions = array('oauth_token', 'site', 'player');
+
+	private static $_allOptions = array('oauth_token', 'site', 'player','autoplay','width','height','ovr_def','ovr_yt','intro_enabled');
 
 	public static function getInstance(){
 
@@ -59,6 +61,8 @@ class BridOptions{
 
 		//If options are empty, try to load
 		if(empty(self::$_options)) self::loadOption();
+
+
 		$is = true;
 		foreach (self::$_requiredOptions as $key => $value) {
 			if(!isset(self::$_options[$value]))
