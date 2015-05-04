@@ -2,9 +2,9 @@
 Contributors: Sovica, Brid
 Donate link: http://www.brid.tv/
 Tags: embed video, embed youtube, flash, flash player, html5, html5 player, video, mobile, video player, Brid.tv, brid video, brid player, brid.tv video player, webm, h.264, ffmpeg, MP4, ogg, poster, responsive, free video, video library, video gallery, transcoding, encoding, advertising, vast, video ads, video advertising, video monetization, playlist widget, video shortcode, video slider, youtube video, youtube player, video plugin, video widget, playlist, veeps, youtube playlist, video blog, video embed, flash video player, html5 video player, free video platform
-Requires at least: 4.0
-Tested up to: 4.2
-Stable tag: 2.0.0
+Requires at least: 3.9
+Tested up to: 4.2.1
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,7 +57,7 @@ You can also manage your Brid video library and playlists under Media > Brid vid
 
 = I have installed the plugin but it does not work. =
 
-Make sure that your WordPress version is at least 3.2, as versions below are not supported.
+Make sure that your WordPress version is at least 4.0, as versions below are not supported.
 
 = Can I use this plugin to host videos on my own server? =
 
@@ -82,6 +82,13 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 11. Brid quick post video screen
 
 == Changelog ==
+
+= Version 2.0.1 =
+
+*   Added invalid URL check for intro videos.
+*   Made plugin compatible with 3.9 WordPress version and onwards.
+*   Optmized skin changing operation in settings menu to now use the player API. As a result, the change player skin operation is much faster.
+*   Added a couple of checks on the settings page so changes propagate correctly between the CMS and the WP plugin.
 
 = Version 2.0.0 =
 
@@ -166,5 +173,5 @@ This is almost a complete rework of our original plugin. There have been numerou
 
 == Upgrade Notice ==
 
-= 2.0.0 =
+= 2.0.1 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.

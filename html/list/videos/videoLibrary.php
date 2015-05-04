@@ -237,12 +237,19 @@ jQuery(document).ready(function(){
 		return false;
 	}
 
+	document.BridAPIReady = function(){
 
+		var brid = jQuery('#video-embed').find('.brid')
+		brid.css('height', '200px');
+		var id = brid.attr('id');
+		$bp(id).onResize();
+	}
 	window.bindBridItemClick = function(){
 
+		
 		jQuery('.bridItem').on('click', function(){
 		var i = jQuery(this);
-		
+		document.APIReadyDispatched = false;
 		jQuery('.bridItem').removeClass('details selected');
 
 		if(!i.hasClass('selected')){
@@ -258,7 +265,13 @@ jQuery(document).ready(function(){
 			jQuery('#bridVideoDetails').show();
 			jQuery('.flashFalbackWarring').show();
 
+			//jQuery('#video-embed').css('height', '200px');
+			//console.log($Brid.Util.decodeHtml(brid_video_item.Video.embed_code));
+
 			jQuery('#video-embed').html($Brid.Util.decodeHtml(brid_video_item.Video.embed_code));
+			
+			
+			
 			jQuery('#VideoId').val(brid_video_item.Video.id);
 			jQuery('#VideoName').val(brid_video_item.Video.name);
 			jQuery('#VideoDescription').val(brid_video_item.Video.description);

@@ -96,7 +96,7 @@ class BridActions{
 
                 //Add submenu page into Brid.tv section with Brid.tv Settings options
                 add_submenu_page( 'brid-video-menu', 'Brid Video Settings', 'Settings', 'manage_options', 'brid-video-config', array('BridActions', 'admin_html'));
-              
+                
             }
               //add_options_page( 'Brid Video', 'Brid.tv', 'administrator', 'brid-video-library', array('BridHtml', 'mediaLibrary') );
 
@@ -112,6 +112,7 @@ class BridActions{
 
           
         }
+       
         /**
          * Settings page for configuring Brid.tv options
          */
@@ -150,18 +151,33 @@ class BridActions{
               elseif (isset($response->access_token)) {
               
                 BridOptions::updateOption('oauth_token', $response->access_token);
-                
+                BridOptions::updateOption('ver', BRID_PLUGIN_VERSION);
                 $api = new BridAPI(); // Refresh the API with the latest API token
 
               }
             }
 
+
+            /*****
+
+
+                API CALL
+
+
+            ******/
             $user = $api->userinfo(true);
 
 
             if(!empty($user->error)){
               wp_die('User error: '.$user->error);
             }
+              /*****
+
+
+                API CALL
+
+
+              ******/
               //Get site list via Api
               $sites = $api->sitesList(true);
 
@@ -263,7 +279,13 @@ class BridActions{
                           if(isset($_POST['Skin']['templatized']) && $_POST['Skin']['templatized']){
                             unset($_POST['Player']['skin_id']);
                           }
+                          /*****
 
+
+                              API CALL
+
+
+                          ******/
                           //print_r($_POST); die();
                           $savePlayer = $api->editPlayer($_POST, true);
                         
@@ -274,12 +296,31 @@ class BridActions{
                     }
 
                     if(!empty($selected) && isset($_POST['Partner'])){
-                        
+                        /*****
+
+
+                            API CALL
+
+
+                        ******/
                         $resp = $api->updatePartnerField($_POST['Partner'], false);
 
                     }
 
                     $selected  = BridOptions::getOption('site',true);
+                     /*****
+
+
+                          API CALL
+
+
+                     ******/
+                    //Get current partner selected
+                    $partner = $api->partner($selected, true);
+                     if(!empty($partner->error)){
+                      wp_die('Partner Error: '.$partner->error.ACCESS_ERROR_MSG);
+                    }
+
                     $playerSelected  = BridOptions::getOption('player',true); //Is there any selected player saved?
                     $oAuthToken  = BridOptions::getOption('oauth_token'); //Oauth token
 
@@ -299,9 +340,9 @@ class BridActions{
                     $user_id  = $user_id!='' ? $user_id : $user->id;
                     BridOptions::updateOption('user_id', $user_id); //Do update imediatley for none-existing sites
 
-                    //intro_enabled
-                    $intro_enabled  = BridOptions::getOption('intro_enabled',true); //User id
-                    $intro_enabled  = $intro_enabled!='' ? $intro_enabled : 1;
+                    //intro_enabled - Update it via partner data to sync it with cms
+                    //$intro_enabled  = BridOptions::getOption('intro_enabled',true); //User id
+                    $intro_enabled  = $partner->Partner->intro_video; //$intro_enabled!='' ? $intro_enabled : 1;
                     BridOptions::updateOption('intro_enabled', $intro_enabled); //Do update imediatley for none-existing sites
                     
                     //Override default YT shortcode
@@ -318,9 +359,7 @@ class BridActions{
                     {
                       $error .= 'Settings are not saved yet.';
                     }
-
-                    //Get current partner selected
-                    $partner = $api->partner($selected, true);
+                   
 
 
                     //Host video files question
@@ -335,9 +374,7 @@ class BridActions{
                     }
                     
                     //$api = new BridAPI();
-                    if(!empty($partner->error)){
-                      wp_die('Partner Error: '.$partner->error.ACCESS_ERROR_MSG);
-                    }
+                   
 
                     $players = array();
 
@@ -345,6 +382,13 @@ class BridActions{
                     
 
                     if($selected!=''){
+                      /*****
+
+
+                          API CALL
+
+
+                      ******/
                       //Get players list
                       $players = $api->call(array('url'=>'players/'.$selected), true);
 
@@ -353,9 +397,7 @@ class BridActions{
 
                       if(!empty($players) && isset($players[0]->Player->id) && empty($playerSel)){
                         //Only first time after auth
-                        BridOptions::updateOption('player',$players[0]->Player->id);
-                        BridOptions::updateOption('width',$players[0]->Player->width);
-                        BridOptions::updateOption('height',$players[0]->Player->height);
+                       
 
                         $player = $players[0]->Player;
                       }else{
@@ -367,6 +409,23 @@ class BridActions{
                         }
                         
                       }
+                      //Update these to sync with cms
+                      if(!empty($player)){
+
+                        BridOptions::updateOption('player',$player->id);
+                        BridOptions::updateOption('width',$player->width);
+                        BridOptions::updateOption('height',$player->height);
+                        $width = $player->width;
+                        $height = $player->height;
+                        $autoplay = $player->autoplay;
+                      }
+                      /*****
+
+
+                          API CALL
+
+
+                      ******/
                       //Get skins list
                       $skins = $api->call(array('url'=>'skins/'.$selected), true);
 

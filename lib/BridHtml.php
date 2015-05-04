@@ -789,7 +789,7 @@ class BridHtml {
     public static function addPostButton($context){
 
 		  $context .= "<div class='bridAjax' id='bridQuickPostIcon' href='".admin_url('admin-ajax.php')."?action=bridVideoLibrary'>
-		    <img src='".BRID_PLUGIN_URL."/img/brid_tv.png'/></div><script>var convertedVideos = []; var BridOptions = ".json_encode(array_merge(get_option('brid_options'), array('ServicesUrl'=>CLOUDFRONT)))."; jQuery('.bridAjax').colorbox({innerWidth:'80%', innerHeight:'580px'});</script>";
+		    <img src='".BRID_PLUGIN_URL."/img/brid_tv.png'/></div><script>var convertedVideos = []; var BridOptions = ".json_encode(array_merge(get_option('brid_options'), array('ServicesUrl'=>CLOUDFRONT)))."; jQuery('.bridAjax').colorbox({innerWidth:'80%', innerHeight:'580px', onClosed : killVeeps});</script>";
 			
 		  return $context;
     }

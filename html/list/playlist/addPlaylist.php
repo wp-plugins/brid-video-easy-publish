@@ -171,10 +171,20 @@ var saved = false;
 	    return false;
 	  }
 	});
+	document.BridAPIReady = function(){
 
+		var brid = jQuery('#video-embed').find('.brid')
+		brid.css('height', '200px');
+		var id = brid.attr('id');
+		$bp(id).onResize();
+	}
 	window.bindBridPlaylistItemClick = function(){
 
+		
+
 		jQuery('.bridItem').on('click', function(){
+
+			document.APIReadyDispatched = false;
 		var i = jQuery(this);
 		
 		//jQuery('.bridItem').removeClass('details selected');

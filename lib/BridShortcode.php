@@ -118,8 +118,9 @@ class BridShortcode {
 	   
      global $pagenow;
 
-	   $embed  = $url;
+	 $embed  = $url;
      $src = '';
+
      //render different embed in admin area
      if($pagenow=='admin-ajax.php'){
         

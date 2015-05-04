@@ -13,7 +13,7 @@ class BridOptions{
 
 	private static $_requiredOptions = array('oauth_token', 'site', 'player');
 
-	private static $_allOptions = array('oauth_token', 'site', 'player','autoplay','width','height','ovr_def','ovr_yt','intro_enabled');
+	private static $_allOptions = array('oauth_token', 'site', 'player','autoplay','width','height','ovr_def','ovr_yt','intro_enabled','ver');
 
 	public static function getInstance(){
 

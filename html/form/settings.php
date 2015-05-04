@@ -176,8 +176,11 @@
               <div id="Settings-content" class="tab-content settingsWrapper" style="display:block;">
                 
                   <?php 
-
+                    if(isset($_GET['bridDebug'])){
+                      print_r(get_option('brid_options'));
+                    }
                       settings_fields('brid_options'); 
+                    
                       //do_settings_sections('brid-plugin');
                   ?>
                                 
@@ -410,7 +413,7 @@
                             <input name="Skin[templatized]" type="hidden" value="0" id="SkinTemplatized" required="required">
                             <input name="Player[id]" type="hidden" value="0" id="PlayerId" required="required">
 
-                            <div id="inteligentSkinMsg" style="margin-bottom: 15px;">Detected skin on this player is an <a href="https://brid.zendesk.com/hc/en-us/articles/200299471" target="_blank">intelligent skin</a>. To change the skin used on this player please change it via <a href="https://cms.brid.tv" target="_blank">Brid CMS</a>.</div>
+                            <div id="inteligentSkinMsg" style="margin-bottom: 15px;display:none;">Detected skin on this player is an <a href="https://brid.zendesk.com/hc/en-us/articles/200299471" target="_blank">intelligent skin</a>. To change the skin used on this player please change it via <a href="https://cms.brid.tv" target="_blank">Brid CMS</a>.</div>
 
                               <div id="skinList" style="display:<?php echo !empty($players) ? 'block;' : 'none'; ?>width:95%">
 
@@ -756,7 +759,8 @@
     jQuery('#playerSkinSelect').on('change', function(){
 
         var skin_id = jQuery('#playerSkinSelect :selected').val();
-        reloadBridPlayer(playerSelected+'/'+skin_id);
+        //reloadBridPlayer(playerSelected+'/'+skin_id);
+        $bp('Brid_27449775').changeSkin(skin_id);
     });
     
 
@@ -1065,6 +1069,41 @@
 
     //Load first time
 
+    jQuery("#IntroVideo").input(function(){
+    var IntroUrl = jQuery("#IntroVideo").val();
+    if(IntroUrl!=undefined && IntroUrl!='' && IntroUrl.length>0){
+
+      var errDiv = jQuery(this).parent().find('.errorMsg');
+
+      if(!$Brid.Util.isUrl(IntroUrl)){
+        var errMsg = '*Video Url must be valid URL format.'.toUpperCase();
+        
+        //$Brid.Util.openDialog('Video Url must be valid URL format.','Invalid input');
+        if(errDiv.length==0){
+          jQuery(this).parent().addClass('inputError');
+          jQuery(this).parent().append('<div class="errorMsg">'+errMsg+'</div>');
+        }else{
+          errDiv.html(errMsg);
+        }
+      } 
+      else if(!$Brid.Util.checkExtension(IntroUrl, ["mp4"])){
+        //$Brid.Util.openDialog('NOT A VALID VIDEO FORMAT ('+$Brid.Video.allowedVideoExtensions.join(',').toUpperCase()+').', 'Invalid input');
+        var errMsg = '*NOT A VALID VIDEO FORMAT ('+["mp4"].join(',').toUpperCase()+' ONLY)';
+        
+        if(errDiv.length==0){
+          jQuery(this).parent().addClass('inputError');
+          jQuery(this).parent().append('<div class="errorMsg">'+errMsg+'</div>');
+        }else{
+          errDiv.html(errMsg);
+        }
+        jQuery(this).val('')
+      }else{
+        jQuery(this).parent().removeClass('inputError');
+        jQuery(this).parent().find('.errorMsg').remove();
+      }
+    }
+  });
+
     jQuery('.bridBrowseLibary').on('click', function(){
          // If the media frame already exists, reopen it.
           if ( file_frame ) {
@@ -1091,6 +1130,9 @@
             if($Brid.Util.checkExtension(attachment.url, $Brid.Util.allowedIntroUrlExtensions)){
 
                 field.val(attachment.url);
+
+                field.parent().find('.errorMsg').remove();
+                field.parent().removeClass('inputError');
 
             }else{
                   alert('Invalid url extension. Video extension required:'+$Brid.Util.allowedIntroUrlExtensions.join(','));

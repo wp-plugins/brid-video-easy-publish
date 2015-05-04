@@ -4,6 +4,7 @@ $BridWordpressConfig.pluginUrl = '<?php echo BRID_PLUGIN_URL; ?>';
 var currentDivView = 'Videos-content';
 </script>
 <div class="mainWrapper" style="width:100%;position:relative; top:20px">
+	<div id="bridSpiner"><img src="<?php echo BRID_PLUGIN_URL.'/img/indicator.gif'; ?>" /></div>
 	<div class="mainWrapper" style="width:858px">
 		<?php if(!$partner->Partner->upload){  ?>
 		<p class="bridNotice" style="display:none;  float: left; width: 100%; padding-right: 0px; padding-left: 0px; text-indent: 15px;">

@@ -201,12 +201,18 @@ var saved = false;
 		 	
 	});
 	
+	document.BridAPIReady = function(){
 
+		var brid = jQuery('#video-embed').find('.brid')
+		brid.css('height', '200px');
+		var id = brid.attr('id');
+		$bp(id).onResize();
+	}
 	window.bindBridPlaylistItemClick = function(){
 
 		jQuery('.bridItem').on('click', function(){
 		var i = jQuery(this);
-		
+		document.APIReadyDispatched = false;
 		jQuery('.bridItem').removeClass('details selected');
 		
 		var index = i.attr('data-video-index');
