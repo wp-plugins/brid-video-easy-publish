@@ -26,6 +26,10 @@ class BridActions{
                       ($pagenow == 'admin.php' && isset($_GET['page']) && (in_array($_GET['page'], array('brid-video-menu', 'brid-video-config', 'brid-video-config-setting'))))
                       );
          }
+         public static function meta(){
+             $content = BRID_PLUGIN_VERSION;
+             echo '<meta name="BridPlugin" content="'.$content.'" />';
+         }
         /**
          * Admin init
          *
@@ -336,6 +340,10 @@ class BridActions{
                     $autoplay =  $autoplay!='' ?  $autoplay : '0';
                     BridOptions::updateOption('autoplay', $autoplay); //Do update imediatley for none-existing sites
 
+                    $aspect  = BridOptions::getOption('aspect',true); //Aspect (responsive width/height)
+                    $aspect =  $aspect!='' ?  $aspect : '1';
+                    BridOptions::updateOption('aspect', $aspect); //Do update imediatley for none-existing values
+
                     $user_id  = BridOptions::getOption('user_id',true); //User id
                     $user_id  = $user_id!='' ? $user_id : $user->id;
                     BridOptions::updateOption('user_id', $user_id); //Do update imediatley for none-existing sites
@@ -554,5 +562,7 @@ add_action('wp_ajax_getPartnerAndPlayersWithDefaultPlayer', array('BridHtml', 'g
 add_action('admin_menu', array('BridActions', 'add_menu'));
 //Add settings link
 add_filter('plugin_action_links_'.PLUGIN_BASE_FILE , array('BridActions', 'brid_settings_link'));
+
+add_action('wp_head', array('BridActions', 'meta'));
 
 ?>

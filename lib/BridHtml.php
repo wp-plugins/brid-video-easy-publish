@@ -788,8 +788,11 @@ class BridHtml {
     //icon
     public static function addPostButton($context){
 
+    	  
+    	  $options = array_merge(get_option('brid_options'), BridShortcode::getSize());
+    	  
 		  $context .= "<div class='bridAjax' id='bridQuickPostIcon' href='".admin_url('admin-ajax.php')."?action=bridVideoLibrary'>
-		    <img src='".BRID_PLUGIN_URL."/img/brid_tv.png'/></div><script>var convertedVideos = []; var BridOptions = ".json_encode(array_merge(get_option('brid_options'), array('ServicesUrl'=>CLOUDFRONT)))."; jQuery('.bridAjax').colorbox({innerWidth:'80%', innerHeight:'580px', onClosed : killVeeps});</script>";
+		    <img src='".BRID_PLUGIN_URL."/img/brid_tv.png'/></div><script>var convertedVideos = []; var BridOptions = ".json_encode(array_merge($options, array('ServicesUrl'=>CLOUDFRONT)))."; jQuery('.bridAjax').colorbox({innerWidth:'80%', innerHeight:'580px', onClosed : killVeeps});</script>";
 			
 		  return $context;
     }
@@ -931,30 +934,19 @@ class BridHtml {
       die(); // this is required to return a proper result (By wordpress site)
 		
 	}
-	
+	//Convert brid iframe into brid short code before saving into DB
+	public static function my_filter_brid_iframe_to_short($content){
 
-}
+		$reg = "#<iframe[^>]+>.*?</iframe>#is";
 
+		$content = stripslashes($content);
 
-//Pre save parse iframe
-function my_filter_brid_iframe_to_short($content){
+		$iframes = array();
 
-	
-	//$reg = '/<iframe.*src=\"'.str_replace('"', '', json_encode(CLOUDFRONT)).'(.*)\".*><\/iframe>(?=>)/im';
-	$reg = "#<iframe[^>]+>.*?</iframe>#is";
+		if(preg_match_all($reg, $content, $matches)){
 
-	$content = stripslashes($content);
-
-	$iframes = array();
-
-	if(preg_match_all($reg, $content, $matches)){
-
-		
-		foreach ($matches[0] as $key => $match) {
-			# code...
-			
-			//if(!empty($match) && isset($match[1]))
-			//{
+			foreach ($matches[0] as $key => $match) {
+				
 				$iframe = $matches[0][$key];
 
 				$iframes[] = $iframe;
@@ -978,22 +970,24 @@ function my_filter_brid_iframe_to_short($content){
 				//Params
 				$d = explode('/', $src);
 				
-				if($src!=''){
+				if($src!='' && isset($d[2]) && isset($d[3]) && isset($d[5])){
 					$shortcode = '[brid '.$d[2].'="'.$d[3].'" player="'.$d[5].'" title="'.addslashes($title).'"]';
+					$content = str_replace($iframe, $shortcode, $content);
 				}
-
-				//print_r($shortcode);
-
-				$content = str_replace($iframe, $shortcode, $content);
-			//}
+			}
 		}
+
+
+		return $content;
 	}
+	
 
-
-	return $content;
 }
+
+
+
 //Pre save filter to brid code
-add_filter( 'content_save_pre', 'my_filter_brid_iframe_to_short', 9, 1 );
+add_filter('content_save_pre', array('BridHtml','my_filter_brid_iframe_to_short'), 9, 1 );
 
 /* -------- ADD TO POST -------- */
 add_action('wp_ajax_dynamics', array('BridHtml', 'dynamics'));							//Colorbox to open post screen

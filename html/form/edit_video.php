@@ -262,40 +262,31 @@
 																	  			
 							  		  		<div class="formWrapper monetizationOptions" style="display:<?php echo $show; ?>;" id="adSettings">
 												<div class="add-ad" data-type="preroll">
-													
-													
-
-											<div class="bridButton add-preroll-ad" id="add-preroll-ad" style="opacity: 1;">
-												<div class="buttonLargeContent">ADD PRE-ROLL</div></div>
-
-																						
-																						</div>
-																						<div class="add-ad" id="add-ad-midroll" data-type="midroll">
-																						
-
-											<div class="bridButton add-midroll-ad" id="add-midroll-ad" style="opacity: 1;">
-												<div class="buttonLargeContent">ADD MID-ROLL / SET CUE POINTS</div></div>
-
-																						</div>
-																						<div class="add-ad" data-type="overlay">
-																							
-
-											<div class="bridButton add-overlay-ad" id="add-overlay-ad">
-												<div class="buttonLargeContent">ADD OVERLAY</div></div>
-
-																						</div>
-																						<div class="add-ad" data-type="postroll">
-																							
-
-											<div class="bridButton add-postroll-ad" id="add-postroll-ad">
-												<div class="buttonLargeContent">POSTROLL</div>
-											</div>
-
+													<div class="bridButton add-preroll-ad" id="add-preroll-ad" style="opacity: 1;">
+														<div class="buttonLargeContent">ADD PRE-ROLL</div>
+													</div>					
 												</div>
+												<?php if($video->Video->external_type!=1){ ?>
+													<div class="add-ad" id="add-ad-midroll" data-type="midroll">
+														<div class="bridButton add-midroll-ad" id="add-midroll-ad" style="opacity: 1;">
+															<div class="buttonLargeContent">ADD MID-ROLL / SET CUE POINTS</div>
+														</div>
+													</div>
+													<div class="add-ad" data-type="overlay">
+														<div class="bridButton add-overlay-ad" id="add-overlay-ad">
+															<div class="buttonLargeContent">ADD OVERLAY</div>
+														</div>
+													</div>
+													<div class="add-ad" data-type="postroll">
+														<div class="bridButton add-postroll-ad" id="add-postroll-ad">
+															<div class="buttonLargeContent">POSTROLL</div>
+														</div>
+													</div>
+												<?php } ?>
 												<div class="flashFalbackWarring" style="padding-top:15px;margin-left:10px">Use these monetization fields only if you wish to override any monetization settings that you already setup on your <a href="admin.php?page=brid-video-config#Monetization">Brid settings page</a>. <a href="https://brid.zendesk.com/hc/en-us/articles/202806771" target="_blank">Learn more</a>.</div>
 												<!-- Content div for ads -->
 												<!-- Content div for ads -->
-												<div style="float:left; width:100%;margin-top:22px" id="ad-content">
+												<div style="float:left; width:100%;margin-top:22px" id="brid-boxes-content">
 													<?php 
 												  		//$ads = $this->Html->value('Ad');
 												  		if(!empty($ads)){
@@ -386,25 +377,29 @@ jQuery('input[id$="OverlayStartAt"], input[id$="OverlayDuration"]').off('keypres
 		
 		if(id!=undefined && id!=''){
 			//Edit mode
-			$Brid.Api.call({data : {action : "deleteAd", id : id}, callback : {after : {name : "refreshAdList", obj : jQuery('#ad-box-'+iterator)}}});
+			$Brid.Api.call({data : {action : "deleteAd", id : id}, callback : {after : {name : "refreshAdList", obj : jQuery('#brid-box-'+iterator)}}});
 
 		}else{
-			//Remove Ad in Add mode (never saved in DB)
-			jQuery('#ad-box-'+iterator).closest('.ad-box-container').fadeOut(300, function(){jQuery(this).remove(); save.toggleSave();});
 
+			//Remove Ad in Add mode (never saved in DB)
+			jQuery('#brid-box-'+iterator).closest('.brid-box-container').fadeOut(300, function(){jQuery(this).remove(); save.toggleSave();});
+
+			//console.log(ads);
 			delete(ads[iterator]);
 
 			if(adType=='midroll'){ //'midroll'
 				debug.log('remove midroll');
 				jQuery('#add-midroll-ad').removeClass('add-midroll-ad-disabled').addClass('add-midroll-ad');
+			}else{
+				jQuery('#add-'+adType+'-ad').removeClass('add-midroll-ad-disabled').addClass('add-'+adType+'-ad');
 			}
 
 		}
 	
 	}
 	//Init it by default
-	jQuery(".ad-box-remove").off('click', removeAdBox).on('click', removeAdBox);
-	if(jQuery('.ad-box-midroll').length > 0){
+	jQuery(".brid-box-remove").off('click', removeAdBox).on('click', removeAdBox);
+	if(jQuery('.brid-box-midroll').length > 0){
 		
 		jQuery('#add-midroll-ad').addClass('add-midroll-ad-disabled');
 	}

@@ -189,7 +189,7 @@ if(!empty($playlists->Playlists)){
 												}
 
 											?>
-											<img src="<?php echo BRID_PLUGIN_URL; ?>img/indicator.gif" data-original="<?php echo $firstSnapshot; ?>" class="lazy" width="111px" height="74px" id="partner-img-1080" alt="" style="display: inline;">
+											<img src="<?php echo BRID_PLUGIN_URL; ?>img/indicator.gif" data-original="<?php echo $firstSnapshot; ?>" onerror="this.src = &quot;<?php echo BRID_PLUGIN_URL; ?>img/thumb_404.png&quot;" class="lazy" width="111px" height="74px" id="partner-img-1080" alt="" style="display: inline;">
 												<div class="videoPreviewBg"></div>
 												<div class="videoPlay" style="left:22px;">
 													<img src="<?php echo BRID_PLUGIN_URL; ?>img/small_play.png" style="position:relative;width: 24px; height: 24px" alt="">
@@ -214,7 +214,7 @@ if(!empty($playlists->Playlists)){
 													}
 
 													?>
-													<img src="<?php echo $firstSnapshotSmall ?>" width="29px" height="15px" border="0">
+													<img src="<?php echo $firstSnapshotSmall ?>" onerror="this.src = &quot;<?php echo BRID_PLUGIN_URL; ?>img/thumb_404.png&quot;" width="29px" height="15px" border="0">
 												</div>
 												<?php } ?>
 											</div>

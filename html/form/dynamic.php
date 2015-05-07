@@ -17,7 +17,6 @@
 								<option value="latest">By latest on site</option>
 								<option value="channel">By channel</option>
 								<option value="tag">By tag</option>
-								<!--  <option value="source">By source</option> -->
 							</select>
 						</div>
 					</div>

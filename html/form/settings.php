@@ -193,6 +193,7 @@
 
                     <input type="hidden" id="height" name="brid_options[height]" value="<?php echo $height; ?>"/>
     
+
                     <input type="hidden" id="autoplay" name="brid_options[autoplay]" value="<?php echo $autoplay; ?>"/>
 
                     <input type="hidden" id="intro_enabled" name="brid_options[intro_enabled]" value="<?php echo $partner->Partner->intro_video; ?>"/>
@@ -353,20 +354,8 @@
                           </div>
                           <!-- Content div for ads -->
                           <div class="mainWrapper form" style="width:auto">
-                            <div style="float:left; width:100%;margin-top:22px" id="ad-content">
-                              <?php 
-                                  //$ads = $this->Html->value('Ad');
-                                  /*if(!empty($ads)){
-                                    
-                                    foreach($ads as $k=>$v){
-                                      
-                                      BridHtml::adBox($k, $v);
-                                      
-                                    }
-                                    
-                                    
-                                  }*/
-                                ?>
+                            <div style="float:left; width:100%;margin-top:22px" id="brid-boxes-content">
+                              
                             </div>
                           </div>
                         </div>
@@ -382,23 +371,9 @@
                 <div id="playerList" style="display:block">
 
                       <div class="settingsTitle lined"><div class="chkboxTitle">CHOOSE PLAYER</div></div>
-
+                      <!-- fill this selectbox via ajax -->
                       <select id="playerListSelect" name="brid_options[player]" class="chzn-select2" style="width:100%;">
-                        <?php
-                        /*if(!empty($players)){
-                          $n = count($players);
-                         
-                          foreach($players as $k=>$v){
-                              $s = '';
-                              if($v->Player->id==$playerSelected || $n==1){
-                                $s = 'SELECTED';
-                              }
-                              //data-Player=\''.json_encode($v).'\
-                              echo '<option value="'.$v->Player->id.'" '.$s.' >'.$v->Player->name.' - ['.$v->Player->width.'x'.$v->Player->height.']</option>';
-                          }
-
-                        }*/
-                        ?>
+                       
                       </select>
                       <div class="flashFalbackWarring" style="margin-left:10px">All your video content will be played through the selected player. To add more players, please <a href="https://cms.brid.tv" target='_blank'>login to BridTv</a>.</div>
                     </div>
@@ -462,6 +437,18 @@
                              </div>
 
                              <?php
+
+                              BridHtml::checkbox(array(
+
+                                    'id'=>'PlayerAspect',
+                                    'name'=>'brid_options[aspect]',
+                                    'value'=>$aspect,
+                                    'method'=>'togglePlayerSize',
+                                    'title'=> 'FIT PLAYER SIZE TO POST',
+                                    'marginBottom'=>15,
+                                    'desc'=>'If enabled, the Brid player will fit your post width and retain it\'s aspect ratio.<br/>This option will override your player width and height settings.'
+
+                                ));
 
                               BridHtml::checkbox(array(
 
@@ -563,11 +550,9 @@
             </div>
             <!-- End Settings Tab -->
              <div class="bridButton auth-plugin" data-href="#" id="authPlugin" style="padding-left:10px; margin-top:20px;clear:both;">
-                      <input type="submit" class="buttonLargeContent" value="SAVE CHANGES" style="height:48px;"/>
-                    </div>   
+                      <input type="submit" class="buttonLargeContent" value="SAVE CHANGES"/>
+              </div>   
 
-
-           
         </form>
            
       </div>
@@ -682,11 +667,11 @@
     
     if(id!=undefined && id!=''){
       //Edit mode
-      $Brid.Api.call({data : {action : "deleteAd", id : id}, callback : {after : {name : "refreshAdList", obj : jQuery('#ad-box-'+iterator)}}});
+      $Brid.Api.call({data : {action : "deleteAd", id : id}, callback : {after : {name : "refreshAdList", obj : jQuery('#brid-box-'+iterator)}}});
 
     }else{
       //Remove Ad in Add mode (never saved in DB)
-      jQuery('#ad-box-'+iterator).parent().fadeOut(300, function(){
+      jQuery('#brid-box-'+iterator).parent().fadeOut(300, function(){
         jQuery(this).remove(); 
         //save.toggleSave();
       });
@@ -795,7 +780,7 @@
 
         debug.log('Ads', ad);
 
-        jQuery('#ad-content').html('');
+        jQuery('#brid-boxes-content').html('');
 
         //Unblock all ad buttons
         jQuery('.add-ad').each(function(k,v){
@@ -844,7 +829,7 @@
             jQuery('#add-'+adTypes[ad[i].adType]+'-ad').addClass('add-midroll-ad-disabled');
 
             if(html){
-               jQuery('#ad-content').append(html);
+               jQuery('#brid-boxes-content').append(html);
             }
 
             if(midrollType){
@@ -859,8 +844,8 @@
         }
 
         //Init it by default
-        jQuery(".ad-box-remove").off('click', removeAdBox).on('click', removeAdBox);
-        if(jQuery('.ad-box-midroll').length > 0){
+        jQuery(".brid-box-remove").off('click', removeAdBox).on('click', removeAdBox);
+        if(jQuery('.brid-box-midroll').length > 0){
           
           jQuery('#add-midroll-ad').addClass('add-midroll-ad-disabled');
         }
@@ -1005,6 +990,11 @@
         }
 
         checkbox.toggleVoipSocialOptions(chk);
+
+
+         var chk = jQuery('#PlayerAspect');
+        var checkbox = $Brid.Html.CheckboxElement.create({name : 'PlayerAspect'});
+        checkbox.togglePlayerSize(chk);
 
 
         jQuery("#playerListSelect").on("change", function(){

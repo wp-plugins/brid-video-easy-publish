@@ -4,8 +4,8 @@ $iterator = isset($iterator) ? $iterator : null;
 $type = 'video';
 $adTypesFlipped = array_flip($ad_types);
 ?>
-<div class="ad-box-container">
-<table id="ad-box-<?php echo $iterator;?>" data-type="<?php echo $adType;?>" data-iterator="<?php echo $iterator;?>" class="ad-box-<?php echo $adType;?>">
+<div class="brid-box-container">
+<table id="brid-box-<?php echo $iterator;?>" data-type="<?php echo $adType;?>" data-iterator="<?php echo $iterator;?>" class="brid-box-<?php echo $adType;?>">
 	<?php
 		if($adObject!=null)
 			$id = $adObject->id; //$this->Html->value('Ad.'.$iterator.'.id');
@@ -29,7 +29,7 @@ $adTypesFlipped = array_flip($ad_types);
 			</td>
 			<td style="padding:5px;"></td>
 			<td style="padding:5px;">
-				<div style="float:right;cursor:pointer;" class="ad-box-remove" data-iterator="<?php echo $iterator;?>" id="ad-box-remove-<?php echo $iterator;?>" data-id="<?php echo $id;?>" data-type="<?php echo $adType;?>">
+				<div style="float:right;cursor:pointer;" class="brid-box-remove" data-iterator="<?php echo $iterator;?>" id="brid-box-remove-<?php echo $iterator;?>" data-id="<?php echo $id;?>" data-type="<?php echo $adType;?>">
 					<img src="<?php echo BRID_PLUGIN_URL; ?>/img/delete_ad.jpg" />
 				</div>
 			</td>

@@ -1,7 +1,7 @@
-<!-- Ad Box for pre-roll & post-roll -->
+<!-- pre-roll & post-roll -->
 <div id="pre-roll-template" style="display:none;">
-  <div class="ad-box-container">
-    <table id="ad-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="ad-box-{{ad_type}}">
+  <div class="brid-box-container">
+    <table id="brid-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="brid-box-{{ad_type}}">
       <input type="hidden" id="AdId" name="Ad[{{iterator}}][id]" value="{{id}}" />
       <tr style="background-color:#fff;">
         <td style="padding:5px;font-family:'Fjalla One', Arial; font-size:21px; color:#004055;text-transform:uppercase; padding-left:10px;">
@@ -10,7 +10,7 @@
         </td>
         <td style="padding:5px;"></td>
         <td style="padding:5px;">
-          <div style="float:right;cursor:pointer;" class="ad-box-remove" data-iterator="{{iterator}}" id="ad-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
+          <div style="float:right;cursor:pointer;" class="brid-box-remove" data-iterator="{{iterator}}" id="brid-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
             <img src="<?php echo BRID_PLUGIN_URL; ?>/img/delete_ad.jpg" />
           </div>
         </td>
@@ -34,10 +34,10 @@
     </table>
   </div>
 </div>
-<!-- Ad Box for midroll -->
+<!-- Box for midroll -->
 <div id="midroll-template" style="display:none;">
-  <div class="ad-box-container">
-    <table id="ad-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="ad-box-{{ad_type}}">
+  <div class="brid-box-container">
+    <table id="brid-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="brid-box-{{ad_type}}">
       <input type="hidden" id="AdId" name="Ad[{{iterator}}][id]" value="{{id}}" />
       <tr style="background-color:#fff;">
         <td style="padding:5px;font-family:'Fjalla One', Arial; font-size:21px; color:#004055;text-transform:uppercase; padding-left:10px;">
@@ -46,7 +46,7 @@
         </td>
         <td style="padding:5px;"></td>
         <td style="padding:5px;">
-          <div style="float:right;cursor:pointer;" class="ad-box-remove" data-iterator="{{iterator}}" id="ad-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
+          <div style="float:right;cursor:pointer;" class="brid-box-remove" data-iterator="{{iterator}}" id="brid-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
             <img src="<?php echo BRID_PLUGIN_URL; ?>/img/delete_ad.jpg" />
           </div>
         </td>
@@ -104,10 +104,10 @@
     </table>
   </div>
 </div>
-<!-- Ad box overlay -->
+<!-- Box overlay -->
 <div id="overlay-template" style="display:none;">
-  <div class="ad-box-container">
-    <table id="ad-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="ad-box-{{ad_type}}">
+  <div class="brid-box-container">
+    <table id="brid-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="brid-box-{{ad_type}}">
       <input type="hidden" id="AdId" name="Ad[{{iterator}}][id]" value="{{id}}" />
       <tr style="background-color:#fff;">
         <td style="padding:5px;font-family:'Fjalla One', Arial; font-size:21px; color:#004055;text-transform:uppercase; padding-left:10px;">
@@ -116,7 +116,7 @@
         </td>
         <td style="padding:5px;"></td>
         <td style="padding:5px;">
-          <div style="float:right;cursor:pointer;" class="ad-box-remove" data-iterator="{{iterator}}" id="ad-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
+          <div style="float:right;cursor:pointer;" class="brid-box-remove" data-iterator="{{iterator}}" id="brid-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
             <img src="<?php echo BRID_PLUGIN_URL; ?>/img/delete_ad.jpg" />
           </div>
         </td>

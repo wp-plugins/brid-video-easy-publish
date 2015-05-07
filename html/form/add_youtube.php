@@ -168,14 +168,13 @@
                     	<img src="{{image}}" class="thumb" width="111px" height="82px" id="video-img-{{id}}" alt="" style="display: inline;">
                     </a>
                 </div>
-                <div class="time" id="video-duration-{{id}}">{{duration}}</div>
             </div>
     </td>
     <td class="videoTitleTable">
             <div style="float:left;width:100%;">
                     <a href="{{providerUrl}}{{id}}" id="video-title-{{id}}"  class="listTitleLink"  title="View on {{service}}: {{title}}" target="_blank">{{title}}</a>
                     <div class="videoUploadedBy">
-                        <div class="siteVideosNum">By: {{author}} &nbsp;&nbsp;<span style="color:#b5b5b5">Created: {{published}}</span></div>
+                        <div class="siteVideosNum">{{#if author}}By: {{author}} &nbsp;&nbsp;{{/if}}<span style="color:#b5b5b5">Created: {{published}}</span></div>
                     </div>
             <div>
            
@@ -307,97 +306,6 @@ var populateDataAndSave = function(youtubeUrl, dataId){			//Check Youtube/Vimeo 
 			}
 	  });
 	
-}
-//Ajax: Search Youtube API
-var getYoutube = function(){
-
-	clearTimeout(typingTimer);
-	var searchVal = jQuery('#VideoYoutubeSearch').val();
-	var youtubeContent = jQuery('#youtubeContent');
-
-	jQuery('#externalServiceLoading').hide();		//Hide Searching text
-	
-	if(searchVal.length>2){
-
-		//Check is youtube url posted (simple video url or playlist url) and try to get Youtube ID so you can send it as searchVal
-		var video_id = searchVal.split('v=')[1];
-
-		console.log('video_id', video_id);
-		
-		if(video_id!=null){
-
-			//Url or Youtube id provided
-			var ampersandPosition = video_id.indexOf('&');
-			if(ampersandPosition != -1) {
-				searchVal = video_id.substring(0, ampersandPosition);
-
-				
-			}else{
-
-				searchVal = video_id;
-				
-			}
-
-			var urlApi = 'https://gdata.youtube.com/feeds/api/videos/'+escape(searchVal)+'?v=2&alt=json';
-			
-		}else{
-			//Simple test - search by title or string
-			//@see https://developers.google.com/youtube/2.0/developers_guide_protocol#orderbysp
-			var urlApi = 'https://gdata.youtube.com/feeds/api/videos?q='+escape(searchVal)+'&orderby=relevance&start-index=1&max-results=10&v=2&alt=json';
-			
-		}
-		
-		
-		jQuery.ajax({
-			  url: urlApi,
-			  type: 'GET',
-			  dataType: 'json'
-		}).done(function(data){
-
-			console.log('Youtube data:', data);
-			  		youtubeContent.html('');
-			  
-			  		var tableData = [];
-
-			  		var videos = [];
-			  		
-			  		if(video_id!=null){
-
-			  			videos.push(data.entry);
-						
-			  		}else{
-
-			  			videos = data.feed.entry;
-			  		}
-					jQuery(videos).each(function(k,v){
-		
-						  tableData.push({
-											title : 	v.title.$t, 
-											id : 		v.media$group.yt$videoid.$t, 
-											image : 	v.media$group.media$thumbnail[0].url, 
-											duration:	v.media$group.yt$duration.seconds.toHHMMSS(), 
-											author:		v.author[0].name.$t, 
-											service:	'Youtube', 
-											published : new Date(v.published.$t).toPrettyFormat(),
-											providerUrl : 'http://www.youtube.com/watch?v=',
-											vevo : (v.author[0].name.$t.indexOf('VEVO')>-1 || v.author[0].name.$t.indexOf('Vevo')>-1)?true:false
-										});
-					});
-
-					if(tableData.length>0){
-				  		showContent(tableData); // This function should be call for both: youtube and vimeo
-					}else{
-
-						jQuery('#youtubeContent').html('No videos found.');
-						debug.log('No videos found');
-					}
-
-					 
-			});
-
-	}else{
-		youtubeContent.html('');
-	}
 }
 
 /**
