@@ -130,7 +130,8 @@ $adTypesFlipped = array_flip($ad_types);
 		</tr>
 		<tr>
         <td colspan="3">
-           <div class="flashFalbackWarring msgAdBox">Provide an Ad Tag URL <a href="https://brid.zendesk.com/hc/en-us/articles/200294282" target="_blank">(VAST compatible)</a> from your advertising partner. <a href="https://brid.zendesk.com/hc/en-us/sections/200105421" target="_blank">Learn more</a>.</div>
+           <div class="flashFalbackWarring msgAdBox">Provide an Ad Tag URL <a href="https://brid.zendesk.com/hc/en-us/articles/200294282" target="_blank">(VAST compatible)</a> from your advertising partner. <a href="https://brid.zendesk.com/hc/en-us/sections/200105421" target="_blank">Learn more</a>. </div>
+           <?php if($adType!='preroll'){?><div class="flashFalbackWarring msgAdBox">Not supported for YouTube videos using the intro video feature. <a href="https://brid.zendesk.com/hc/en-us/articles/201256012" target="_blank">Learn more</a></div><?php } ?>
         </td>
       </tr>
 	   

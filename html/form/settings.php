@@ -808,19 +808,23 @@
             if(ad[i].adType==0 || ad[i].adType==2){
               //Pre roll and Post roll
               var template = Handlebars.compile(jQuery('#pre-roll-template').html());
-              var context = {id : ad[i].id, iterator: iterator, ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl};
+              var tip = 2;
+              if(ad[i].adType==0){
+                tip = null;
+              }
+              var context = {id : ad[i].id, iterator: iterator,  tip : tip , ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl};
               html    = template(context);
-
              
             }else{
               //Mid Roll & Overlay
               var template = Handlebars.compile(jQuery('#'+adTypes[ad[i].adType]+'-template').html());
+              var tip = ad[i].adType;
               if(ad[i].adType==3){
                 //overlay
-                var context = {id : ad[i].id, iterator:  iterator, ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl, overlayStartAt : ad[i].overlayStartAt, overlayDuration : ad[i].overlayDuration};
+                var context = {id : ad[i].id, iterator:  iterator,  tip : tip ,ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl, overlayStartAt : ad[i].overlayStartAt, overlayDuration : ad[i].overlayDuration};
               }else{
                 //midroll
-                var context = {id : ad[i].id, iterator:  iterator, ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl, cuepoints : ad[i].cuepoints};
+                var context = {id : ad[i].id, iterator:  iterator, tip : tip , ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl, cuepoints : ad[i].cuepoints};
                 midrollType = ad[i].adTimeType;
               }
               html    = template(context);

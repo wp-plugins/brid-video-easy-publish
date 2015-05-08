@@ -115,19 +115,19 @@ class BridShortcode {
      $src = '';
 
      //render different embed in admin area
-     if($pagenow=='admin-ajax.php'){
+     //if($pagenow=='admin-ajax.php'){
         
         //$src .='<script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script>';
-         $src .= BridShortcode::brid_override_yt_shortcode(array('src'=>$matches[1]));
-     }else{ 
+       //  $src .= BridShortcode::brid_override_yt_shortcode(array('src'=>$matches[1]));
+     //}else{ 
       //This is the short code for front end area only
       if(isset($matches[1]))
       {
-        
-        $src .= '[brid_override_yt src="'.$matches[1].'"]';
+        $src .= BridShortcode::brid_override_yt_shortcode(array('src'=>$matches[1]));
+        //$src .= '[brid_override_yt src="'.$matches[1].'"]';
 
       }
-    }
+    //}
 
       $embed = sprintf(
 		      $src,
