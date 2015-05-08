@@ -208,7 +208,7 @@ class BridShortcode {
                     }
                     if($src!=''){
                       //Is iframe Youtube?
-                      if(strpos($src, 'youtube')!==false)
+                      if(strpos($src, 'https://www.youtube')!==false || strpos($src, 'https://youtu.be')!==false)
                       {
                         //Params
                         $d = explode('/', $src);
