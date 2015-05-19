@@ -437,7 +437,7 @@
                              </div>
 
                              <?php
-
+                             
                               BridHtml::checkbox(array(
 
                                     'id'=>'PlayerAspect',
@@ -743,10 +743,16 @@
 
     jQuery('#playerSkinSelect').on('change', function(){
 
-        var skin_id = jQuery('#playerSkinSelect :selected').val();
+      changeSkin();
+       
+    });
+
+    function changeSkin(){
+      
+       var skin_id = jQuery('#playerSkinSelect :selected').val(); 
         //reloadBridPlayer(playerSelected+'/'+skin_id);
         $bp('Brid_27449775').changeSkin(skin_id);
-    });
+    }
     
 
     function playerChanged(){
@@ -879,28 +885,6 @@
             //Select Skin
             chosenSelect('playerSkinSelect',currentPlayerSkin);
 
-            /*jQuery("#playerSkinSelect option[value='"+currentPlayerSkin+"']").prop('selected', true); //.end().trigger("liszt:updated");
-            
-            var skinName = jQuery('#playerSkinSelect :selected').text();
-
-            var items = jQuery('#playerSkinSelect_chzn').find('.active-result');
-
-            items.removeClass('result-selected');
-
-            items.each(function(k,v){
-
-              if(jQuery(this).text()==skinName){
-
-                jQuery(this).addClass('result-selected');
-
-                jQuery('#playerSkinSelect_chzn').find('.chzn-single').find('span').html(skinName);
-                return false;
-              }
-
-            });*/
-            //jQuery("#playerSkinSelect").end().trigger("chosen:updated");
-            //jQuery("#playerSkinSelect").trigger("liszt:updated");
-
         }
 
         
@@ -1000,7 +984,9 @@
         var checkbox = $Brid.Html.CheckboxElement.create({name : 'PlayerAspect'});
         checkbox.togglePlayerSize(chk);
 
-
+        //Call change skin to protect against cached skin
+        //changeSkin();
+        
         jQuery("#playerListSelect").on("change", function(){
 
             playerChanged();

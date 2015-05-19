@@ -3,7 +3,7 @@
  * BridShortcode class will manage all shortcode manipulation
  * @package plugins.brid.lib
  * @author Brid Dev Team, contact@brid.tv
- * @version 1.0
+ * @version 1.1
  */
 class BridShortcode {
 
@@ -56,20 +56,20 @@ class BridShortcode {
     	
     	$divId = self::genRandId();
     	$url = array_merge($url, $iframeId);
-        $size = BridShortcode::getSize();
+      $size = BridShortcode::getSize();
 
     	$playerOptions['width'] = strval(isset($attrs['width']) ? $attrs['width'] : $size['width']);
     	$playerOptions['height'] = strval(isset($attrs['height']) ? $attrs['height'] : $size['height']);
 
        
-        //<script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script>
-        //Brid.forceConfigLoad = true;
+      //<script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script>
+      //Brid.forceConfigLoad = true;
 
-        $embedCode =  '<!--WP embed code - Brid Ver.'.BRID_PLUGIN_VERSION.' -->';
+      $embedCode =  '<!--WP embed code - Brid Ver.'.BRID_PLUGIN_VERSION.' -->';
     	$embedCode .=  '<script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script>';
     	$embedCode .= '<div id="Brid_'.$divId.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_'.$divId.'_adContainer"></div></div>';
-		$embedCode .= '<script type="text/javascript">$bp("Brid_'.$divId.'", '.json_encode($playerOptions).');</script>';
-        //<script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+		  $embedCode .= '<script type="text/javascript">$bp("Brid_'.$divId.'", '.json_encode($playerOptions).');</script>';
+      
 		
 		return $embedCode;
     }
@@ -88,10 +88,7 @@ class BridShortcode {
       $image = 'https://i.ytimg.com/vi/'.$id.'/hqdefault.jpg';
       $time = self::genRandId();
 
-      $embedCode = '<!--WP embed code replace YT object - Brid Ver.'.BRID_PLUGIN_VERSION.' -->
-      <script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script>
-       <div id="Brid_'.$time.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"> 
-       <div id="Brid_'.$time.'_adContainer"></div></div>';
+      $embedCode = '<!--WP embed code replace YT object - Brid Ver.'.BRID_PLUGIN_VERSION.' --><script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script><div id="Brid_'.$time.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_'.$time.'_adContainer"></div></div>';
 
        $override = intval($introEnabled);
 
@@ -111,15 +108,9 @@ class BridShortcode {
 	   
      global $pagenow;
 
-	 $embed  = $url;
+	   $embed  = $url;
      $src = '';
 
-     //render different embed in admin area
-     //if($pagenow=='admin-ajax.php'){
-        
-        //$src .='<script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script>';
-       //  $src .= BridShortcode::brid_override_yt_shortcode(array('src'=>$matches[1]));
-     //}else{ 
       //This is the short code for front end area only
       if(isset($matches[1]))
       {
@@ -165,13 +156,8 @@ class BridShortcode {
 
 	   $feat_image = wp_get_attachment_url( get_post_thumbnail_id(get_the_ID()));
 
-     //Fe part
-	   $src .= '<!--WP embed code replace Video object - Brid Ver.'.BRID_PLUGIN_VERSION.' -->
-       <script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script>
-	   <div id="Brid_'.$time.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"> 
-	   <div id="Brid_'.$time.'_adContainer"></div> </div> 
-	   <script type="text/javascript"> $bp("Brid_'.$time.'", {"id":"'.$playerId.'", "video": {src: "'.$atts['mp4'].'", name: "'.htmlspecialchars(get_the_title()).'", image:"'.$feat_image.'"}, "width":"'.$size['width'].'","height":"'.$size['height'].'"}); </script> 
-	   ';
+     //Front-end part
+	   $src .= '<!--WP embed code replace Video object - Brid Ver.'.BRID_PLUGIN_VERSION.' --><script type="text/javascript" src="'.CLOUDFRONT.'player/build/brid.min.js"></script><div id="Brid_'.$time.'" class="brid" itemprop="video" itemscope itemtype="http://schema.org/VideoObject"><div id="Brid_'.$time.'_adContainer"></div></div><script type="text/javascript"> $bp("Brid_'.$time.'", {"id":"'.$playerId.'", "video": {src: "'.$atts['mp4'].'", name: "'.htmlspecialchars(get_the_title()).'", image:"'.$feat_image.'"}, "width":"'.$size['width'].'","height":"'.$size['height'].'"});</script>';
     
 		return $src;
 
@@ -208,7 +194,7 @@ class BridShortcode {
                     }
                     if($src!=''){
                       //Is iframe Youtube?
-                      if(strpos($src, 'https://www.youtube')!==false || strpos($src, 'https://youtu.be')!==false)
+                      if(strpos($src, '//www.youtube')!==false || strpos($src, '//youtu.be')!==false)
                       {
                         //Params
                         $d = explode('/', $src);
@@ -247,8 +233,7 @@ class BridShortcode {
     } 
     /*
      * Get responsive aspect size
-     */
-    
+     */  
     public static function aspectSize()
     {
         $width = null;
@@ -262,7 +247,7 @@ class BridShortcode {
                 $content_width = $GLOBALS['content_width'];
             }
 
-            $width = $embed_size_w ? $embed_size_w : ($content_width ? $content_width : 450);
+            $width = $embed_size_w ? $embed_size_w : ($content_width ? $content_width : BridOptions::getOption('width'));
         }
         catch (Exception $ex)
         {
@@ -301,15 +286,11 @@ if($overrideYt){
     wp_embed_register_handler( 'ytnormal', '#https?://www\.youtube\.com/watch\?v=([a-z0-9\-_]+)#i', array('BridShortcode','wp_embed_handler_youtube' ));
     wp_embed_register_handler( 'ytnormal2', '#https?://www\.youtube\.com/watch\?feature=player_embedded&amp;v=([a-z0-9\-_]+)#i', array('BridShortcode','wp_embed_handler_youtube') );
     wp_embed_register_handler( 'ytnormal3', '#https?://youtu\.be/([a-z0-9\-_]+)#i', array('BridShortcode','wp_embed_handler_youtube') );
+    //https://www.youtube.com/embed/VZa-Z-cEWsM?feature=oembed&wmode=opaque&vq=hd720
+    wp_embed_register_handler( 'ytnormal4', '#https?://youtube\.com/watch\?v=([a-z0-9\-_]+)#i', array('BridShortcode','wp_embed_handler_youtube') );
     add_filter('the_content', array('BridShortcode', 'overrideYTEmbed'), 99);
 }
 //Shortcode for Brid YT
 add_shortcode('brid_override_yt', array('BridShortcode' ,'brid_override_yt_shortcode'));
 //Brid shortcode function
 add_shortcode('brid', array('BridShortcode' ,'brid_shortcode'));
-
-//if(has_filter('the_content', array('YouTubePrefs','apply_prefs_content'))){
-
-   
-
-//}

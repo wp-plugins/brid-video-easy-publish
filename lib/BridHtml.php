@@ -391,26 +391,6 @@ class BridHtml {
 		
       die(); // this is required to return a proper result (By wordpress site)
 	}
-
-	public static function addPartner(){
-
-		if(!empty($_POST) && isset($_POST['action']) && isset($_POST['insert_via']))
-		{
-			//print_r($_POST);
-			$_POST['user_id'] = BridOptions::getOption('user_id');
-
-			$api = new BridAPI();
-
-			echo $api->addPartner($_POST);
-
-
-		}else{
-			
-			require_once(BRID_PLUGIN_DIR.'/html/form/add_site.php');
-		}
-		
-      die(); // this is required to return a proper result (By wordpress site)
-	}
 	/**
 	 * ADD Playlist
 	 */
@@ -1020,13 +1000,10 @@ add_action('wp_ajax_adBox', array('BridHtml', 'adBox'));					//Get Add Ad form f
 add_action('wp_ajax_changeStatus', array('BridHtml', 'changeStatus'));		//Change Status on video or playlist
 
 /*--------- PARTNER -------------- */
-add_action('wp_ajax_addPartner', array('BridHtml', 'addPartner'));		//Change Status on video or playlist
-add_action('wp_ajax_updatePartnerId', array('BridHtml', 'updatePartnerId'));		//Change Status on video or playlist
-add_action('wp_ajax_updatePartnerField', array('BridHtml', 'updatePartnerField'));		//Update partner field
+add_action('wp_ajax_updatePartnerId', array('BridHtml', 'updatePartnerId'));		//Update partner id
+add_action('wp_ajax_updatePartnerField', array('BridHtml', 'updatePartnerField'));	//Update partner field
 add_action('wp_ajax_bridPremium', array('BridHtml', 'bridPremium')); //Send premium request
 //Try to create crossdomain.xml
 add_action('wp_ajax_createCrossdomain', array('BridHtml', 'createCrossdomain')); //Send premium request
 add_action('wp_ajax_monetizeVideo', array('BridHtml', 'monetizeVideo')); //Monetize videos
-add_action('wp_ajax_unauthorizeBrid', array('BridHtml', 'unauthorizeBrid')); //Monetize videos
-
-?>
+add_action('wp_ajax_unauthorizeBrid', array('BridHtml', 'unauthorizeBrid')); //Unauthorize account

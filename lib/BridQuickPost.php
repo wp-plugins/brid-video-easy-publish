@@ -313,4 +313,3 @@ add_action('wp_ajax_addVideoPost', array('BridQuickPost', 'addVideoPost'));				/
 add_action('wp_ajax_addPlaylistPost', array('BridQuickPost', 'addPlaylistPost'));				//Add video via url or via upload
 add_action('wp_ajax_quickLibrary', array('BridQuickPost', 'quickLibrary'));		//Switch between tabs in add quick video to post
 add_action('wp_ajax_bridVideoLibrary', array('BridQuickPost', 'bridVideoLibrary'));	//Colorbox to open post screen
-

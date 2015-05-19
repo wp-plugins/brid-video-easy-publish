@@ -1,6 +1,9 @@
 <?php
 /**
  * Adds BridPlaylist_Widget widget.
+ * @package plugins.brid.lib
+ * @author Brid Dev Team, contact@brid.tv
+ * @version 1.1
  */
 class BridPlaylist_Widget extends WP_Widget {
 
@@ -147,13 +150,13 @@ class BridPlaylist_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-		$instance['playlist_id'] = ( ! empty( $new_instance['playlist_id'] ) ) ? strip_tags( $new_instance['playlist_id'] ) : 0;
-		$instance['items'] = ( ! empty( $new_instance['items'] ) ) ? strip_tags( $new_instance['items'] ) : 10;
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? esc_html( $new_instance['title'] ) : '';
+		$instance['playlist_id'] = ( ! empty( $new_instance['playlist_id'] ) ) ? esc_html( $new_instance['playlist_id'] ) : 0;
+		$instance['items'] = ( ! empty( $new_instance['items'] ) ) ? intval(esc_html( $new_instance['items'] )) : 10;
 		$defaultHeight = 360;
 		if(! empty( $new_instance['height'] )){
 
-			$h = strip_tags( intval($new_instance['height']));
+			$h = intval(esc_html($new_instance['height']));
 
 			$h = $h>0 ? $h : $defaultHeight;
 
@@ -173,4 +176,4 @@ class BridPlaylist_Widget extends WP_Widget {
 		return $instance;
 	}
 
-} // class Foo_Widget
+}

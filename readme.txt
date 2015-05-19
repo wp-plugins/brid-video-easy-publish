@@ -4,7 +4,7 @@ Donate link: http://www.brid.tv/
 Tags: embed video, embed youtube, flash, flash player, html5, html5 player, video, mobile, video player, Brid.tv, brid video, brid player, brid.tv video player, webm, h.264, ffmpeg, MP4, ogg, poster, responsive, free video, video library, video gallery, transcoding, encoding, advertising, vast, video ads, video advertising, video monetization, playlist widget, video shortcode, video slider, youtube video, youtube player, video plugin, video widget, playlist, veeps, youtube playlist, video blog, video embed, flash video player, html5 video player, free video platform
 Requires at least: 3.9
 Tested up to: 4.2.2
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,12 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 11. Brid quick post video screen
 
 == Changelog ==
+
+= Version 2.0.5 =
+
+*   Fixed YouTube replacer functionality when embed code is used without http(s) prefix.
+*   Fixed YouTube replacer functionality if Vimeo embeds are used. It will not try to replace these embeds now.
+*   Fixed Fit to Post option when no default width values were present for a player.
 
 = Version 2.0.4 =
 
@@ -190,5 +196,5 @@ This is almost a complete rework of our original plugin. There have been numerou
 
 == Upgrade Notice ==
 
-= 2.0.4 =
+= 2.0.5 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.

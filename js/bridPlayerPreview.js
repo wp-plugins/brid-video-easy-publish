@@ -138,13 +138,18 @@ function shortCodeToIframe(){
 }
 
 function iframeToShortCode(){
-
            //var bridShortCodeRegex = /\[brid+([^\]]+)]/ig; 
            var bridShortCodeRegex = /\<iframe src="+([^\>]+)><\/iframe>/ig; 
 
            var content = finalContent = tinyMCE.get('content').getContent();
 
            while (match = bridShortCodeRegex.exec(content)) {
+
+                              //alert(match[0]);
+                              if(match[0].indexOf('src="'+BridOptions.ServicesUrl+'services/iframe/')!==-1)
+                              {
+                                
+                              //console.log('Iframe:' , match);
 
                               var m = match[0].replace('<iframe src="'+BridOptions.ServicesUrl+'services/iframe/', '');
 
@@ -220,7 +225,8 @@ function iframeToShortCode(){
 
                               jQuery('#content').val(finalContent);
                               
-
+                              
+                          }
 
           }
 }

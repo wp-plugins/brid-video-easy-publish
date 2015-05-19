@@ -15,8 +15,6 @@ class BridJoyRide {
           wp_enqueue_script('wp-pointer');
           wp_enqueue_script('wp-brid-joyride',  BRID_PLUGIN_URL.'js/bridJoyRide.js');
 	}
-
-	
 }
 
 if(BridActions::includeScripts())

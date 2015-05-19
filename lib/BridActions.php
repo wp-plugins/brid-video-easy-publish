@@ -6,11 +6,6 @@
  * @author Brid Dev Team
  * @version 1.0
  */
-
-function mytheme_sanitize_callback( $input ) {
-    // sanitization functions go here
-    return $input;
-}
 class BridActions{
          /*
           * Include js and css only where we need them
@@ -28,7 +23,20 @@ class BridActions{
          }
          public static function meta(){
              $content = BRID_PLUGIN_VERSION;
-             echo '<meta name="BridPlugin" content="'.$content.'" />';
+             try{
+               $opt = get_option('brid_options');
+               if($opt!=''){
+                if(isset($opt['ovr_yt']))
+                  $content .= ' yt:'.$opt['ovr_yt'];
+                if(isset($opt['aspect']))
+                  $content .= ' aspect:'.$opt['aspect'];
+               }
+               $size = BridShortcode::getSize();
+               if(!empty($size)){
+                 $content .= ' size:'.$size['width'].'x'.$size['height'];
+               }
+             }catch(Exception $e) {}
+             echo '<meta name="BridPlugin" content="ver:'.$content.'" />';
          }
         /**
          * Admin init
@@ -284,28 +292,17 @@ class BridActions{
                             unset($_POST['Player']['skin_id']);
                           }
                           /*****
-
-
                               API CALL
-
-
                           ******/
-                          //print_r($_POST); die();
                           $savePlayer = $api->editPlayer($_POST, true);
                         
-                          //print_r($_POST['Player']);
-                          //die();
                         }
 
                     }
 
                     if(!empty($selected) && isset($_POST['Partner'])){
                         /*****
-
-
                             API CALL
-
-
                         ******/
                         $resp = $api->updatePartnerField($_POST['Partner'], false);
 
@@ -313,11 +310,7 @@ class BridActions{
 
                     $selected  = BridOptions::getOption('site',true);
                      /*****
-
-
                           API CALL
-
-
                      ******/
                     //Get current partner selected
                     $partner = $api->partner($selected, true);
@@ -410,6 +403,7 @@ class BridActions{
                         $player = $players[0]->Player;
                       }else{
                         foreach ($players as $key => $value) {
+
                           if($playerSel==$players[$key]->Player->id){
                             $player = $players[$key]->Player;
                             break;
@@ -417,6 +411,12 @@ class BridActions{
                         }
                         
                       }
+                      //Ako je neko setovao player u WP kao default, a obrisao ga u CMS
+                      if(!empty($players) && isset($players[0]->Player->id) && empty($player)){
+                         $player = $players[0]->Player;
+                      }
+
+                      
                       //Update these to sync with cms
                       if(!empty($player)){
 
@@ -564,5 +564,3 @@ add_action('admin_menu', array('BridActions', 'add_menu'));
 add_filter('plugin_action_links_'.PLUGIN_BASE_FILE , array('BridActions', 'brid_settings_link'));
 
 add_action('wp_head', array('BridActions', 'meta'));
-
-?>
