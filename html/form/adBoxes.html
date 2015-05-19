@@ -1,0 +1,162 @@
+<!-- pre-roll & post-roll -->
+<div id="pre-roll-template" style="display:none;">
+  <div class="brid-box-container">
+    <table id="brid-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="brid-box-{{ad_type}}">
+      <input type="hidden" id="AdId" name="Ad[{{iterator}}][id]" value="{{id}}" />
+      <tr style="background-color:#fff;">
+        <td style="padding:5px;font-family:'Fjalla One', Arial; font-size:21px; color:#004055;text-transform:uppercase; padding-left:10px;">
+          {{ad_type}}
+          <input type="hidden" id="AdAdType" placeholder="{{ad_type}} Ad Tag Url" name="Ad[{{iterator}}][adType]" value="{{ad_type_int}}" />
+        </td>
+        <td style="padding:5px;"></td>
+        <td style="padding:5px;">
+          <div style="float:right;cursor:pointer;" class="brid-box-remove" data-iterator="{{iterator}}" id="brid-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
+            <img src="<?php echo BRID_PLUGIN_URL; ?>/img/delete_ad.jpg" />
+          </div>
+        </td>
+      </tr>
+
+      <tr style="background-color:#fff;">
+        <td colspan="3">
+          <div style="border-bottom:1px solid #dadadb;width:100%; float:right;">
+        </td>
+      </tr>
+      <tr style="background-color:#fff;">
+        <td colspan="3" style="padding: 10px;">
+          <input type="text" placeholder="Ad Tag Url" id="AdAdTagUrl" name="Ad[{{iterator}}][adTagUrl]" value="{{ad_tag_url}}" maxlength="1024" />
+        </td>
+      </tr>
+       <tr>
+        <td colspan="3">
+          <div class="flashFalbackWarring msgAdBox">Provide an Ad Tag URL <a href="https://brid.zendesk.com/hc/en-us/articles/200294282" target="_blank">(VAST compatible)</a> from your advertising partner. <a href="https://brid.zendesk.com/hc/en-us/sections/200105421" target="_blank">Learn more</a>.</div>
+          {{#if tip}}
+          <div class="flashFalbackWarring msgAdBox">Not supported for YouTube videos using the intro video feature. <a href="https://brid.zendesk.com/hc/en-us/articles/201256012" target="_blank">Learn more</a></div>
+          {{/if}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<!-- Box for midroll -->
+<div id="midroll-template" style="display:none;">
+  <div class="brid-box-container">
+    <table id="brid-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="brid-box-{{ad_type}}">
+      <input type="hidden" id="AdId" name="Ad[{{iterator}}][id]" value="{{id}}" />
+      <tr style="background-color:#fff;">
+        <td style="padding:5px;font-family:'Fjalla One', Arial; font-size:21px; color:#004055;text-transform:uppercase; padding-left:10px;">
+          {{ad_type}}
+          <input type="hidden" id="AdAdType" placeholder="Ad Tag Url" name="Ad[{{iterator}}][adType]" value="{{ad_type_int}}" />
+        </td>
+        <td style="padding:5px;"></td>
+        <td style="padding:5px;">
+          <div style="float:right;cursor:pointer;" class="brid-box-remove" data-iterator="{{iterator}}" id="brid-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
+            <img src="<?php echo BRID_PLUGIN_URL; ?>/img/delete_ad.jpg" />
+          </div>
+        </td>
+      </tr>
+      <tr style="background-color:#fff;">
+        <td colspan="3">
+          <div style="border-bottom:1px solid #dadadb;width:100%; float:right;">
+        </td>
+      </tr>
+      <tr id="midroll-{{iterator}}-settings" class="additional-fields" style="background-color:#fff;display:block;">
+      <td  colspan="3">
+      
+        <table style="width:250px; margin:10px;">
+          <tr style="background-color:#fff;">
+          <td valign="top" id="1-{{iterator}}-start">Cuepoints:&nbsp;&nbsp;</td>
+          <td valign="top" id="1-{{iterator}}-start-at">
+            
+            <input type="text" id="AdCuepoints" placeholder="Comma separated values" name="Ad[{{iterator}}][cuepoints]" value="{{cuepoints}}" style='width:250px;height:20px;'/>
+          </td>
+          <td>
+            
+            <div class="input select" style="margin-left:20px;margin-top:-3px;">
+                <select name="Ad[{{iterator}}][adTimeType]" id="AdAdTimeType">
+                
+                  <?php /*foreach($midroll_type as $k=>$v){
+                    $selected = '';
+                    if($v == $cuepointType){
+                      $selected = 'selected="selected"';
+                    }*/
+                    ?>
+                      <option value="s">Seconds</option>
+                      <option value="%">Percentage</option>
+                    
+                </select>
+                
+            </div>    
+          </td>
+           </tr>
+        
+        </table>
+      
+      </td>
+    </tr>
+      
+      <tr style="background-color:#fff;">
+        <td colspan="3" style="padding: 10px;">
+          <input type="text" placeholder="Ad Tag Url" id="AdAdTagUrl" name="Ad[{{iterator}}][adTagUrl]" value="{{ad_tag_url}}" maxlength="1024" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <div class="flashFalbackWarring msgAdBox">Provide an Ad Tag URL <a href="https://brid.zendesk.com/hc/en-us/articles/200294282" target="_blank">(VAST compatible)</a> from your advertising partner. <a href="https://brid.zendesk.com/hc/en-us/sections/200105421" target="_blank">Learn more</a>.</div>
+          <div class="flashFalbackWarring msgAdBox">Not supported for YouTube videos using the intro video feature. <a href="https://brid.zendesk.com/hc/en-us/articles/201256012" target="_blank">Learn more</a>.</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<!-- Box overlay -->
+<div id="overlay-template" style="display:none;">
+  <div class="brid-box-container">
+    <table id="brid-box-{{iterator}}" data-type="{{ad_type}}" data-iterator="{{iterator}}" class="brid-box-{{ad_type}}">
+      <input type="hidden" id="AdId" name="Ad[{{iterator}}][id]" value="{{id}}" />
+      <tr style="background-color:#fff;">
+        <td style="padding:5px;font-family:'Fjalla One', Arial; font-size:21px; color:#004055;text-transform:uppercase; padding-left:10px;">
+          {{ad_type}}
+          <input type="hidden" id="AdAdType" placeholder="Ad Tag Url" name="Ad[{{iterator}}][adType]" value="{{ad_type_int}}" />
+        </td>
+        <td style="padding:5px;"></td>
+        <td style="padding:5px;">
+          <div style="float:right;cursor:pointer;" class="brid-box-remove" data-iterator="{{iterator}}" id="brid-box-remove-{{iterator}}" data-id="{{id}}" data-type="{{ad_type}}">
+            <img src="<?php echo BRID_PLUGIN_URL; ?>/img/delete_ad.jpg" />
+          </div>
+        </td>
+      </tr>
+      <tr style="background-color:#fff;">
+        <td colspan="3">
+          <div style="border-bottom:1px solid #dadadb;width:100%; float:right;">
+        </td>
+      </tr>
+      <tr id="overlay-{{iterator}}-settings"  class="additional-fields" style="background-color:#fff;display:block;">
+      <td  colspan="3">
+        <table style="width:300px; margin:10px;">
+          <tr style="background-color:#fff;">
+          <td>Start At: </td>
+          <td>
+            <input type="text" id="AdOverlayStartAt" name="Ad[{{iterator}}][overlayStartAt]" value="{{overlayStartAt}}" style='width:60px;height:20px;text-align:center;font-family:Arial;font-style:italic;font-size:14px;text-indent:0;'/>
+          </td>
+          <td>Duration: </td>
+          <td>
+            <input type="text" id="AdOverlayDuration" name="Ad[{{iterator}}][overlayDuration]" value="{{overlayDuration}}" style='width:60px;height:20px;text-align:center;font-family:Arial;font-style:italic;font-size:14px;text-indent:0;'/>
+          </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+      <tr style="background-color:#fff;">
+        <td colspan="3" style="padding: 10px;">
+          <input type="text" placeholder="Ad Tag Url" id="AdAdTagUrl" name="Ad[{{iterator}}][adTagUrl]" value="{{ad_tag_url}}" maxlength="1024" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+           <div class="flashFalbackWarring msgAdBox">Provide an Ad Tag URL <a href="https://brid.zendesk.com/hc/en-us/articles/200294282" target="_blank">(VAST compatible)</a> from your advertising partner. <a href="https://brid.zendesk.com/hc/en-us/sections/200105421" target="_blank">Learn more</a>.</div>
+           <div class="flashFalbackWarring msgAdBox">Not supported for YouTube videos using the intro video feature. <a href="https://brid.zendesk.com/hc/en-us/articles/201256012" target="_blank">Learn more</a>.</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
