@@ -57,7 +57,7 @@ You can also manage your Brid video library and playlists under Media > Brid vid
 
 = I have installed the plugin but it does not work. =
 
-Make sure that your WordPress version is at least 4.0, as versions below are not supported.
+Make sure that your WordPress version is at least 3.9, as versions below are not supported.
 
 = Can I use this plugin to host videos on my own server? =
 
@@ -80,6 +80,8 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 9. Brid settings page
 10. Brid player configuration
 11. Brid quick post video screen
+12. Embedded Brid player in a WordPress post
+13. Related videos screen in Brid player with a Brid latest playlist widget in the site sidebar
 
 == Changelog ==
 
