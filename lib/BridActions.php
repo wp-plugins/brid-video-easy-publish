@@ -130,6 +130,7 @@ class BridActions{
          */
         public static function admin_html(){
 
+
             if(!current_user_can('manage_options'))
             {
                 wp_die(__('You do not have sufficient permissions to access this page.'));
@@ -304,7 +305,7 @@ class BridActions{
                         /*****
                             API CALL
                         ******/
-                        $resp = $api->updatePartnerField($_POST['Partner'], false);
+                        $resp = $api->updatePartnerField($_POST['Partner'], true);
 
                     }
 
@@ -403,7 +404,6 @@ class BridActions{
                         $player = $players[0]->Player;
                       }else{
                         foreach ($players as $key => $value) {
-
                           if($playerSel==$players[$key]->Player->id){
                             $player = $players[$key]->Player;
                             break;
@@ -415,8 +415,6 @@ class BridActions{
                       if(!empty($players) && isset($players[0]->Player->id) && empty($player)){
                          $player = $players[0]->Player;
                       }
-
-                      
                       //Update these to sync with cms
                       if(!empty($player)){
 

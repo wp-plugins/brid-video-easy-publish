@@ -1,10 +1,10 @@
 === Brid Video Easy Publish ===
 Contributors: Sovica, Brid
 Donate link: http://www.brid.tv/
-Tags: embed video, embed youtube, flash, flash player, html5, html5 player, video, mobile, video player, Brid.tv, brid video, brid player, brid.tv video player, webm, h.264, ffmpeg, MP4, ogg, poster, responsive, free video, video library, video gallery, transcoding, encoding, advertising, vast, video ads, video advertising, video monetization, playlist widget, video shortcode, video slider, youtube video, youtube player, video plugin, video widget, playlist, veeps, youtube playlist, video blog, video embed, flash video player, html5 video player, free video platform
+Tags: embed video, embed youtube, flash, flash player, html5, html5 player, video, mobile, video player, Brid.tv, brid video, brid player, brid.tv video player, webm, h.264, ffmpeg, MP4, ogg, poster, responsive, free video, video library, video gallery, transcoding, encoding, vast, video ads, video advertising, video monetization, playlist widget, video shortcode, video slider, youtube video, youtube player, video plugin, video widget, playlist, veeps, youtube playlist, video blog, video embed, flash video player, html5 video player, free video platform
 Requires at least: 3.9
 Tested up to: 4.2.2
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,12 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 13. Related videos screen in Brid player with a Brid latest playlist widget in the site sidebar
 
 == Changelog ==
+
+= Version 2.0.6 =
+
+*   Fixed YouTube replacer functionality to not replace Dailymotion embeds.
+*   Changed behavior for width and height player replacer for YouTube videos.
+*   Fixed Api header response for certain premium themes compatibility.
 
 = Version 2.0.5 =
 
@@ -198,5 +204,5 @@ This is almost a complete rework of our original plugin. There have been numerou
 
 == Upgrade Notice ==
 
-= 2.0.5 =
+= 2.0.6 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.

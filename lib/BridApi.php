@@ -91,6 +91,8 @@ class BridAPI {
         $return = null;
       }
       $this->code = $response['code'];
+
+      //Will issue on nignix or apache not set to parse these responses
       if(!headers_sent()){
           header('Brid-Api-Url: '.$url);
       }

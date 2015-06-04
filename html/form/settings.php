@@ -437,7 +437,7 @@
                              </div>
 
                              <?php
-                             
+
                               BridHtml::checkbox(array(
 
                                     'id'=>'PlayerAspect',

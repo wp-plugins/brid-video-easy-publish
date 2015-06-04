@@ -936,24 +936,34 @@ class BridHtml {
 				$shortcode = '';
 				if(preg_match('/src=\"(.*)\"/isU', $iframe, $m)){
 
+
 					if(isset($m[1])){
-						$src = str_replace(CLOUDFRONT,'',$m[1]);
+
+						if(strpos($m[1], CLOUDFRONT)!==false)
+                      	{
+						
+							$src = str_replace(CLOUDFRONT,'',$m[1]);
+							
+							if(preg_match('/title=\"(.*)\"/isU', $iframe, $m)){
+
+								if(isset($m[1])){
+									$title = $m[1];
+								}
+							}
+							//Params
+							$d = explode('/', $src);
+							
+							if($src!='' && isset($d[2]) && isset($d[3]) && isset($d[5])){
+
+								$shortcode = '[brid '.$d[2].'="'.$d[3].'" player="'.$d[5].'" title="'.addslashes($title).'"]';
+
+								$content = str_replace($iframe, $shortcode, $content);
+							}
+						}
 					}
 				}
 
-				if(preg_match('/title=\"(.*)\"/isU', $iframe, $m)){
-
-					if(isset($m[1])){
-						$title = $m[1];
-					}
-				}
-				//Params
-				$d = explode('/', $src);
 				
-				if($src!='' && isset($d[2]) && isset($d[3]) && isset($d[5])){
-					$shortcode = '[brid '.$d[2].'="'.$d[3].'" player="'.$d[5].'" title="'.addslashes($title).'"]';
-					$content = str_replace($iframe, $shortcode, $content);
-				}
 			}
 		}
 
