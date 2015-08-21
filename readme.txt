@@ -68,11 +68,11 @@ Yes! Once you first start to add a video into Brid you will be prompted to choos
 [brid_widget items="25" player="1" height="540" type="0" autoplay="1"]
 This is the basic template for a Brid playlist widget shortcode:
 
-items: set the number of videos you want to appear in the widget. Maximum allowed is 50.
-player: input the ID of the Brid player you wish to use. Contact Brid support if you are not sure what your player ID is.
-height: set the height in pixels for the widget.
-type: 1 for a playlist using YouTube videos. 0 for anything else.
-autoplay: 1 if you wish for the widget to autoplay. 0 for click to play.
+*   items: set the number of videos you want to appear in the widget. Maximum allowed is 50.
+*   player: input the ID of the Brid player you wish to use. Contact Brid support if you are not sure what your player ID is.
+*   height: set the height in pixels for the widget.
+*   type: 1 for a playlist using YouTube videos. 0 for anything else.
+*   autoplay: 1 if you wish for the widget to autoplay. 0 for click to play.
 
 = Have any further questions? =
 
