@@ -246,6 +246,8 @@
 							  								}
 
 							  								$show = ($c=='') ? 'none' : 'block';
+
+							  								$advancedMonet = count($ads) > 0 ? 'block' : 'none';
 							  							?>
 							  						<div class="checkboxContent">
 							  							<img src="<?php echo BRID_PLUGIN_URL; ?>/img/checked.png" class="checked" style="display:<?php echo $show; ?>" alt="">
@@ -259,48 +261,61 @@
 							  					
 											</div>
 											
-																	  			
-							  		  		<div class="formWrapper monetizationOptions" style="display:<?php echo $show; ?>;" id="adSettings">
-												<div class="add-ad" data-type="preroll">
-													<div class="bridButton add-preroll-ad" id="add-preroll-ad" style="opacity: 1;">
-														<div class="buttonLargeContent">ADD PRE-ROLL</div>
-													</div>					
+											<div style="display:<?php echo $show; ?>" id="adSettings">
+										
+												<?php require_once('help_monetize.php'); ?>
+
+												<div id="monetAdvancedTitle" style="float:left; width:100%;margin-bottom:20px">
+													<div class="closeAlertDivButton" style="float:left;cursor:pointer;"></div>
+													<div class="checkboxText" style="cursor:pointer;float: left;margin-left: 10px;top: 7px;">ADVANCED OPTIONS</div>
 												</div>
-												<?php if($video->Video->external_type!=1){ ?>
-													<div class="add-ad" id="add-ad-midroll" data-type="midroll">
-														<div class="bridButton add-midroll-ad" id="add-midroll-ad" style="opacity: 1;">
-															<div class="buttonLargeContent">ADD MID-ROLL / SET CUE POINTS</div>
-														</div>
-													</div>
-													<div class="add-ad" data-type="overlay">
-														<div class="bridButton add-overlay-ad" id="add-overlay-ad">
-															<div class="buttonLargeContent">ADD OVERLAY</div>
-														</div>
-													</div>
-													<div class="add-ad" data-type="postroll">
-														<div class="bridButton add-postroll-ad" id="add-postroll-ad">
-															<div class="buttonLargeContent">POSTROLL</div>
-														</div>
-													</div>
-												<?php } ?>
-												<div class="flashFalbackWarring" style="padding-top:15px;margin-left:10px">Use these monetization fields only if you wish to override any monetization settings that you already setup on your <a href="admin.php?page=brid-video-config#Monetization">Brid settings page</a>. <a href="https://brid.zendesk.com/hc/en-us/articles/202806771" target="_blank">Learn more</a>.</div>
-												<!-- Content div for ads -->
-												<!-- Content div for ads -->
-												<div style="float:left; width:100%;margin-top:22px" id="brid-boxes-content">
-													<?php 
-												  		//$ads = $this->Html->value('Ad');
-												  		if(!empty($ads)){
-												  			
-												  			foreach($ads as $k=>$v){
-												  				
-												  				BridHtml::adBox($k, $v);
-												  				
-												  			}
-												  			
-												  			
-												  		}?>
+
+												<div id="monetAdvanced" style="display:<?php echo $advancedMonet; ?>;">
+
+														<div class="add-ad" data-type="preroll">
+																<div class="bridButton add-preroll-ad" id="add-preroll-ad" style="opacity: 1;">
+																	<div class="buttonLargeContent">ADD PRE-ROLL</div>
+																</div>					
+															</div>
+															<?php if($video->Video->external_type!=1){ ?>
+																<div class="add-ad" id="add-ad-midroll" data-type="midroll">
+																	<div class="bridButton add-midroll-ad" id="add-midroll-ad" style="opacity: 1;">
+																		<div class="buttonLargeContent">ADD MID-ROLL / SET CUE POINTS</div>
+																	</div>
+																</div>
+																<div class="add-ad" data-type="overlay">
+																	<div class="bridButton add-overlay-ad" id="add-overlay-ad">
+																		<div class="buttonLargeContent">ADD OVERLAY</div>
+																	</div>
+																</div>
+																<div class="add-ad" data-type="postroll">
+																	<div class="bridButton add-postroll-ad" id="add-postroll-ad">
+																		<div class="buttonLargeContent">POSTROLL</div>
+																	</div>
+																</div>
+															<?php } ?>
+															<div class="flashFalbackWarring" style="padding-top:15px;margin-left:10px">Use these monetization fields only if you wish to override any monetization settings that you already setup on your <a href="admin.php?page=brid-video-config#Monetization">Brid settings page</a>. <a href="https://brid.zendesk.com/hc/en-us/articles/202806771" target="_blank">Learn more</a>.</div>
+															<!-- Content div for ads -->
+															<!-- Content div for ads -->
+															<div style="float:left; width:100%;margin-top:22px" id="brid-boxes-content">
+																<?php 
+															  		//$ads = $this->Html->value('Ad');
+															  		if(!empty($ads)){
+															  			
+															  			foreach($ads as $k=>$v){
+															  				
+															  				BridHtml::adBox($k, $v);
+															  				
+															  			}
+															  			
+															  			
+															  		}?>
+															</div>
 												</div>
+
 											</div>
+																	  			
+							  		  		
 										</td>
 							  		</tr>
 							  	</tbody></table>
@@ -319,13 +334,28 @@
 		//}?>
 		<div class="propagate"><div>Please allow up to 10 minutes for changes to propagate.<?php if(!BridOptions::getOption('upload')){?> 
 						<div style="display:inline-block;font-weight:normal;text-decoration:underline;cursor:pointer;text-weight:bold;" class="various" id="addVideoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">Want us to host and encode videos for you? Upgrade to premium plan for free.</div>
-						<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>			
+						<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:650});</script>			
 					<?php }?></div>
 					</div>
 	</form>
 </div>
 
 <script>
+
+jQuery('#monetAdvancedTitle').on('click', function(e){
+
+	jQuery('#monetAdvanced').fadeToggle(400, function(){
+
+		 if(jQuery('#monetAdvanced').is(':visible')){
+			jQuery('.closeAlertDivButton').addClass('closeAlertDivButtonRot');
+		}else{
+			jQuery('.closeAlertDivButton').removeClass('closeAlertDivButtonRot');
+		}
+	});
+
+	
+});
+
 var amIYoutube = <?php if(isset($video->Video->external_type) && $video->Video->external_type) echo $video->Video->external_type; else echo 0; ?>;
 var allowedImageExtensions = ["jpg","jpeg","png","gif"];
 var amIEncoded = <?php echo $amIEncoded; ?>;

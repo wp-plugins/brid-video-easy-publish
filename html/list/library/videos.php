@@ -16,15 +16,20 @@ if(!$buttonsOff){
 		<?php if($ask){
 			?>
 			<!-- Ask qustion about host -->
+			<!--
 			<div class="bridButton add-video various"  data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>" id="addVideoQuestion">
 				<div class="buttonLargeContent">ADD VIDEO</div>
 			</div>
+			-->
 			<script>
-				try{jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});}catch(e){}
+				//try{
+					//jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:650});}catch(e){}
 				jQuery('.bridNotice').show();
 			</script>
+		
 		<?php
-		}else{
+	}
+		//}else{
 			?>
 
 			<div class="bridButton add-video" data-href="#" id="addVideo">
@@ -36,7 +41,7 @@ if(!$buttonsOff){
 				</div>
 			<?php } ?>
 		<?php
-		}?>
+		//} ?>
 		
 		<div class="bridButton add-youtube" data-href="#" id="addYoutube" style="opacity: 1;">
 			<div class="buttonLargeContent">ADD YOUTUBE</div>
@@ -259,10 +264,12 @@ var playlistType = '<?php echo $playlistType; ?>';
 															$monetizeCss = 'turnedoff';
 															$monVal = 0;
 														}
+
+														$appendMonetStat = ($v->Video->monetize==0) ? ' off' : '';
 													?>
 													<div class="titleRow">
 
-														<a href="<?php echo $v->Video->id; ?>" class="listTitleLink <?php echo $linkCss; ?>" id="video-title-<?php echo $v->Video->id; ?>" title="<?php echo $v->Video->name; ?>"><?php echo $v->Video->name; ?></a>
+														<a href="<?php echo $v->Video->id; ?>" class="listTitleLink <?php echo $linkCss; ?>" id="video-title-<?php echo $v->Video->id; ?>" title="<?php echo $v->Video->name; ?>"><div class="monetStatus<?php echo $appendMonetStat;?>"></div><?php echo $v->Video->name; ?></a>
 														<div class="videoUploadedBy">
 															<div class="siteVideosNum">
 																<span class="by">By:</span> <?php echo !empty($v->User->displayname) ? $v->User->displayname : $v->User->username; ?>&nbsp;&nbsp;&nbsp;
@@ -643,13 +650,13 @@ jQuery( "#add-to-playlist-editPlaylist" ).off('click', editPlaylist).on('click',
 		You haven't added any videos yet. Please <?php echo $link; ?>.
 		<script>
 			jQuery('.list-items-menu').hide();
-			jQuery('#add_new_video').on('click', function(e){
+			jQuery('#add_new_video, #add_new_video_2').on('click', function(e){
 				e.preventDefault();
 				$Brid.Api.call({data : {action : "addVideo"}, callback : {after : {name : "insertContent", obj : jQuery("#Videos-content")}}});
 				jQuery.colorbox.close();
 			});
 
-			jQuery('#add_new_video_2').colorbox({innerWidth:920, innerHeight:210});
+			//jQuery('#add_new_video_2').colorbox({innerWidth:920, innerHeight:210});
 			
 		</script>
 	</div>

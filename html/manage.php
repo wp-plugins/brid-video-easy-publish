@@ -6,11 +6,12 @@ var currentDivView = 'Videos-content';
 <div class="mainWrapper" style="width:100%;position:relative; top:20px">
 	<div id="bridSpiner"><img src="<?php echo BRID_PLUGIN_URL.'/img/indicator.gif'; ?>" /></div>
 	<div class="mainWrapper" style="width:858px">
-		<?php if(!$partner->Partner->upload){  ?>
-		<p class="bridNotice" style="display:none;  float: left; width: 100%; padding-right: 0px; padding-left: 0px; text-indent: 15px;">
-		You are currently on Brid's <a href="https://brid.zendesk.com/hc/en-us/articles/202211641" target="_blank">STANDARD PLAN</a>. You can upgrade to our <a href="https://brid.zendesk.com/hc/en-us/articles/202167711" target="_blank">PREMIUM PLAN</a> by <a  class="various" id="videoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">clicking here</a>.
+		<?php //if(!$partner->Partner->upload){  ?>
+		<?php if(!$partner->Partner->upload && !$ask){ ?>
+		<p class="bridNotice" style="display:block;  float: left; width: 100%; padding-right: 0px; padding-left: 0px; text-indent: 15px;">
+		You are currently on Brid's <a href="https://brid.zendesk.com/hc/en-us/articles/202211641" target="_blank">FREE PLAN</a>. You can upgrade to our <a href="https://brid.zendesk.com/hc/en-us/articles/202167711" target="_blank">ENTERPRISE PLAN</a> by <a  class="various" id="videoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">clicking here</a>.
 		</p>
-		<script>try{jQuery('#videoQuestion').colorbox({innerWidth:920, innerHeight:210});}catch(e){}</script>
+		<script>try{jQuery('#videoQuestion').colorbox({innerWidth:920, innerHeight:650});}catch(e){}</script>
 		<?php
 			} 
 		?>

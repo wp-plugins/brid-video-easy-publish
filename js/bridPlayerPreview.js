@@ -21,23 +21,7 @@
      tinymce.PluginManager.add( 'my_button_script', tinymce.plugins.BridPlayerPreview );
 })();
 
-function shortCodeToIframe(){
-
-                    var content = tinyMCE.get('content').getContent();
-
-                    var bridShortCodeRegex = /\[brid+([^\]]+)]/ig; // bits = split_bits.exec( content );
-
-                    var shortCodes = [];
-
-                    while (match = bridShortCodeRegex.exec(content)) {
-
-                         content = content.replace(match[0], getBridIframe(match[0]));
-
-                         tinyMCE.get('content').setContent(content, {format : 'raw'});
-
-
-                    }
-                    function getBridIframe(s){
+function getBridIframe(s){
 
                          //console.log('getBridIframe', s);
                          s = s.replace(/[(\[\]]/g, '');
@@ -134,10 +118,41 @@ function shortCodeToIframe(){
                           
 
                          return iframeText;
-                    }
+
+}
+
+function shortCodeToIframe(){
+
+    if(BridOptions.visual==1){
+
+              var tmc = tinyMCE.get('content');
+
+              if(tmc==undefined)
+                return;
+
+              var content = tinyMCE.get('content').getContent();
+
+              var bridShortCodeRegex = /\[brid +([^\]]+)]/ig; // bits = split_bits.exec( content );
+
+              var shortCodes = [];
+
+              while (match = bridShortCodeRegex.exec(content)) {
+
+                   console.log('match', match);
+
+                   content = content.replace(match[0], getBridIframe(match[0]));
+
+                   tinyMCE.get('content').setContent(content, {format : 'raw'});
+
+
+              }
+                   
+        }
 }
 
 function iframeToShortCode(){
+
+  if(BridOptions.visual){
            //var bridShortCodeRegex = /\[brid+([^\]]+)]/ig; 
            var bridShortCodeRegex = /\<iframe src="+([^\>]+)><\/iframe>/ig; 
 
@@ -227,8 +242,10 @@ function iframeToShortCode(){
                               
                               
                           }
+                          
 
           }
+    }//end if
 }
 
 function initBridEmbedConvert(){
@@ -242,7 +259,7 @@ function initBridEmbedConvert(){
      }
 }
 
-jQuery('.wp-switch-editor').on('click', function(){
+jQuery('.wp-switch-editor').on('click.Brid', function(){
 
 
      if(jQuery(this).text()=='Text'){

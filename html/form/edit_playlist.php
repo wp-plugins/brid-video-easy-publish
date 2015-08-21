@@ -45,7 +45,14 @@
 								<div class="jTscroller" id="sortable">
 									<?php foreach($playlist->Video as $k=>$v){ ?>
 										<a href="javascript:void(0)" style="position:relative;" id="video-thumb-id-<?php echo $v->id; ?>" class="playlist-item tooltip" data-ajax-loaded="true" data-info="<?php echo $v->name; ?>">
-											<img src="<?php echo BridHtml::getPath(array('type'=>'thumb', 'id'=>$v->partner_id)).$v->thumbnail; ?>" width="120" height="104" onerror="this.src = &quot;<?php echo BRID_PLUGIN_URL; ?>img/thumb_404.png&quot;" alt=""> 
+											<?php
+												if(strpos($v->thumbnail, 'http')===FALSE){
+													$snapImg = BridHtml::getPath(array('type'=>'thumb', 'id'=>$v->partner_id)).$v->thumbnail;
+												}else{
+													$snapImg = $v->thumbnail;
+												}
+											?>
+											<img src="<?php echo $snapImg; ?>" width="120" height="104" onerror="this.src = &quot;<?php echo BRID_PLUGIN_URL; ?>img/thumb_404.png&quot;" alt=""> 
 											<div class="hoverDiv"></div>
 											<div class="playlist_delete_video" data-id="<?php echo $v->PlaylistsVideo->id; ?>" data-video-id="<?php echo $v->id; ?>"></div> 
 											<div class="playlist_number" id="playlist-number-0">

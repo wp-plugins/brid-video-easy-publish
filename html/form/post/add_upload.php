@@ -160,7 +160,7 @@ $hideUploadFields = 'none';
 	<div style="clear:both;"></div>
 	<div style="border-top:1px solid #BCC3C3;margin-top:15px;padding-top:2px;">
 		<div style="margin-left:12px;font-weight:normal;text-decoration:underline;cursor:pointer;text-weight:bold;" class="various" id="addVideoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">Want us to host and encode videos for you? Upgrade to premium plan for free.</div>
-		<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>
+		<script>jQuery('#addVideoQuestion').colorbox({innerWidth:920, innerHeight:650});</script>
 	</div>
 	<?php 
 }

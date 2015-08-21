@@ -3,8 +3,8 @@ Contributors: Sovica, Brid
 Donate link: http://www.brid.tv/
 Tags: embed video, embed youtube, flash, flash player, html5, html5 player, vpaid, video, mobile, video player, Brid.tv, brid video, brid player, brid.tv video player, webm, h.264, ffmpeg, MP4, ogg, poster, responsive, free video, video library, video gallery, transcoding, encoding, vast, video ads, video advertising, video monetization, playlist widget, video shortcode, video slider, youtube video, youtube player, video plugin, video widget, playlist, veeps, youtube playlist, video blog, video embed, flash video player, html5 video player, free video platform
 Requires at least: 3.9
-Tested up to: 4.2.2
-Stable tag: 2.0.6
+Tested up to: 4.3
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,17 @@ Make sure that your WordPress version is at least 3.9, as versions below are not
 
 Yes! Once you first start to add a video into Brid you will be prompted to choose wether you would want us to host your video files or not.
 
+= What shortcodes can I use for Brid playlist widgets? =
+
+[brid_widget items="25" player="1" height="540" type="0" autoplay="1"]
+This is the basic template for a Brid playlist widget shortcode:
+
+items: set the number of videos you want to appear in the widget. Maximum allowed is 50.
+player: input the ID of the Brid player you wish to use. Contact Brid support if you are not sure what your player ID is.
+height: set the height in pixels for the widget.
+type: 1 for a playlist using YouTube videos. 0 for anything else.
+autoplay: 1 if you wish for the widget to autoplay. 0 for click to play.
+
 = Have any further questions? =
 
 See our extensive FAQ and documentation section here - https://brid.zendesk.com/hc/en-us
@@ -84,6 +95,14 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 13. Related videos screen in Brid player with a Brid latest playlist widget in the site sidebar
 
 == Changelog ==
+
+= Version 2.1.0 =
+
+*   Added option to disable player preview in posts or pages when embedding.
+*   Massive optimizations and design changes to the Brid playlist widget.
+*   Added more playlist options to the Brid playlist widget.
+*   Added new options to the plugin in regards to the Brid partnership program.
+*   Added shortcode support for Brid playlist widgets.
 
 = Version 2.0.6 =
 
@@ -204,5 +223,5 @@ This is almost a complete rework of our original plugin. There have been numerou
 
 == Upgrade Notice ==
 
-= 2.0.6 =
+= 2.1.0 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.

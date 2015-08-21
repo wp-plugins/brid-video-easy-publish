@@ -20,85 +20,157 @@
                  <div id="clickLogo" title="Go to Brid.tv"></div>
                     <div id="clickPlan" title="Plan explained"></div>
             </div>
-             <?php if(!$premium && $ask){ ?>
+             <?php if($premium==1 && $ask){ ?>
              <div class="mainWrapperNotice">
                 <p class="bridNotice" id="bridNoticePremiumPlan">
-                  You are currently on Brid's <a href="https://brid.zendesk.com/hc/en-us/articles/202211641" target="_blank">STANDARD PLAN</a>. You can upgrade to our <a href="https://brid.zendesk.com/hc/en-us/articles/202167711" target="_blank">PREMIUM PLAN</a> by <a  class="various" id="videoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">clicking here</a>.
+                  You are currently on Brid's <a href="https://brid.zendesk.com/hc/en-us/articles/202211641" target="_blank">FREE PLAN</a>. You can upgrade to our <a href="https://brid.zendesk.com/hc/en-us/articles/202167711" target="_blank">ENTERPRISE PLAN</a> by <a  class="various" id="videoQuestion" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">clicking here</a>.
         
-                  <script>jQuery('#videoQuestion').colorbox({innerWidth:920, innerHeight:210});</script>
+                  <script>jQuery('#videoQuestion').colorbox({innerWidth:920, innerHeight:650});</script>
                 </p>
              </div>
               <?php } ?>
               <div id="plan-premium">
-                  <div class="arrow-left-premium"></div>
-                  <div id="plan-premium-wrapper">
-                    <div class="plan-info-top">PREMIUM PLAN - FREE <br/><span class="standardBuisinessPlan">WE MONETIZE 40% OF YOUR VIDEO TRAFFIC. YOU ARE FREE TO MONETIZE THE OTHER 60%.</span><div class="plan-info-close">X</div></div>
-                    
-                    <div class="plan-info-subrow"><span>STANDARD PLAN</span> INCLUDED AND:</div>
-                    <div class="plan-info-div-table">
-                      <table class="plan-premium-table">
-                        <tr>
-                          <td style="width:315px">
-                            <span>Unlimited Amazon Cloudfront CDN video hosting</span><br/>
-
-                            Best in class video delivery network<br/>
-                            Low latency and high data transfer speeds guaranteed<br/>
-                            No bandwith restrictions<br/>
-                            No extra bandwith costs<br/>
-                            When we say it's free we mean it Youtube syndication
-                          </td>
-                          <td>
-                            <span>Unlimited Encoding.com video encoding</span><br/>
-                            Virtually all formats supported with the fastest turnaround times<br/>
-                            Optimized playback accross all Android, iOS, web platforms:<br/>
-                            your videos will work everywhere<br/>
-                            No file duration restrictions<br/>
-                            HD video renditions supported
+                
+                  <table class="plan-premium-table">
+                        <tbody><tr>
+                          <td colspan="2">
+                            <div class="plan-info-top">
+                            Free plan
+                             <div class="stiklir right"></div>
+                            </div>
                           </td>
                         </tr>
-                      </table>
-                    </div>
-                    <div class="plan-info-row plan-info-row-last"><a href="https://brid.zendesk.com/hc/en-us/articles/202167711" target="_blank" title="More details">more details &raquo;</a></div>
-                  </div>
-                </div>
-                <div id="plan-free">
-                  <div class="arrow-left-free"></div>
-                  <div id="plan-premium-wrapper">
-                    <div class="plan-info-top">STANDARD PLAN - FREE <br/>
-                      <span class="standardBuisinessPlan">WE MONETIZE 20% OF YOUR VIDEO TRAFFIC. YOU ARE FREE TO MONETIZE THE OTHER 80%.</span>
-                      <div class="plan-info-close">X</div></div>
-                    <div class="plan-info-subrow" style="height:2px;padding-top:10px;"></div>
-                    <div class="plan-info-div-table">
-                      <table class="plan-premium-table">
                         <tr>
                           <td>
-                            <span>HTML5 Player with Flash fallback</span><br/>
+                            <span>HTML5 Player with Flash fallback</span><br>
 
-                            Powerfull JavaScript API<br/>
-                            33+ professionally designed skins<br/>
-                            Intelligent site skinning<br/>
-                            Responsive sizing<br/>
-                            Social sharing options<br/>
+                            Powerfull JavaScript API<br>
+                            33+ professionally designed skins<br>
+                            Intelligent site skinning<br>
+                            Responsive sizing<br>
+                            Social sharing options<br>
                             VEEPS voip/chatplay plugin (exclusive)
                           </td>
                           <td>
-                            <span>You are free to monetize our player</span><br/>
-                            Pre-roll, mid-roll, post-roll and overlay<br/>
-                            VAST and VPAID support<br/>
-                            Flash and HTML5 ads
-                          </td>
-                          <td>
-                            <span>Full content management solution</span><br/>
-                            Google powered analytics<br/>
-                            Dynamic playlist support<br/>
-                            Custom playlist support<br/>
-                            Wordpress plugin
+                            <span>Full content management solution</span><br>
+                            Google powered analytics<br>
+                            Dynamic and Custom playlist support<br>
+                            Wordpress plugin<br>
+                            Youtube syndication
                           </td>
                         </tr>
-                      </table>
-                    </div>
-                    <div class="plan-info-row plan-info-row-last"><a href="https://brid.zendesk.com/hc/en-us/articles/202211641" title="More details" target="_blank">more details &raquo;</a></div>
-                  </div>
+                        <tr>
+                          
+                          <td colspan="2">
+                            <span style="margin-top:15px;">You are free to monetize our player</span><br>
+                            Pre-roll, mid-roll, post-roll and overlay, VAST and VPAID support, Flash and HTML5 ads
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            <div class="plan-info-top" style="margin-top:15px;">
+                              Enterprise plan
+                               <div class="stiklir right"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span>Unlimited Encoding.com video encoding</span><br>
+                            Virtually all formats supported with the fastest turnaround times<br>
+                            Optimized playback accross all Android, iOS, web platforms:<br>
+                            your videos will work everywhere<br>
+                            No file duration restrictions<br>
+                            HD video renditions supported<br>
+                            Unlimited number of file uploads<br>
+                            Upload up to 1 GB files<br>
+                          </td>
+                          <td style="padding-top:28px">
+                            Whitelisted and approved social sharing links via https<br>
+                            Unique customized skins and intro videos<br>
+                            24/7 support<br>
+                            HTML5 interactive ads support<br>
+                            You receive <b>minimum 60% of revenue share</b><br>
+                            
+                          </td>
+                        </tr>
+                      </tbody></table>    
+              </div>
+                <div id="plan-free">
+                
+                  <table class="plan-premium-table">
+                        <tbody><tr>
+                          <td colspan="2">
+                            <div class="plan-info-top">
+                            Free plan
+                            <div class="stiklir right"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span>HTML5 Player with Flash fallback</span><br>
+
+                            Powerfull JavaScript API<br>
+                            33+ professionally designed skins<br>
+                            Intelligent site skinning<br>
+                            Responsive sizing<br>
+                            Social sharing options<br>
+                            VEEPS voip/chatplay plugin (exclusive)
+                          </td>
+                          <td>
+                            <span>Full content management solution</span><br>
+                            Google powered analytics<br>
+                            Dynamic and Custom playlist support<br>
+                            Wordpress plugin<br>
+                            Youtube syndication
+                          </td>
+                        </tr>
+                        <tr>
+                          
+                          <td colspan="2">
+                            <span style="margin-top:15px;">You are free to monetize our player</span><br>
+                            Pre-roll, mid-roll, post-roll and overlay, VAST and VPAID support, Flash and HTML5 ads
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            <div class="plan-info-top" style="margin-top:15px;background:#F21F03">
+                              Enterprise plan
+                              <div class="upgradeBrid right"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span>Unlimited Encoding.com video encoding</span><br>
+                            Virtually all formats supported with the fastest turnaround times<br>
+                            Optimized playback accross all Android, iOS, web platforms:<br>
+                            your videos will work everywhere<br>
+                            No file duration restrictions<br>
+                            HD video renditions supported<br>
+                            Unlimited number of file uploads<br>
+                            Upload up to 1 GB files<br>
+                          </td>
+                          <td style="padding-top:28px">
+                            Whitelisted and approved social sharing links via https<br>
+                            Unique customized skins and intro videos<br>
+                            24/7 support<br>
+                            HTML5 interactive ads support<br>
+                            You receive <b>minimum 60% of revenue share</b><br>
+                            
+                          </td>
+                        </tr>
+                        <tr>
+                        <td colspan="2" style="padding-bottom:0px">
+                          <div class="bridButton">
+                            <div class="buttonLargeContent" id="upgradeMe" style="font-family:'Fjalla One' Arial; float:right; font-size:16px" data-action="askQuestion" href="<?php echo admin_url('admin-ajax.php').'?action=askQuestion'; ?>">UPGRADE PLAN</div>
+                          </div>
+        
+                          <script>jQuery('#upgradeMe').colorbox({innerWidth:920, innerHeight:650});</script>
+                          </td>
+                      </tr>
+                      </tbody></table>
                 </div>
        </div>
        <script>
@@ -110,7 +182,7 @@
                 
                 //if(Object.keys(Partner).length>0){
                   var boxToShow = 'free';
-                  if(partnerUpload==1){
+                  if(partnerUpload!=1){
                     boxToShow = 'premium';
                   }
                   if(!jQuery('#plan-'+boxToShow).is(':visible'))
@@ -229,6 +301,17 @@
                     
 
                     <?php
+                        //Show preview player in visual editor
+                        BridHtml::checkbox(array(
+
+                              'id'=>'visual',
+                              'name'=>'brid_options[visual]',
+                              'value'=>$visual_preview,
+                              'marginBottom'=>10,
+                              'title'=> 'SHOW PREVIEW PLAYER IN VISUAL EDITOR',
+                              'desc'=>'If enabled, will show a preview of the player in your WordPress <a href="https://codex.wordpress.org/Writing_Posts#Visual_Versus_Text_Editor" target="_blank">Visual tab</a> on posts or pages. (May add additional paragraph tags depending on used theme)'
+
+                          ));
                         //Override default video embed
                         BridHtml::checkbox(array(
 
@@ -311,53 +394,58 @@
                       <div class="checkboxText">Monetizable</div>
                       <div class="flashFalbackWarring" style="margin-left:31px">Turn on/off monetization options for this specific player. <a href="https://brid.zendesk.com/hc/en-us/articles/200294232" target="_blank">Learn more</a>.</div>
                 </div>
+
+
                 <div id="monetizationContent">  
                 
 
                       <table class="form-table">
                       <tbody><tr>
                         <td>
-                         
-                        
-                                            
-                          <div class="formWrapper monetizationOptions" style="display:block;" id="adSettings">
-                          <div class="add-ad" data-type="preroll">
-                            
-                            
+                         <div class="formWrapper monetizationOptions" style="display:block;margin:0px;" id="adSettings">
 
-                        <div class="bridButton add-preroll-ad" id="add-preroll-ad" style="opacity: 1;">
-                          <div class="buttonLargeContent">ADD PRE-ROLL</div></div>
+                          <?php require_once('help_monetize.php'); ?>
 
-                                              
-                                              </div>
-                                              <div class="add-ad" id="add-ad-midroll" data-type="midroll">
-                                              
+                          <div id="monetAdvancedTitle" style="float:left; width:100%;margin-bottom:20px">
+                            <div class="closeAlertDivButton" style="float:left;cursor:pointer;"></div>
+                            <div class="checkboxText" style="cursor:pointer;float: left;margin-left: 10px;top: 7px;">ADVANCED OPTIONS</div>
+                          </div>
 
-                        <div class="bridButton add-midroll-ad" id="add-midroll-ad" style="opacity: 1;">
-                          <div class="buttonLargeContent">ADD MID-ROLL / SET CUE POINTS</div></div>
+                          <div id="monetAdvanced" style="display:block;">
 
-                                              </div>
-                                              <div class="add-ad" data-type="overlay">
-                                                
+                                  <div class="add-ad" data-type="preroll">
+                                    <div class="bridButton add-preroll-ad" id="add-preroll-ad" style="opacity: 1;">
+                                      <div class="buttonLargeContent">ADD PRE-ROLL</div>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="add-ad" id="add-ad-midroll" data-type="midroll">
+                                    <div class="bridButton add-midroll-ad" id="add-midroll-ad" style="opacity: 1;">
+                                        <div class="buttonLargeContent">ADD MID-ROLL / SET CUE POINTS</div>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="add-ad" data-type="overlay">
+                                      <div class="bridButton add-overlay-ad" id="add-overlay-ad">
+                                          <div class="buttonLargeContent">ADD OVERLAY</div>
+                                      </div>
+                                  </div>
+                                  
+                                  <div class="add-ad" data-type="postroll">
+                                    <div class="bridButton add-postroll-ad" id="add-postroll-ad">
+                                        <div class="buttonLargeContent">POSTROLL</div>
+                                    </div>
+                                  </div>
 
-                        <div class="bridButton add-overlay-ad" id="add-overlay-ad">
-                          <div class="buttonLargeContent">ADD OVERLAY</div></div>
-
-                                              </div>
-                                              <div class="add-ad" data-type="postroll">
-                                                
-
-                        <div class="bridButton add-postroll-ad" id="add-postroll-ad">
-                          <div class="buttonLargeContent">POSTROLL</div>
+                                  <!-- Content div for ads -->
+                                  <div class="mainWrapper form" style="width:auto">
+                                    <div style="float:left; width:100%;margin-top:22px" id="brid-boxes-content">
+                                      
+                                    </div>
+                                  </div>
                         </div>
 
-                          </div>
-                          <!-- Content div for ads -->
-                          <div class="mainWrapper form" style="width:auto">
-                            <div style="float:left; width:100%;margin-top:22px" id="brid-boxes-content">
-                              
-                            </div>
-                          </div>
+
                         </div>
                       </td>
                       </tr>
@@ -580,6 +668,20 @@
 
 <script>
     
+    jQuery('#monetAdvancedTitle').on('click', function(e){
+
+  jQuery('#monetAdvanced').fadeToggle(400, function(){
+
+     if(jQuery('#monetAdvanced').is(':visible')){
+      jQuery('.closeAlertDivButton').addClass('closeAlertDivButtonRot');
+    }else{
+      jQuery('.closeAlertDivButton').removeClass('closeAlertDivButtonRot');
+    }
+  });
+
+  
+});
+    
     jQuery('html').css('background', '#fff');
 
     var file_frame = null;
@@ -633,13 +735,13 @@
           url : '<?php echo CLOUDFRONT; ?>WordpressNew/latest/1.json'
       }).done(function(response){
 
-        //console.log(response);
+        console.log('response', response);
         var str = '';
         if(response.length>0){
 
           for(var i in response){
-
-            str += '<li class="bridNewsBoxItem"><a href="'+response[i].WordpressNew.link+'" target="_blank">'+response[i].WordpressNew.name+'</a></li>'
+            if(response[i].WordpressNew!=undefined)
+              str += '<li class="bridNewsBoxItem"><a href="'+response[i].WordpressNew.link+'" target="_blank">'+response[i].WordpressNew.name+'</a></li>'
           }
         }
 
@@ -804,49 +906,60 @@
           //JS Templating system @see http://handlebarsjs.com/
           jQuery('#adTagMsg').hide();
 
+          console.log('aaaaa', ad);
+
           var midrollType = null;
           for(var i in ad){
             
-            var html = null;
-            
-            var iterator = currentAdCount;
+             //console.log('yeah', typeof i);
 
-            if(ad[i].adType==0 || ad[i].adType==2){
-              //Pre roll and Post roll
-              var template = Handlebars.compile(jQuery('#pre-roll-template').html());
-              var tip = 2;
-              if(ad[i].adType==0){
-                tip = null;
-              }
-              var context = {id : ad[i].id, iterator: iterator,  tip : tip , ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl};
-              html    = template(context);
-             
-            }else{
-              //Mid Roll & Overlay
-              var template = Handlebars.compile(jQuery('#'+adTypes[ad[i].adType]+'-template').html());
-              var tip = ad[i].adType;
-              if(ad[i].adType==3){
-                //overlay
-                var context = {id : ad[i].id, iterator:  iterator,  tip : tip ,ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl, overlayStartAt : ad[i].overlayStartAt, overlayDuration : ad[i].overlayDuration};
+             //when some plugins are installed, for i var it can take string "move", that will brake our JS
+            if(typeof i != 'function' && i.length<=2){
+
+              var html = null;
+              
+              var iterator = currentAdCount;
+              
+
+              if(ad[i].adType=="0" || ad[i].adType=="2"){
+                //Pre roll and Post roll
+                
+                var template = Handlebars.compile(jQuery('#pre-roll-template').html());
+                var tip = 2;
+                if(ad[i].adType==0){
+                  tip = null;
+                }
+                var context = {id : ad[i].id, iterator: iterator,  tip : tip , ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl};
+                html    = template(context);
+               
               }else{
-                //midroll
-                var context = {id : ad[i].id, iterator:  iterator, tip : tip , ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl, cuepoints : ad[i].cuepoints};
-                midrollType = ad[i].adTimeType;
+               
+                //Mid Roll & Overlay
+                var template = Handlebars.compile(jQuery('#'+adTypes[ad[i].adType]+'-template').html());
+                var tip = ad[i].adType;
+                if(ad[i].adType==3){
+                  //overlay
+                  var context = {id : ad[i].id, iterator:  iterator,  tip : tip ,ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl, overlayStartAt : ad[i].overlayStartAt, overlayDuration : ad[i].overlayDuration};
+                }else{
+                  //midroll
+                  var context = {id : ad[i].id, iterator:  iterator, tip : tip , ad_type_int : ad[i].adType, ad_type: adTypes[ad[i].adType], ad_tag_url : ad[i].adTagUrl, cuepoints : ad[i].cuepoints};
+                  midrollType = ad[i].adTimeType;
+                }
+                html    = template(context);
               }
-              html    = template(context);
-            }
-            
-            jQuery('#add-'+adTypes[ad[i].adType]+'-ad').addClass('add-midroll-ad-disabled');
+              
+              jQuery('#add-'+adTypes[ad[i].adType]+'-ad').addClass('add-midroll-ad-disabled');
 
-            if(html){
-               jQuery('#brid-boxes-content').append(html);
-            }
+              if(html){
+                 jQuery('#brid-boxes-content').append(html);
+              }
 
-            if(midrollType){
-                jQuery("#AdAdTimeType option[value='"+midrollType+"']").prop('selected', true); 
-            }
+              if(midrollType){
+                  jQuery("#AdAdTimeType option[value='"+midrollType+"']").prop('selected', true); 
+              }
 
-            currentAdCount++;
+              currentAdCount++;
+            }
 
             //Try to select midroll type
           }
@@ -1148,11 +1261,11 @@
 
       debug.log('Site', siteNum, playerNum);
 
-      if(siteNum==1 && playerNum==1){
+      if(siteNum==1){ //&& playerNum==1
 
         //playerChanged();
 
-        jQuery('#bridSettingsForm').submit();
+        setTimeout(function() { jQuery('#bridSettingsForm').submit(); }, 800);
 
       }
 

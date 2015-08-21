@@ -276,7 +276,7 @@ class BridQuickPost {
 
     	$file = isset($_POST['file']) ? $_POST['file'] : 'video_library';
 
-    	if(!in_array($file, array('video_library', 'playlist_library')))
+    	if(!in_array($file, array('video_library', 'playlist_library', 'widget_library')))
     	{
     		$file = 'video_library';
     	}

@@ -288,6 +288,10 @@ class BridAPI {
 
     return $this->call(array('url'=>'editVideo', 'params'=>$post), $encode);
   }
+  protected function uninstall($oauthCode, $encode=false){
+
+    return $this->call(array('url'=>'uninstall/'.$oauthCode), $encode);
+  }
   /**
   * Add Playlist
   * @param (array) $_post - Post array playlist with videos
@@ -643,7 +647,7 @@ class BridAPI {
   protected function videos($id=null, $encode=false){
    
     if($id==null || $id==0 || !is_numeric($id)){
-      throw new InvalidArgumentException('Partner id is invalid.');
+      throw new InvalidArgumentException('Partner id is invalid (videos).');
     }
     $id = intval($id);
     //Append for pagiantion/ordering
@@ -696,7 +700,7 @@ class BridAPI {
   protected function playlists($id,  $encode=false){
     $id = intval($id);
      if($id==null || $id==0 || !is_numeric($id)){
-      throw new InvalidArgumentException('Partner id is invalid.');
+      throw new InvalidArgumentException('Partner id is invalid (playlists).');
     }
     //Append for pagiantion/ordering
     $append = ''; $search=''; $options = array('url'=>'playlists/'.$id);
@@ -765,7 +769,7 @@ class BridAPI {
   protected function checkUrl($_post=array(), $encode=false){
 
     if(!isset($_post['url']) && strlen($_post['url'])<10){
-      throw new InvalidArgumentException('No valid param "url" provided');
+      throw new InvalidArgumentException('No valid param "url" provided (checkUrl)');
     }
     return $this->call(array('url'=>'checkUrl', 'params'=>$_post), $encode);
 
@@ -778,7 +782,7 @@ class BridAPI {
   protected function partnerUpload($_p=array(), $encode=false){
 
     if(!isset($_p['id']) || !isset($_p['upload'])){
-      throw new InvalidArgumentException('No valid id or upload parameters provided');
+      throw new InvalidArgumentException('No valid id or upload parameters provided (partnerUpload).');
     }
      $post = array();
     foreach($_p as $k=>$v){
@@ -786,6 +790,28 @@ class BridAPI {
     }
     return $this->call(array('url'=>'partnerUpload', 'params'=>$post), $encode);
 
+  }
+  protected function askForMonetization($_p=array(), $encode = false){
+
+    if(!isset($_p['id'])){
+      throw new InvalidArgumentException('No valid partner id (askForMonetization).');
+    }
+     $post = array();
+    foreach($_p as $k=>$v){
+        $post['data[Partner]['.$k.']'] = $v;
+    }
+    return $this->call(array('url'=>'askForMonetization', 'params'=>$post), $encode);
+  }
+  protected function askForEnterprise($_p=array(), $encode = false){
+
+    if(!isset($_p['id'])){
+      throw new InvalidArgumentException('No valid id or upload parameters provided (askForEnterprise).');
+    }
+     $post = array();
+    foreach($_p as $k=>$v){
+        $post['data[Upgrade]['.$k.']'] = $v;
+    }
+    return $this->call(array('url'=>'askForEnterprise', 'params'=>$post), $encode);
   }
   /**
    * Update partner field
@@ -797,7 +823,7 @@ class BridAPI {
      if(isset($_p['id'])){ $_p['id'] = intval($_p['id']); }
 
      if(!isset($_p['id']) || $_p['id']==0 || !is_numeric($_p['id'])){
-      throw new InvalidArgumentException('Content id is invalid.');
+      throw new InvalidArgumentException('Partner id is invalid (updatePartnerField).');
     }
      $post = array();
     foreach($_p as $k=>$v){
@@ -815,7 +841,7 @@ class BridAPI {
     if(isset($_p['Player']['id'])){ $_p['Player']['id'] = intval($_p['Player']['id']); }
 
     if(!isset($_p['Player']['id']) || $_p['Player']['id']==0 || !is_numeric($_p['Player']['id'])){
-      throw new InvalidArgumentException('Content id is invalid.');
+      throw new InvalidArgumentException('Player id is invalid (editPlayer).');
     }
 
     $post = array();
@@ -843,16 +869,16 @@ class BridAPI {
     if(isset($_post['id'])){ $_post['id'] = intval($_post['id']); }
 
     if(!isset($_post['id']) || $_post['id']==0 || !is_numeric($_post['id'])){
-      throw new InvalidArgumentException('Content id is invalid.');
+      throw new InvalidArgumentException('Content id is invalid (changeStatus).');
     }
     if(!isset($_post['partner_id']) || $_post['partner_id']==0 || !is_numeric($_post['partner_id'])){
-      throw new InvalidArgumentException('Content id is invalid.');
+      throw new InvalidArgumentException('Partner id is invalid (changeStatus).');
     } 
     if(!isset($_post['status']) && !is_numeric($_post['status'])){
-      throw new InvalidArgumentException('"status" param is required.');
+      throw new InvalidArgumentException('"status" param is required (changeStatus).');
     }
     if(!isset($_post['controller']) || $_post['controller']==''){
-      throw new InvalidArgumentException('Controller param must be valid value ("videos" or "playlists").');
+      throw new InvalidArgumentException('Controller param must be valid value ("videos" or "playlists") (changeStatus).');
     }
     /* $post = array();
     foreach($_post as $k=>$v){

@@ -182,7 +182,13 @@ if(!empty($playlists->Playlists)){
 												if(!empty($v->Video[0])){
 
 													if($v->Video[0]->thumbnail!=''){
-														$firstSnapshot = BridHtml::getPath(array('type'=>'thumb', 'id'=>$v->Video[0]->partner_id)).$v->Video[0]->thumbnail;
+														if(strpos($v->Video[0]->thumbnail, 'http')===FALSE){
+															$firstSnapshot = BridHtml::getPath(array('type'=>'thumb', 'id'=>$v->Video[0]->partner_id)).$v->Video[0]->thumbnail;
+														}else{
+															$firstSnapshot = $v->Video[0]->thumbnail;
+														}
+														
+
 													}else{
 														$firstSnapshot = BRID_PLUGIN_URL."img/thumb_404.png";
 													}
@@ -208,7 +214,11 @@ if(!empty($playlists->Playlists)){
 													<?php
 
 													if($video->thumbnail!=''){
-														$firstSnapshotSmall = BridHtml::getPath(array('type'=>'thumb', 'id'=>$video->partner_id)).$video->thumbnail;
+														if(strpos($video->thumbnail, 'http')===FALSE){
+															$firstSnapshotSmall = BridHtml::getPath(array('type'=>'thumb', 'id'=>$video->partner_id)).$video->thumbnail;
+														}else{
+															$firstSnapshotSmall = $video->thumbnail;
+														}
 													}else{
 														$firstSnapshotSmall = BRID_PLUGIN_URL."img/thumb_404.png";
 													}

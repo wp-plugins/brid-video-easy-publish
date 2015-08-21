@@ -506,6 +506,37 @@ class BridHtml {
        	die(); // this is required to return a proper result (By wordpress site)
 
 	}
+
+	public static function askMonetize(){
+
+		$applyForAdProgram = 0;
+
+		$partnerData = BridHtml::getPartnerData();
+
+
+		$applyForAdProgram = $partnerData['Partner']->Partner->apply_ad_program;
+
+		if(!empty($_POST) && isset($_POST['action']) && isset($_POST['insert_via']))
+		{
+			
+			$api = new BridAPI();
+      		$_POST['id'] = BridOptions::getOption('site');
+
+      		header('Content-type: application/json');
+
+			echo $api->askForMonetization($_POST);
+			
+
+       	}else{
+       		global $current_user;
+      		get_currentuserinfo();
+
+	      require_once(BRID_PLUGIN_DIR.'/html/form/ask_monetization.php');
+			die();
+    	}
+       
+       	die(); // this is required to return a proper result (By wordpress site)
+	}
 	/*
 	 * Ask question about hosting video files
 	 */
@@ -516,12 +547,19 @@ class BridHtml {
 			$api = new BridAPI();
       		$_POST['id'] = BridOptions::getOption('site');
 
-      		BridOptions::updateOption('question', '1');
+      		header('Content-type: application/json');
+      		//echo json_encode(array('djokica'=>'moja'));
+
+      		BridOptions::updateOption('question', 1);
       		//BridOptions::updateOption('upload', $_POST['upload']);
 			//Save submit
-			echo $api->partnerUpload($_POST);
+			//echo $api->partnerUpload($_POST);
+			echo $api->askForEnterprise($_POST);
 
        	}else{
+       		global $current_user;
+      		get_currentuserinfo();
+
 	      require_once(BRID_PLUGIN_DIR.'/html/form/user_upload.php');
 			die();
     	}
@@ -570,7 +608,7 @@ class BridHtml {
 		if(!empty($_POST) && isset($_POST['action']) && isset($_POST['insert_via']))
 		{
 			//Save submit
-			echo $api->addVideo($_POST);
+			echo  $api->addVideo($_POST);
 			die();
 
 		}else{
@@ -591,6 +629,26 @@ class BridHtml {
         }
        if(!$internal)
       	die(); // this is required to return a proper result (By wordpress site)
+	}
+	/**
+	 * List channles for Brid Playlist Widget
+	 */
+	public static function channelsList(){
+		$api = new BridAPI();
+		echo $api->channelsList(false);
+		die();
+	}
+	/**
+	 * List players for Brid Playlist Widget
+	 */
+	public static function playersList(){
+
+		$api = new BridAPI();
+
+		$partnerId = intval(BridOptions::getOption('site'));
+
+        echo $api->call(array('url'=>'players/'.$partnerId), false); //false for do not decode (json expected)
+        die();
 	}
 	/**
 	 * Remove item from playlsit
@@ -733,6 +791,9 @@ class BridHtml {
         else{
        
 	 		wp_enqueue_media(); //include media for browsing files in Add/Edit Video screen
+
+	 		$ask = intval(BridOptions::getOption('question'));
+
 
 	      	require_once(BRID_PLUGIN_DIR.'/html/manage.php');
       	}
@@ -993,6 +1054,7 @@ add_action('wp_ajax_deletePlaylists', array('BridHtml', 'deletePlaylists'));			/
 
 /* -------- VIDEO -------- */
 add_action('wp_ajax_askQuestion', array('BridHtml', 'askQuestion'));		//Ask question about hosting video files
+add_action('wp_ajax_askMonetize', array('BridHtml', 'askMonetize'));		//Ask for monetization program
 add_action('wp_ajax_bridAction', array('BridHtml', 'bridAction'));			//Tab click get Videos view
 add_action('wp_ajax_videos', array('BridHtml', 'videos'));					//Tab click get Videos view
 add_action('wp_ajax_addVideo', array('BridHtml', 'addVideo'));				//Add video via url or via upload
@@ -1005,6 +1067,8 @@ add_action('wp_ajax_checkUrl', array('BridHtml', 'checkUrl'));				//Check youtub
 add_action('wp_ajax_fetchVideo', array('BridHtml', 'fetchVideo'));			//Fetch Video
 add_action('wp_ajax_deleteAd', array('BridHtml', 'deleteAd'));				//Delete Ad item from Video
 add_action('wp_ajax_adBox', array('BridHtml', 'adBox'));					//Get Add Ad form for Video Monetization
+add_action('wp_ajax_channelsList', array('BridHtml', 'channelsList'));		//Get Channel list
+add_action('wp_ajax_playersList', array('BridHtml', 'playersList'));		//Get Players list
 
 /* -------- PLAYLIST & VIDEO -------- */
 add_action('wp_ajax_changeStatus', array('BridHtml', 'changeStatus'));		//Change Status on video or playlist

@@ -18,7 +18,7 @@ class BridActions{
                       $pagenow=='post-new.php' || 
                       $pagenow=='post.php' ||  
                       ($pagenow=='options-general.php' && isset($_GET['page']) && $_GET['page']=='brid-video-config-setting') || 
-                      ($pagenow == 'admin.php' && isset($_GET['page']) && (in_array($_GET['page'], array('brid-video-menu', 'brid-video-config', 'brid-video-config-setting'))))
+                      ($pagenow == 'admin.php') // && isset($_GET['page']) && (in_array($_GET['page'], array('brid-video-menu', 'brid-video-config', 'brid-video-config-setting'))))
                       );
          }
          public static function meta(){
@@ -26,17 +26,20 @@ class BridActions{
              try{
                $opt = get_option('brid_options');
                if($opt!=''){
-                if(isset($opt['ovr_yt']))
-                  $content .= ' yt:'.$opt['ovr_yt'];
-                if(isset($opt['aspect']))
-                  $content .= ' aspect:'.$opt['aspect'];
-               }
-               $size = BridShortcode::getSize();
-               if(!empty($size)){
-                 $content .= ' size:'.$size['width'].'x'.$size['height'];
-               }
+
+                if(isset($opt['oauth_token']))
+                  //unset($opt['oauth_token']);
+
+                $opt = array_merge($opt, BridShortcode::getSize());
+
+                $content = implode('|', array_map(function ($v, $k) { return $k . ':' . $v; }, $opt, array_keys($opt)));
+
+              }else{
+                //oauth_token
+                $content .= ' auth:0';
+              }
              }catch(Exception $e) {}
-             echo '<meta name="BridPlugin" content="ver:'.$content.'" />';
+             echo '<meta name="BridPlugin" content="'.$content.'" />';
          }
         /**
          * Admin init
@@ -48,6 +51,15 @@ class BridActions{
           register_setting('brid_options', 'brid_options'); // Array('site'=>ID, 'player'=>ID, 'oauth_token'=>String token)
 
 
+
+          global $pagenow;
+          if( $pagenow=='widgets.php'){
+
+            wp_enqueue_script('jquery');
+                wp_enqueue_script('bridWidgetsAdmin',  BRID_PLUGIN_URL.'js/brid.admin.widget.js', array(), null); //Add custom js
+
+          }
+          
           //Add necessary js
           if (BridActions::includeScripts()){
             
@@ -65,11 +77,7 @@ class BridActions{
                add_action('admin_notices', array('BridHtml', 'admin_notice_message')); //Display message on activating Plugin
              }
           }
-          if(isset($_GET['bridDebug'])){
-            ?>
-            <script>var DEBUGMODE = true; </script>
-            <?php
-          }
+          
 
           //self::brid_scripts();
          
@@ -162,9 +170,16 @@ class BridActions{
                 }
               }
               elseif (isset($response->access_token)) {
-              
+                
+
                 BridOptions::updateOption('oauth_token', $response->access_token);
                 BridOptions::updateOption('ver', BRID_PLUGIN_VERSION);
+                /*if(empty($_POST['brid_options'])){
+                  BridOptions::updateOption('ovr_yt', 1);
+                  BridOptions::updateOption('ovr_def', 1);
+                  BridOptions::updateOption('intro_enabled', 1);
+                  BridOptions::updateOption('aspect', '1');
+                }*/
                 $api = new BridAPI(); // Refresh the API with the latest API token
 
               }
@@ -194,7 +209,6 @@ class BridActions{
               //Get site list via Api
               $sites = $api->sitesList(true);
 
-
                 //User is not authorized yet, no valid access token.
                 if ($api->code == 401) {
 
@@ -218,6 +232,8 @@ class BridActions{
                      $query_videos_args = array(
                           'post_type' => 'attachment', 'post_mime_type' =>'video', 'post_status' => 'inherit', 'posts_per_page' => 500,
                       );
+
+                     delete_option('brid_options');
 
                       $query_videos = new WP_Query( $query_videos_args );
                      
@@ -347,6 +363,11 @@ class BridActions{
                     $intro_enabled  = $partner->Partner->intro_video; //$intro_enabled!='' ? $intro_enabled : 1;
                     BridOptions::updateOption('intro_enabled', $intro_enabled); //Do update imediatley for none-existing sites
                     
+                    //Visual enabled
+                    $visual_preview  = BridOptions::getOption('visual',true); //Visual preview
+                    $visual_preview  = $visual_preview!='' ? $visual_preview : 0;
+                    BridOptions::updateOption('visual', $visual_preview); //Do update imediatley for none-existing sites
+
                     //Override default YT shortcode
                     $override_youtube  = BridOptions::getOption('ovr_yt',true); //User id
                     $override_youtube  = $override_youtube!='' ? $override_youtube : 1;
@@ -427,9 +448,7 @@ class BridActions{
                       }
                       /*****
 
-
                           API CALL
-
 
                       ******/
                       //Get skins list
@@ -442,17 +461,18 @@ class BridActions{
                    
                     //$premium = ($upload=='' || $upload==0) ? 0 : 1;
 
-                     $premium = false;
+                     $premium = $user->plan_id;
                      $ask = true;
                      //if(BridOptions::getOption('question')=='' || BridOptions::getOption('question')==0){
                       //Get partner Info
+
                       //$partner = $api->partner(BridOptions::getOption('site'), true);
                       if(!empty($partner)){
                         //$premium = true;
                         //Already asked (checked on server side also)
-                        if($partner->Partner->upload && $partner->Partner->upload_on){
+                        /*if($partner->Partner->upload && $partner->Partner->upload_on){
                           $premium = true;
-                        }
+                        }*/
                         if($partner->Partner->user_choice_upload){
                           $ask = false;
                         }
@@ -484,9 +504,10 @@ class BridActions{
          */
         public static function brid_scripts() {
           //Include necessary js files
-          
+
           self::canInclude();
           //Include player
+          wp_enqueue_script('jquery');
           wp_enqueue_script('bridPlayer',  CLOUDFRONT.'player/build/brid.min.js', array(), null); //Add custom js
           if(!defined('BRID_DEV'))
           {

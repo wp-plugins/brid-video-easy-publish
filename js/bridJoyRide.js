@@ -131,22 +131,26 @@ jQuery(document).ready( function($) {
 		},
 
 	];
+	//console.log(joyRide);
 
 	for(var i in joyRide){
 
-		var cookie = $.cookie(joyRide[i].id);
-		if(cookie==undefined){
-			var options = {"content":joyRide[i].content, "position":{"edge":"left","align":"center"}};
-			//if ( ! options )
-			//return;
-			options = $.extend( options, {
-				close: function() {
-				//to do
-				$.cookie($(this).attr('id'), 1, { expires: 365 });
+		if(joyRide[i]!=undefined)
+		{
+			var cookie = $.cookie(joyRide[i].id);
+			if(cookie==undefined){
+				var options = {"content":joyRide[i].content, "position":{"edge":"left","align":"center"}};
+				//if ( ! options )
+				//return;
+				options = $.extend( options, {
+					close: function() {
+					//to do
+					$.cookie($(this).attr('id'), 1, { expires: 365 });
+					}
+				});
+				if($('#'+joyRide[i].id).length>0){
+					$('#'+joyRide[i].id).pointer( options ).pointer("open");
 				}
-			});
-			if($('#'+joyRide[i].id).length>0){
-				$('#'+joyRide[i].id).pointer( options ).pointer("open");
 			}
 		}
 	}

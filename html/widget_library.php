@@ -3,7 +3,7 @@
 						<div class="media-menu">
 							<a href="#" class="media-menu-item active media-brid-action" data-action="video_library">Manage videos</a>
 							<a href="#" class="media-menu-item media-brid-action" data-action="playlist_library">Manage playlists</a>
-							<!--<a href="#" class="media-menu-item media-brid-action" data-action="widget_library">Post widget</a>-->
+							<a href="#" class="media-menu-item media-brid-action" data-action="widget_library">Post widget</a>
 							<div class="separator"></div>
 							<!--
 							<a href="#" class="media-menu-item">How to monetize Youtube video?</a>
@@ -11,20 +11,14 @@
 							-->
 						</div>
 					</div>
-					<div class="media-frame-title"><h1>Post Video</h1></div>
+					<div class="media-frame-title"><h1>Post Widget</h1></div>
 					<div class="media-frame-router">
-						<div class="media-router">
-							<a href="#" data-id="addVideoPost" class="media-menu-item active">Add Video</a>
-							<?php if($upload){ ?>
-							<a href="#" data-id="uploadVideoPost" class="media-menu-item">Upload Video</a>
-							<?php } ?>
-							<a href="#" data-id="addYoutubePost" class="media-menu-item">Add Youtube</a>
-							<a href="#" data-id="videoLibraryPost" class="media-menu-item">Video Library</a>
-						</div>
+						
 					</div>
 					<span class="spinner" id="bridSpin" style="display: none;top: 50%; position: absolute;left: 50%;z-index: 9999999;"></span>
 					<div class="media-frame-content" id="brid-content">
-						<?php echo BridQuickPost::addVideoPost(true); ?>
+						
+						Widget form content
 						
 	
 					</div>
@@ -32,19 +26,7 @@
 
 					<div class="media-frame-toolbar">
 						<div class="media-toolbar">
-							<div class="media-toolbar-secondary">
-								<div class="media-selection empty">
-									<div class="selection-info">
-											<span class="count">0 selected</span>
-											<a class="edit-selection" href="#">Edit</a>
-											<a class="clear-selection" href="#">Clear</a>
-			
-									</div>
-									<div class="selection-view">
-										<ul class="attachments ui-sortable" id="__attachments-view-73"></ul>
-									</div>
-								</div>
-							</div>
+							
 							<div class="media-toolbar-primary">
 								<div class="mainWrapper" style='padding-top:0px;width:auto'>
 									
@@ -63,7 +45,7 @@
 </div>
 <script>
 
-$Brid.Html.QuickLibrary.init();
-$Brid.Html.PostVideo.init();
+//$Brid.Html.QuickLibrary.init();
+//$Brid.Html.PostVideo.init();
 </script>
 
