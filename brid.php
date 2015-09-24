@@ -3,16 +3,16 @@
  * Plugin Name: Brid Video
  * Plugin URI: https://wordpress.org/plugins/brid-video-easy-publish/
  * Description: This plugin allows for the easy insertion of <a href="https://cms.brid.tv" target="_blank">BridTv</a> videos and playlists into your Wordpress site or blog. Brid.tv plugin seamlessly integrates with the Wordpress Media feature and provides an easy way to publish and monetize your video library.
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: Brid.tv
  * Settings: Brid
  * Author URI: https://brid.tv
- * License: This software is not free to modify.
+ * License: This sottware is not free to modify.
  */
 
 //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 //DO NOT CHANGE
-define('BRID_PLUGIN_VERSION', '2.1.0'); //Change in upper comment
+define('BRID_PLUGIN_VERSION', '2.1.1'); //Change in upper comment
 define('DEFAULT_PLAYER_ID', '1');
 define('DEFAULT_PARTNER_ID', '264');
 define('BRID_PLUGIN_DIR', dirname( __FILE__ ));

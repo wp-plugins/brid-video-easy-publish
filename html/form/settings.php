@@ -196,7 +196,7 @@
       
          <div class="mainWrapper" style="width:75%;">
               <p class="bridNotice">
-              <img src="<?php echo BRID_PLUGIN_URL.'/img/warn.png'; ?>" style="position: relative; top: 1px; margin-right: 5px;"alt="Warning"/> You webserver is not properly configured to use the Brid plugin. Please install/enable cURL on your server before proceeding.
+              <img src="<?php echo BRID_PLUGIN_URL.'/img/warn.png'; ?>" style="position: relative; top: 1px; margin-right: 5px;"alt="Warning"/> Your webserver is not properly configured to use the Brid plugin. Please install/enable cURL on your server before proceeding.
 
               </p>
            </div>

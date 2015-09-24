@@ -52,20 +52,13 @@ class BridActions{
 
 
 
-          global $pagenow;
-          if( $pagenow=='widgets.php'){
-
-            wp_enqueue_script('jquery');
-                wp_enqueue_script('bridWidgetsAdmin',  BRID_PLUGIN_URL.'js/brid.admin.widget.js', array(), null); //Add custom js
-
-          }
           
           //Add necessary js
-          if (BridActions::includeScripts()){
+          
             
             add_action('admin_enqueue_scripts', array('BridActions', 'brid_scripts'));
 
-          }
+          
           if(BridOptions::areThere()){
                
               add_action('media_buttons_context', array('BridHtml', 'addPostButton'));
@@ -505,30 +498,44 @@ class BridActions{
         public static function brid_scripts() {
           //Include necessary js files
 
-          self::canInclude();
-          //Include player
-          wp_enqueue_script('jquery');
-          wp_enqueue_script('bridPlayer',  CLOUDFRONT.'player/build/brid.min.js', array(), null); //Add custom js
-          if(!defined('BRID_DEV'))
-          {
-            //Include scripts optimized
-            wp_enqueue_script('bridDatePicker', BRID_PLUGIN_URL.'js/brid.admin.min.js'); //Add custom js
-            //css
-            wp_enqueue_style('brid-css', BRID_PLUGIN_URL.'css/brid.min.css'); //Add custom css
-          }else{
-            //Include scripts optimized
-            $scripts = array('brid.save', 'bridWordpress', 'handlebars', 'jquery.chosen', 'jquery.colorbox-min', 'jquery.date', 'jquery.thumbnailScroller');
+          //self::canInclude();
 
-            foreach ($scripts as $value) {
-              wp_enqueue_script($value, BRID_PLUGIN_URL.'js/dev/'.$value.'.js'); //Save handler
-            }
-            
-            //css
-            wp_enqueue_style('brid-css', BRID_PLUGIN_URL.'css/brid.css'); //Add custom css
+          if (BridActions::includeScripts()){
+              //Include player
+              wp_enqueue_script('jquery');
+              wp_enqueue_script('bridPlayer',  CLOUDFRONT.'player/build/brid.min.js', array(), null); //Add custom js
+
+              if(!defined('BRID_DEV'))
+              {
+                //Include scripts optimized (MINIFIED VERSION)
+                wp_enqueue_script('bridDatePicker', BRID_PLUGIN_URL.'js/brid.admin.min.js'); //Add custom js
+                //css
+                wp_enqueue_style('brid-css', BRID_PLUGIN_URL.'css/brid.min.css'); //Add custom css
+              }else{
+                //Include scripts optimized
+                $scripts = array('brid.save', 'bridWordpress', 'handlebars', 'jquery.chosen', 'jquery.colorbox-min', 'jquery.date', 'jquery.thumbnailScroller');
+
+                foreach ($scripts as $value) {
+                  wp_enqueue_script($value, BRID_PLUGIN_URL.'js/dev/'.$value.'.js'); //Save handler
+                }
+                
+                //css
+                wp_enqueue_style('brid-css', BRID_PLUGIN_URL.'css/brid.css'); //Add custom css
+              }
+              //wp_enqueue_style('brid-css-player', '//losmi-services.brid.tv/ugc/partners/style/brid.css'); //Add custom css
+              wp_enqueue_style('brid-css-font', '//fonts.googleapis.com/css?family=Fjalla+One'); //Add custom css
           }
-          //wp_enqueue_style('brid-css-player', '//losmi-services.brid.tv/ugc/partners/style/brid.css'); //Add custom css
-          wp_enqueue_style('brid-css-font', '//fonts.googleapis.com/css?family=Fjalla+One'); //Add custom css
-		      
+
+
+          global $pagenow;
+
+          if( $pagenow=='widgets.php' || $pagenow=='customize.php'){
+
+              wp_enqueue_script('jquery');
+              wp_enqueue_script('bridWidgetsAdmin',  BRID_PLUGIN_URL.'js/brid.admin.widget.js', array(), null); //Add custom js
+
+          }
+          
          
           
         }

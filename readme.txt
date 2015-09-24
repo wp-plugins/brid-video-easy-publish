@@ -3,8 +3,8 @@ Contributors: Sovica, Brid
 Donate link: http://www.brid.tv/
 Tags: embed video, embed youtube, flash, flash player, html5, html5 player, vpaid, video, mobile, video player, Brid.tv, brid video, brid player, brid.tv video player, webm, h.264, ffmpeg, MP4, ogg, poster, responsive, free video, video library, video gallery, transcoding, encoding, vast, video ads, video advertising, video monetization, playlist widget, video shortcode, video slider, youtube video, youtube player, video plugin, video widget, playlist, veeps, youtube playlist, video blog, video embed, flash video player, html5 video player, free video platform
 Requires at least: 3.9
-Tested up to: 4.3
-Stable tag: 2.1.0
+Tested up to: 4.3.1
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,10 @@ See our extensive FAQ and documentation section here - https://brid.zendesk.com/
 13. Related videos screen in Brid player with a Brid latest playlist widget in the site sidebar
 
 == Changelog ==
+
+= Version 2.1.1 =
+
+*   Fixed JavaScript error under Appearance -> Customize when Brid playlist widgets were used.
 
 = Version 2.1.0 =
 
@@ -223,5 +227,5 @@ This is almost a complete rework of our original plugin. There have been numerou
 
 == Upgrade Notice ==
 
-= 2.1.0 =
+= 2.1.1 =
 We suggest that you always upgrade to the latest version. This is the only way to make sure proper functionality of the plugin.
